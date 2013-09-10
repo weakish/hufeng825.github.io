@@ -35,9 +35,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="/css/hf.css" rel="stylesheet" media="screen">
-        <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/xcode.css" rel="stylesheet" media="screen">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen">
+  <!--link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen"-->
    <!--script src="/fancybox/jquery.fancybox.pack.js"></script>-->
    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script> -->
     <script src="/js/jquery.js"></script>
@@ -84,6 +85,15 @@ $(function () {
 
     </script>
 </head>
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p style="text-align:center">你知道不？你还在用几年前的浏览器！这个网页上的有很多好看的东西和动画效果都显示不了！</p>
+        <p style="text-align:center">建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
 
 
 <body>
@@ -150,7 +160,6 @@ $(function () {
                   <form class="navbar-search " action="/search.html" method="get" accept-charset="utf-8">
 
                         <input type="text"   class="search-query" name="query" results="0" placeholder="键入你感兴趣的内容吧"  speech=”speech” x-webkit-speech=”x-webkit-speech” x-webkit-grammar=”builtin:translate”>
-                        <!--input type="hidden" name="q" value="site:hufeng825.github.com"-->
                     </form>
                     <li> 
                     <a href="/atom.xml">RSS</a> 
@@ -179,7 +188,23 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>查看log是程序员常用的操作之一,不要以为一个git log了事,下面介绍下git log 的高级操作.<br><a id="more"></a><br>1. 显示所有提交记录的包括提交时间 提交人员联系方式等等: git log<br>2. 显示所有提交记录 只显示提交信息: git shortlog<br>3. 显⽰示版本历史,以及版本间的内容差异:git log -p<br>4. 只显⽰示最近⼀一次提交:git log -1<br>5. 显⽰示最近的20个提交:以及版本间的内容差异:git log -20 -p<br>6. 显⽰示最近6⼩小时的提交:git log —since=“6 hours”<br>7. 显⽰示两天之前的提交:git log —before=“2 days”</p>
+        <p>查看log是程序员常用的操作之一,不要以为一个git log了事,下面介绍下git log 的高级操作.<br><a id="more"></a></p>
+<ol>
+<li><p>显示所有提交记录的包括提交时间 提交人员联系方式等等: git log</p>
+</li>
+<li><p>显示所有提交记录 只显示提交信息: git shortlog</p>
+</li>
+<li><p>显⽰示版本历史,以及版本间的内容差异:git log -p</p>
+</li>
+<li><p>只显⽰示最近⼀一次提交:git log -1</p>
+</li>
+<li><p>显⽰示最近的20个提交:以及版本间的内容差异:git log -20 -p</p>
+</li>
+<li><p>显⽰示最近6⼩小时的提交:git log —since=“6 hours”</p>
+</li>
+<li><p>显⽰示两天之前的提交:git log —before=“2 days”</p>
+</li>
+</ol>
 
         <hr />
         <span class="label label-warning">W</span>
@@ -188,7 +213,8 @@ $(function () {
         
   
   <div class="tags">
-    <a  href="/tags/技术/">技术</a>
+    <a  href="/tags/技术/">技术</a> ----
+    <a  href="/categories/git/">git</a>
   </div>
 
     </div>
@@ -253,35 +279,6 @@ var duoshuoQuery = {short_name:"hufeng825"};
 </footer>
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script src="/fancybox/easing.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
- 
-    /* 最基本的，使用了默认配置 */
-     
-    $("a#single_image").fancybox();
-     
-    /* 使用了自定义配置 */
-     
-    $("a#inline").fancybox({
-        'hideOnContentClick': true
-    });
- 
-    /* 一下配置支持组播放 */
-     
-    $("a.group").fancybox({
-        'transitionIn'  :   'elastic',
-        'transitionOut' :   'elastic',
-        'speedIn'       :   600, 
-        'speedOut'      :   200, 
-        'overlayShow'   :   false
-    });
-     
-});
 
 
 

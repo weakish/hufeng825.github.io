@@ -7,7 +7,7 @@
     <title>ios | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="C/C++/Linux/嵌入式/IOS/WEB/">
+  <meta name="description" content="C/C++/Linux/嵌入式/IOS/WEB/JAVA">
   
   
     
@@ -32,9 +32,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="/css/hf.css" rel="stylesheet" media="screen">
-        <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/xcode.css" rel="stylesheet" media="screen">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen">
+  <!--link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen"-->
    <!--script src="/fancybox/jquery.fancybox.pack.js"></script>-->
    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script> -->
     <script src="/js/jquery.js"></script>
@@ -81,6 +82,15 @@ $(function () {
 
     </script>
 </head>
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p style="text-align:center">你知道不？你还在用几年前的浏览器！这个网页上的有很多好看的东西和动画效果都显示不了！</p>
+        <p style="text-align:center">建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
 
 
 <body>
@@ -147,7 +157,6 @@ $(function () {
                   <form class="navbar-search " action="/search.html" method="get" accept-charset="utf-8">
 
                         <input type="text"   class="search-query" name="query" results="0" placeholder="键入你感兴趣的内容吧"  speech=”speech” x-webkit-speech=”x-webkit-speech” x-webkit-grammar=”builtin:translate”>
-                        <!--input type="hidden" name="q" value="site:hufeng825.github.com"-->
                     </form>
                     <li> 
                     <a href="/atom.xml">RSS</a> 
@@ -171,13 +180,13 @@ $(function () {
   
     <li><a href="/categories/git/">git</a><small> (4)</small></li>
   
-    <li><a href="/categories/hexo/">hexo</a><small> (7)</small></li>
+    <li><a href="/categories/hexo/">hexo</a><small> (4)</small></li>
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (16)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (19)</small></li>
   
-    <li><a href="/categories/ios/mac/">mac</a><small> (2)</small></li>
+    <li><a href="/categories/ios/mac/">mac</a><small> (3)</small></li>
   
     <li><a href="/categories/git/svn/">svn</a><small> (1)</small></li>
   
@@ -220,9 +229,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T01:57:17.000Z"><a href="/2013/09/02/ios21/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T01:57:17.000Z"><a href="/2013/09/02/ios21/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios21/">在Finder标题栏上显示完整路径</a></h1>
@@ -246,9 +256,38 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T01:21:21.000Z"><a href="/2013/09/02/ios19/">2013 9月 2</a></time>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T01:28:52.000Z"><a href="/2013/09/02/ios20/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
+        
 
+<h1 class="title"><a href="/2013/09/02/ios20/">Block 定时器 让我们解放了</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>Block 没有出现前 ios写个定时器太麻烦了,好在Block的让我们小爽了一把,以后写timer 简单的要命了<br>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/09/02/ios20/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T01:21:21.000Z"><a href="/2013/09/02/ios19/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios19/">如何得到中英文混合下的NSString的长度?</a></h1>
@@ -273,9 +312,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T01:14:30.000Z"><a href="/2013/09/02/ios18/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T01:14:30.000Z"><a href="/2013/09/02/ios18/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios18/">父View禁用touch 如何让子view还能获取touch event</a></h1>
@@ -302,9 +342,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T00:31:25.000Z"><a href="/2013/09/02/ios17/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:31:25.000Z"><a href="/2013/09/02/ios17/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios17/">(NSDate) 时间 (time )比较</a></h1>
@@ -338,9 +379,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T00:26:20.000Z"><a href="/2013/09/02/ios16/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:26:20.000Z"><a href="/2013/09/02/ios16/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios16/">善用 NSAutoreleasePool 节约宝贵内存</a></h1>
@@ -365,9 +407,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios15/">如何禁用禁用uwebiview 的反弹功能(bounces)</a></h1>
@@ -394,9 +437,10 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-09-02T00:18:20.000Z"><a href="/2013/09/02/ios14/">2013 9月 2</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:18:20.000Z"><a href="/2013/09/02/ios14/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/09/02/ios14/">如何清空 NSUserDefaults 下所有数据</a></h1>
@@ -421,9 +465,42 @@ $(function () {
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-31T14:05:28.000Z"><a href="/2013/08/31/ios11/">2013 8月 31</a></time>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T14:42:52.000Z"><a href="/2013/08/31/ios13/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
 
+<h1 class="title"><a href="/2013/08/31/ios13/">复杂页面消退的一个简单实例</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>如图</p>
+<img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e8680v5hirj20df09qglv.jpg" class="left" height="400" title="600">
+
+
+<p>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios13/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T14:05:28.000Z"><a href="/2013/08/31/ios11/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/31/ios11/">银行支付控件之 自动随机(shuffle)密码键盘的实现算法</a></h1>
@@ -482,9 +559,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-31T13:45:59.000Z"><a href="/2013/08/31/ios10/">2013 8月 31</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T13:45:59.000Z"><a href="/2013/08/31/ios10/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/31/ios10/">mac 下的默认配置</a></h1>
@@ -509,9 +587,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-31T12:41:27.000Z"><a href="/2013/08/31/ios8/">2013 8月 31</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T12:41:27.000Z"><a href="/2013/08/31/ios8/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/31/ios8/">xcode 5.0 的持续继承</a></h1>
@@ -536,12 +615,42 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-29T10:44:36.000Z"><a href="/2013/08/29/ios6/">2013 8月 29</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-29T10:48:47.000Z"><a href="/2013/08/29/ios7/" style="color:#FFFFFF">2013 8月 29</a></time>
+        </span>
         
 
-<h1 class="title"><a href="/2013/08/29/ios6/">ios iphone5 适配 之 如何是app 适用不通分辨率</a></h1>
+<h1 class="title"><a href="/2013/08/29/ios7/">快速清除subviews之 隐私循环</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <blockquote>
+<p>问：如何快速把当前view下的所有子view 及其子子view们删除掉<br>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/29/ios7/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-29T10:44:36.000Z"><a href="/2013/08/29/ios6/" style="color:#FFFFFF">2013 8月 29</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/29/ios6/">ios iphone5 适配 之 如何使app 适用不通分辨率</a></h1>
 
 
 
@@ -564,9 +673,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-29T10:35:01.000Z"><a href="/2013/08/29/ios5/">2013 8月 29</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-29T10:35:01.000Z"><a href="/2013/08/29/ios5/" style="color:#FFFFFF">2013 8月 29</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/29/ios5/">ios 通过当前view得到所在的viewcontroller</a></h1>
@@ -591,9 +701,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-29T10:29:40.000Z"><a href="/2013/08/29/ios4/">2013 8月 29</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-29T10:29:40.000Z"><a href="/2013/08/29/ios4/" style="color:#FFFFFF">2013 8月 29</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/29/ios4/">removeFromSuperview添加动画使其更加高雅美观</a></h1>
@@ -619,9 +730,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-29T08:43:14.000Z"><a href="/2013/08/29/ios3/">2013 8月 29</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-29T08:43:14.000Z"><a href="/2013/08/29/ios3/" style="color:#FFFFFF">2013 8月 29</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/29/ios3/">ios 清理工程中没有用到的图片</a></h1>
@@ -649,9 +761,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-21T01:18:13.000Z"><a href="/2013/08/21/appstore/">2013 8月 21</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-21T01:18:13.000Z"><a href="/2013/08/21/appstore/" style="color:#FFFFFF">2013 8月 21</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/21/appstore/">ios 笔记之 内购</a></h1>
@@ -677,9 +790,10 @@ for (int ii = 0; ii &lt; 10; ++ii)
             
             <div class="content">
     <header>
-        <div class="icon"></div>
-        <time datetime="2013-08-20T01:29:39.000Z"><a href="/2013/08/20/iosimage/">2013 8月 20</a></time>
-
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-20T01:29:39.000Z"><a href="/2013/08/20/iosimage/" style="color:#FFFFFF">2013 8月 20</a></time>
+        </span>
         
 
 <h1 class="title"><a href="/2013/08/20/iosimage/">ios 开发笔记之图片 Image</a></h1>
@@ -764,35 +878,6 @@ for (int ii = 0; ii &lt; 10; ++ii)
 </footer>
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script src="/fancybox/easing.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
- 
-    /* 最基本的，使用了默认配置 */
-     
-    $("a#single_image").fancybox();
-     
-    /* 使用了自定义配置 */
-     
-    $("a#inline").fancybox({
-        'hideOnContentClick': true
-    });
- 
-    /* 一下配置支持组播放 */
-     
-    $("a.group").fancybox({
-        'transitionIn'  :   'elastic',
-        'transitionOut' :   'elastic',
-        'speedIn'       :   600, 
-        'speedOut'      :   200, 
-        'overlayShow'   :   false
-    });
-     
-});
 
 
 

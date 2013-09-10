@@ -35,9 +35,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="/css/hf.css" rel="stylesheet" media="screen">
-        <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/xcode.css" rel="stylesheet" media="screen">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen">
+  <!--link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen"-->
    <!--script src="/fancybox/jquery.fancybox.pack.js"></script>-->
    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script> -->
     <script src="/js/jquery.js"></script>
@@ -84,6 +85,15 @@ $(function () {
 
     </script>
 </head>
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p style="text-align:center">你知道不？你还在用几年前的浏览器！这个网页上的有很多好看的东西和动画效果都显示不了！</p>
+        <p style="text-align:center">建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
 
 
 <body>
@@ -150,7 +160,6 @@ $(function () {
                   <form class="navbar-search " action="/search.html" method="get" accept-charset="utf-8">
 
                         <input type="text"   class="search-query" name="query" results="0" placeholder="键入你感兴趣的内容吧"  speech=”speech” x-webkit-speech=”x-webkit-speech” x-webkit-grammar=”builtin:translate”>
-                        <!--input type="hidden" name="q" value="site:hufeng825.github.com"-->
                     </form>
                     <li> 
                     <a href="/atom.xml">RSS</a> 
@@ -169,7 +178,7 @@ $(function () {
     <header class="page-header">
         
         <div class="icon"></div>
-        <time datetime="2013-08-31T13:11:39.000Z"><a href="/2013/08/31/ios9/">2013 8月 31</a></time>
+        <time datetime="2013-08-31T13:11:39.000Z"><a href="/2013/08/31/ios9/">2013 8��� 31</a></time>
         
         
 
@@ -183,7 +192,7 @@ $(function () {
 <p>设置MAC作为服务器，在其上运行Xcode的服务。然后确保你的本地项目，发布源代码库。要完成设立一个持续集成的工作流程，配置的机器人，不知疲倦地进行集成和时间表。<br><a id="more"></a></p>
 <h2>OS X Server的安装和配置的Xcode服务</h2>
 <p>要运行的Xcode的服务，您必须先安装运行的是Mac OS X v10.9开发者预览版OS X Server的预览。您还必须在服务器上安装Xcode开发者预览。自动构建，分析，测试，和归档您的产品，您将使用Xcode的服务。</p>
-<h3>要���装和运行Xcode的服务</h3>
+<h3>要安装和运行Xcode的服务</h3>
 <ol>
 <li><p>转到<a href="http://developer.apple.com/downloads的，并获得OS" target="_blank">http://developer.apple.com/downloads的，并获得OS</a> X v10.9开发者预览版，OS X Server的预览，和Xcode开发者预览版的预发布版本。</p>
 </li>
@@ -382,7 +391,8 @@ $(function () {
         
   
   <div class="tags">
-    <a  href="/tags/技术/">技术</a>
+    <a  href="/tags/技术/">技术</a> ----
+    <a  href="/categories/hexo/">hexo</a>
   </div>
 
     </div>
@@ -447,35 +457,6 @@ var duoshuoQuery = {short_name:"hufeng825"};
 </footer>
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script src="/fancybox/easing.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
- 
-    /* 最基本的，使用了默认配置 */
-     
-    $("a#single_image").fancybox();
-     
-    /* 使用了自定义配置 */
-     
-    $("a#inline").fancybox({
-        'hideOnContentClick': true
-    });
- 
-    /* 一下配置支持组播放 */
-     
-    $("a.group").fancybox({
-        'transitionIn'  :   'elastic',
-        'transitionOut' :   'elastic',
-        'speedIn'       :   600, 
-        'speedOut'      :   200, 
-        'overlayShow'   :   false
-    });
-     
-});
 
 
 

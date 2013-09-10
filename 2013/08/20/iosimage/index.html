@@ -35,9 +35,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="/css/hf.css" rel="stylesheet" media="screen">
-        <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/xcode.css" rel="stylesheet" media="screen">
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen">
+  <!--link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen"-->
    <!--script src="/fancybox/jquery.fancybox.pack.js"></script>-->
    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script> -->
     <script src="/js/jquery.js"></script>
@@ -84,6 +85,15 @@ $(function () {
 
     </script>
 </head>
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p style="text-align:center">你知道不？你还在用几年前的浏览器！这个网页上的有很多好看的东西和动画效果都显示不了！</p>
+        <p style="text-align:center">建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
 
 
 <body>
@@ -150,7 +160,6 @@ $(function () {
                   <form class="navbar-search " action="/search.html" method="get" accept-charset="utf-8">
 
                         <input type="text"   class="search-query" name="query" results="0" placeholder="键入你感兴趣的内容吧"  speech=”speech” x-webkit-speech=”x-webkit-speech” x-webkit-grammar=”builtin:translate”>
-                        <!--input type="hidden" name="q" value="site:hufeng825.github.com"-->
                     </form>
                     <li> 
                     <a href="/atom.xml">RSS</a> 
@@ -184,7 +193,7 @@ $(function () {
 <h2>关于图片资源的压缩</h2>
 <p>如果不需要用半透明的图片 则尽量不要用png 格式的图片。相应的可以用jpg格式的。另外谷歌最新推出的一种格式webp</p>
 <h3>1 WebP是什么</h3>
-<p>WebP是Google推出的一种同时提供���有损压缩与无损压缩的图片格式。目前互联网上传输的数据有65%都是图片，WebP就是出于减少数据量、加速网络传输的目的而开发的。WebP希望能够达到和JPEG同水平的图片质量，但是更小的文件，以减少图片的传送时间。<br>在有损压缩的状况下，WebP比同样画质的JPEG少了25% ～ 34%的文件大小 。而在无损压缩的情形中，比起用libpng产生的PNG图片，WebP少了34%的文件大小，也比用pngout再处理过的PNG图片少了26%的文件大小。</p>
+<p>WebP是Google推出的一种同时提供了有损压缩与无损压缩的图片格式。目前互联网上传输的数据有65%都是图片，WebP就是出于减少数据量、加速网络传输的目的而开发的。WebP希望能够达到和JPEG同水平的图片质量，但是更小的文件，以减少图片的传送时间。<br>在有损压缩的状况下，WebP比同样画质的JPEG少了25% ～ 34%的文件大小 。而在无损压缩的情形中，比起用libpng产生的PNG图片，WebP少了34%的文件大小，也比用pngout再处理过的PNG图片少了26%的文件大小。</p>
 <h3>2 WebP的使用</h3>
 <p>webp图片压缩率会比jpeg、png更高，因此下载图片会更省流量，特别适合在mobile app上使用。 比如iOS app上，可以把webp编译生成framework，然后加入引用就可以是使用了。强烈推荐。<br>这iOS解析时，可以直接使用 WebPImage。<br>NSData <em>imageData = [NSData dataWithContentsOfURL:url];<br>UIImage </em>tmpImage = [[WebPImage alloc] loadWebPFromData:imageData];<br>SDWebImage最近也提供了对webp的支持，起先不支持自己写了一个分类，现在可以直接用他的UIImage+WebP</p>
 <h2>关于加载方式</h2>
@@ -200,7 +209,8 @@ $(function () {
         
   
   <div class="tags">
-    <a  href="/tags/技术/">技术</a>
+    <a  href="/tags/技术/">技术</a> ----
+    <a  href="/categories/ios/">ios</a>
   </div>
 
     </div>
@@ -265,35 +275,6 @@ var duoshuoQuery = {short_name:"hufeng825"};
 </footer>
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script src="/fancybox/easing.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
- 
-    /* 最基本的，使用了默认配置 */
-     
-    $("a#single_image").fancybox();
-     
-    /* 使用了自定义配置 */
-     
-    $("a#inline").fancybox({
-        'hideOnContentClick': true
-    });
- 
-    /* 一下配置支持组播放 */
-     
-    $("a.group").fancybox({
-        'transitionIn'  :   'elastic',
-        'transitionOut' :   'elastic',
-        'speedIn'       :   600, 
-        'speedOut'      :   200, 
-        'overlayShow'   :   false
-    });
-     
-});
 
 
 

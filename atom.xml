@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-09-02T16:07:29.954Z</updated>
+  <updated>2013-09-10T15:26:28.570Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,8 +16,37 @@
     <link href="http://hufeng825.github.com/2013/09/02/git4/"/>
     <id>http://hufeng825.github.com/2013/09/02/git4/</id>
     <published>2013-09-02T10:16:59.000Z</published>
-    <updated>2013-09-02T10:31:24.000Z</updated>
-    <content type="html"><![CDATA[<p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不是想要让git 跟svn 一样支持st ci 等等这样的缩写命令……<br><a id="more"></a><br>下面的这些配置能够满足你.<br>打开终端 执行<br>    cd<br>    vi .git/.gitconfig<br>然后修改gitconfig<br>    [alias]<br>      logs = log —color —graph —pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; —abbrev-commit<br>      st = status<br>      ci = commit<br>      br = branch<br>      co = checkout<br>      df = diff<br>      lg = log -p<br>如果想要把 rebase 當做 git pull 的預設值，可以在專在 .gitconfig 加上<br>    [branch “master”]<br>      remote = origin<br>      merge = refs/heads/master<br>      rebase = true<br>也可以直接加到 ~/.gitconfig 讓所有的 tracked branches 都自動套用這個設定：<br>    [branch]<br>          autosetuprebase = always</p>
+    <updated>2013-09-10T15:17:08.000Z</updated>
+    <content type="html"><![CDATA[<p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不是想要让git 跟svn 一样支持st ci 等等这样的缩写命令……<br><a id="more"></a><br>下面的这些配置能够满足你.</p>
+<p>打开终端 执行</p>
+<figure class="highlight"><pre><span class="title">cd</span>
+<span class="title">vi</span> .git/.gitconfig
+</pre></figure>
+
+<p>然后修改gitconfig</p>
+<figure class="highlight"><pre><span class="title">[</span><span class="comment">alias</span>]
+  <span class="comment">logs</span> <span class="comment">=</span> <span class="comment">log</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">color</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">graph</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">pretty=format:'%Cred%h%Creset</span> <span class="literal">-</span><span class="comment">%C(yellow)%d%Creset</span> <span class="comment">%s</span> <span class="comment">%Cgreen(%cr)</span> <span class="comment">%C(bold</span> <span class="comment">blue)</span>&lt;<span class="comment">%an</span>&gt;<span class="comment">%Creset'</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">abbrev</span>-<span class="comment">commit</span>
+  <span class="comment">st</span> <span class="comment">=</span> <span class="comment">status</span>
+  <span class="comment">ci</span> <span class="comment">=</span> <span class="comment">commit</span>
+  <span class="comment">br</span> <span class="comment">=</span> <span class="comment">branch</span>
+  <span class="comment">co</span> <span class="comment">=</span> <span class="comment">checkout</span>
+  <span class="comment">df</span> <span class="comment">=</span> <span class="comment">diff</span>
+  <span class="comment">lg</span> <span class="comment">=</span> <span class="comment">log</span> <span class="literal">-</span><span class="comment">p
+</pre></figure>
+
+<p>如果想要把 rebase 當做 git pull 的預設值，可以在專在 .gitconfig 加上</p>
+<figure class="highlight"><pre>
+[branch <span class="string">"master"</span>]
+  remote = origin
+  merge = refs<span class="regexp">/heads/m</span>aster
+  rebase = <span class="literal">true</span>
+</pre></figure>
+
+<p>也可以直接加到 ~/.gitconfig 讓所有的 tracked branches 都自動套用這個設定：</p>
+<figure class="highlight"><pre><span class="matrix">[branch]</span>  
+	autosetuprebase = always
+</pre></figure>
+
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/git/" term="git"/>
@@ -27,7 +56,7 @@
     <link href="http://hufeng825.github.com/2013/09/02/git3/"/>
     <id>http://hufeng825.github.com/2013/09/02/git3/</id>
     <published>2013-09-02T10:06:42.000Z</published>
-    <updated>2013-09-02T10:31:12.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<p>有没有提交过“修改bug” “上传代码” 等等类似脑残的提交信息. code review 时看到这样的提交信息 每个team leader 肯定不会容忍的. 下面要介绍的是如何修改之前提交的历史信息<br><a id="more"></a></p>
 <h2>方法一 可以修改最后一次 commit</h2>
 <pre><code> <span class="comment">git</span> <span class="comment">commit</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">amend</span> </code></pre>
@@ -60,8 +89,24 @@ git rebase -i master~<span class="number">5</span> <span class="comment">//最�
     <link href="http://hufeng825.github.com/2013/09/02/git2/"/>
     <id>http://hufeng825.github.com/2013/09/02/git2/</id>
     <published>2013-09-02T09:59:59.000Z</published>
-    <updated>2013-09-02T10:31:35.000Z</updated>
-    <content type="html"><![CDATA[<p>查看log是程序员常用的操作之一,不要以为一个git log了事,下面介绍下git log 的高级操作.<br><a id="more"></a><br>1. 显示所有提交记录的包括提交时间 提交人员联系方式等等: git log<br>2. 显示所有提交记录 只显示提交信息: git shortlog<br>3. 显⽰示版本历史,以及版本间的内容差异:git log -p<br>4. 只显⽰示最近⼀一次提交:git log -1<br>5. 显⽰示最近的20个提交:以及版本间的内容差异:git log -20 -p<br>6. 显⽰示最近6⼩小时的提交:git log —since=“6 hours”<br>7. 显⽰示两天之前的提交:git log —before=“2 days”</p>
+    <updated>2013-09-10T15:17:08.000Z</updated>
+    <content type="html"><![CDATA[<p>查看log是程序员常用的操作之一,不要以为一个git log了事,下面介绍下git log 的高级操作.<br><a id="more"></a></p>
+<ol>
+<li><p>显示所有提交记录的包括提交时间 提交人员联系方式等等: git log</p>
+</li>
+<li><p>显示所有提交记录 只显示提交信息: git shortlog</p>
+</li>
+<li><p>显⽰示版本历史,以及版本间的内容差异:git log -p</p>
+</li>
+<li><p>只显⽰示最近⼀一次提交:git log -1</p>
+</li>
+<li><p>显⽰示最近的20个提交:以及版本间的内容差异:git log -20 -p</p>
+</li>
+<li><p>显⽰示最近6⼩小时的提交:git log —since=“6 hours”</p>
+</li>
+<li><p>显⽰示两天之前的提交:git log —before=“2 days”</p>
+</li>
+</ol>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/git/" term="git"/>
@@ -85,7 +130,7 @@ git rebase -i master~<span class="number">5</span> <span class="comment">//最�
     <link href="http://hufeng825.github.com/2013/09/02/ios20/"/>
     <id>http://hufeng825.github.com/2013/09/02/ios20/</id>
     <published>2013-09-02T01:28:52.000Z</published>
-    <updated>2013-09-02T01:30:57.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<p>Block 没有出现前 ios写个定时器太麻烦了,好在Block的让我们小爽了一把,以后写timer 简单的要命了<br><a id="more"></a><br>    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{</p>
 <pre><code>     [bgColorView removeFromSuperview]<span class="comment">;</span>
 
@@ -98,7 +143,7 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(<span class="keyword">void<
 });</span></code></pre>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/hexo/" term="hexo"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[如何得到中英文混合下的NSString的长度?]]></title>
@@ -451,7 +496,7 @@ NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodi
     <link href="http://hufeng825.github.com/2013/09/02/mac1/"/>
     <id>http://hufeng825.github.com/2013/09/02/mac1/</id>
     <published>2013-09-02T00:10:34.000Z</published>
-    <updated>2013-09-02T11:08:38.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<p>所干的工作 因为涉及到金融行业网络安全性比较高 公司的网络设置了代理 这导致了git svn 双双挂了。<br><a id="more"></a><br>废话少说 下面介绍如何对git svn 设置代理</p>
 <ol>
 <li><p>$HOME 下 我的路径为/Users/jason:</p>
@@ -486,7 +531,7 @@ NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodi
     <link href="http://hufeng825.github.com/2013/08/31/ios13/"/>
     <id>http://hufeng825.github.com/2013/08/31/ios13/</id>
     <published>2013-08-31T14:42:52.000Z</published>
-    <updated>2013-08-31T14:46:30.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<p>如图</p>
 <img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e8680v5hirj20df09qglv.jpg" class="left" height="400" title="600">
 
@@ -507,7 +552,7 @@ NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodi
 
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/hexo/" term="hexo"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[ios 开发之 序列化]]></title>
@@ -939,7 +984,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
     <link href="http://hufeng825.github.com/2013/08/29/ios7/"/>
     <id>http://hufeng825.github.com/2013/08/29/ios7/</id>
     <published>2013-08-29T10:48:47.000Z</published>
-    <updated>2013-08-31T01:38:02.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>问：如何快速把当前view下的所有子view 及其子子view们删除掉<br><a id="more"></a><br>解答这个问题前先介绍下 NSArray </p>
 </blockquote>
@@ -958,14 +1003,14 @@ for (int ii = 0; ii &lt; 10; ++ii)
 <p>[[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/hexo/" term="hexo"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[ios iphone5 适配 之 如何是app 适用不通分辨率]]></title>
+    <title type="html"><![CDATA[ios iphone5 适配 之 如何使app 适用不通分辨率]]></title>
     <link href="http://hufeng825.github.com/2013/08/29/ios6/"/>
     <id>http://hufeng825.github.com/2013/08/29/ios6/</id>
     <published>2013-08-29T10:44:36.000Z</published>
-    <updated>2013-08-31T01:38:02.000Z</updated>
+    <updated>2013-09-10T15:17:08.000Z</updated>
     <content type="html"><![CDATA[<p>iphone5适配 有如下集中种思路</p>
 <a id="more"></a>
 
