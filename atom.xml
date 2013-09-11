@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-09-11T16:28:18.409Z</updated>
+  <updated>2013-09-11T16:42:33.616Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,7 +16,7 @@
     <link href="http://hufeng825.github.com/2013/09/11/ios22/"/>
     <id>http://hufeng825.github.com/2013/09/11/ios22/</id>
     <published>2013-09-11T15:32:18.000Z</published>
-    <updated>2013-09-11T16:27:32.000Z</updated>
+    <updated>2013-09-11T16:40:52.000Z</updated>
     <content type="html"><![CDATA[<p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br><a id="more"></a></p>
 <h2>:内联(inline)Block</h2>
 <blockquote>
@@ -81,7 +81,7 @@ myBlock();
 - (<span class="keyword">void</span>) BlockTestCorrect{
 	HelloBlock myBlock= ^(<span class="keyword">void</span>){
 		[<span class="keyword">self</span> setStringProperty:@<span class="string">"Block Objects"</span>];
-	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行错误</span>
+	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行ok</span>
 	};
 myBlock();
 }}  
@@ -123,7 +123,7 @@ myBlock();
   rebase = <span class="literal">true</span>
 </pre></figure>
 
-<p>也可以直接加到 ~/.gitconfig 讓所有的 tracked branches 都自動套用這個設定：</p>
+<p>也可以直接加到 ~/.gitconfig 讓所有的 tracked branches 都自動���用這個設定：</p>
 <figure class="highlight"><pre><span class="matrix">[branch]</span>  
 	autosetuprebase = always
 </pre></figure>
@@ -864,7 +864,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
 <li><p>输入您的Apple开发者证书，并选择一个团队。</p>
 </li>
 </ol>
-<p>加入团队后，Xcode���服务，您可以添加iOS开发设备运行单元测试时使用。</p>
+<p>加入团队后，Xcode的���务，您可以添加iOS开发设备运行单元测试时使用。</p>
 <h3>要添加一个iOS开发设备的Xcode服务</h3>
 <ol>
 <li><p>在服务器应用程序边栏中，选择的Xcode的服务。</p>
@@ -990,7 +990,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
 </li>
 <li><p>执行静态分析，你应该在您的集成包括静态分析。<br>静态分析是深刻检查你的代码，下面的代码路径，您的应用程序可能不遵循正常的发展过程中。这个过程揭示难以发现的编码错误，还确定了在你的代码不遵循建议的API的用法，比如基金会和AppKit的成语。</p>
 </li>
-<li><p>确保您的产品建立和���确打包。您您的产品作出了重大变化，特别是结构性的变化，如添加或删除文件后，应归档。让你的机器人自动为您归档。<br>当您的产品中包含的结构性问题，Xcode可以创建一个归档它为你的团队成员之间共享或提交到App Store。建立和归档产品的能力是你的代码更改的正确性的主要指标。</p>
+<li><p>确保您的产品建立和正���打包。您您的产品作出了重大变化，特别是结构性的变化，如添加或删除文件后，应归档。让你的机器人自动为您归档。<br>当您的产品中包含的结构性问题，Xcode可以创建一个归档它为你的团队成员之间共享或提交到App Store。建立和归档产品的能力是你的代码更改的正确性的主要指标。</p>
 </li>
 </ol>
 <h2>分享计划</h2>

@@ -254,7 +254,7 @@ myBlock();
 - (<span class="keyword">void</span>) BlockTestCorrect{
 	HelloBlock myBlock= ^(<span class="keyword">void</span>){
 		[<span class="keyword">self</span> setStringProperty:@<span class="string">"Block Objects"</span>];
-	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行错误</span>
+	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行ok</span>
 	};
 myBlock();
 }}  
