@@ -104,6 +104,8 @@ $(function () {
                 <span class="icon-bar"></span>
             </button>
             <a href="/" class="brand" >主页</a>
+            <a href="/Jianli.html" class="brand" >简历</a>
+
             <div class="nav-collapse collapse">
                 <p class="navbar-text pull-right">
                 </p>
@@ -141,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>34</small>
+                                <small>35</small>
                             </a>
 
                             </li>
@@ -176,6 +178,34 @@ $(function () {
     <header>
         <!--div class="icon"></div-->
         <span class="badge badge-warning">
+        <time datetime="2013-09-11T15:32:18.000Z"><a href="/2013/09/11/ios22/" style="color:#FFFFFF">2013 9月 11</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/09/11/ios22/">ios开发--block应该知道的那几件事</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>block 现在已经基本���已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/09/11/ios22/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
         <time datetime="2013-09-02T10:16:59.000Z"><a href="/2013/09/02/git4/" style="color:#FFFFFF">2013 9月 2</a></time>
         </span>
         
@@ -187,7 +217,7 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不���想要让git 跟svn 一样支持st ci 等等这样的缩写命令……<br>
+        <p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不是想要让git 跟svn 一样支持st ci 等等这样的缩写命令……<br>
         
     </div>
     <footer>
@@ -414,7 +444,7 @@ $(function () {
         </span>
         
 
-<h1 class="title"><a href="/2013/09/02/ios16/">善用 NSAutoreleasePool 节约宝贵内存</a></h1>
+<h1 class="title"><a href="/2013/09/02/ios16/">善用 NSAutoreleasePool ���约宝贵内存</a></h1>
 
 
 
@@ -429,36 +459,6 @@ $(function () {
         <div class="alignleft">
             <a href="/2013/09/02/ios16/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/" style="color:#FFFFFF">2013 9月 2</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/09/02/ios15/">如何禁用禁用uwebiview 的反弹功能(bounces)</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
-<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
-  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
-    ((UIScrollView *)subview).bounces = NO;</code></pre>
-<p>// iOS 5+</p>
-<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
-
-        
-    </div>
-    <footer>
         
     </footer>
 </div>

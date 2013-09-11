@@ -104,6 +104,8 @@ $(function () {
                 <span class="icon-bar"></span>
             </button>
             <a href="/" class="brand" >主页</a>
+            <a href="/Jianli.html" class="brand" >简历</a>
+
             <div class="nav-collapse collapse">
                 <p class="navbar-text pull-right">
                 </p>
@@ -141,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>34</small>
+                                <small>35</small>
                             </a>
 
                             </li>
@@ -189,6 +191,10 @@ $(function () {
   <ul class="entry">
     
       <li>
+        <a href="/2013/09/11/ios22/">ios开发--block应该知道的那几件事</a>
+      </li>
+    
+      <li>
         <a href="/2013/09/02/git4/">git 系类教程之 懂的这些配置能让git 更好用</a>
       </li>
     
@@ -202,10 +208,6 @@ $(function () {
     
       <li>
         <a href="/2013/09/02/ios21/">在Finder标题栏上显示完整路径</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/02/ios20/">Block 定时器 让我们解放了</a>
       </li>
     
   </ul>
@@ -224,7 +226,7 @@ $(function () {
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (19)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (20)</small></li>
   
     <li><a href="/categories/ios/mac/">mac</a><small> (3)</small></li>
   
@@ -244,6 +246,36 @@ $(function () {
 
         </div>
         <div class="span9 panel">
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/09/02/ios15/">如何禁用禁用uwebiview 的反弹功能(bounces)</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
+<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
+  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
+    ((UIScrollView *)subview).bounces = NO;</code></pre>
+<p>// iOS 5+</p>
+<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
             
             <div class="content">
     <header>
@@ -534,35 +566,6 @@ for (int ii = 0; ii &lt; 10; ++ii)
         
         <div class="alignleft">
             <a href="/2013/08/29/ios7/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-29T10:44:36.000Z"><a href="/2013/08/29/ios6/" style="color:#FFFFFF">2013 8月 29</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/29/ios6/">ios iphone5 适配 之 如何使app 适用不通分辨率</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <p>iphone5适配 有如下集中种思路</p>
-
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/29/ios6/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>

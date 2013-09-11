@@ -4,10 +4,10 @@
     <link href="/favicon.ico" rel="icon">
     <meta charset="utf-8">
     
-    <title>如何禁用禁用uwebiview 的反弹功能(bounces) | 阿峰的技术窝窝</title>
+    <title>ios开发--block应该知道的那几件事 | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景如何禁用呢// iOS 5之前for (id subview in webView.subviews)  if ([[subview class] isSubclassOfClass: [UIScrollVi">
+  <meta name="description" content="block 现在已经基本上已经使用非常普遍了在引用中也又很多坑下面把block开发中应该知道的那几件事总结下.">
   
   
   
@@ -16,7 +16,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="如何禁用禁用uwebiview 的反弹功能(bounces)"/>
+    <meta property="og:title" content="ios开发--block应该知道的那几件事"/>
     <meta property="og:site_name" content="阿峰的技术窝窝"/>
 
     
@@ -180,26 +180,91 @@ $(function () {
     <header class="page-header">
         
         <div class="icon"></div>
-        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/">2013 9月 2</a></time>
+        <time datetime="2013-09-11T15:32:18.000Z"><a href="/2013/09/11/ios22/">2013 9月 11</a></time>
         
         
 
-<h1 class="title">如何禁用禁用uwebiview 的反弹功能(bounces)</h1>
+<h1 class="title">ios开发--block应该知道的那几件事</h1>
 
 
 
     </header>
     <div class="entry" id="post">
-        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
-<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
-  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
-    ((UIScrollView *)subview).bounces = NO;</code></pre>
-<p>// iOS 5+</p>
-<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
+        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br><a id="more"></a></p>
+<h2>:内联(inline)Block</h2>
+<blockquote>
+<p>内联block 说白了就是block被嵌入到一个函数中<br>例如:</p>
+</blockquote>
+<p><strong>typedef void (^HelloBlock)(void);</strong></p>
+<figure class="highlight"><pre><span class="pp">- <span class="params">(void)</span> BlockTest{
+HelloBlock myBlock= ^<span class="params">(void)</span>{
+NSLog<span class="params">(@<span class="string">"Hello Block"</span>)</span>;
+};
+myBlock<span class="params">()</span>;
+}
+</pre></figure>
+
+<h2>注意事项</h2>
+<h3>1.内联的block中内部定义的变量 自己本身有读写权限</h3>
+<h3>2.block内部要修改外部变量 需要将外部变量声明__block</h3>
+<h3>3.Block retain是无效的，要想保留block生命周期，可以通过copy来实现，记得release</h3>
+<h3>4.被block的应用的对象，retainCount会自动加一，为了打破这种 retain circle，可以在对象前加__block，这样block块就不会维护这个对象了</h3>
+<p> 下面的写法如果不加上_block a无法dealloc</p>
+<figure class="highlight"><pre>
+__block A  a =[ <span class="string">[[A alloc] init] withBlock:^{
+
+ [a action];
+
+ [ a release];
+
+}]; //这样A的dealloc方法就会调用
+</pre></figure>
+
+<figure class="highlight"><pre>
+@<span class="class"><span class="keyword">interface</span> <span class="id">ViewController</span> ： <span class="id">UIViewViewController</span> </span>
+ {
+        <span class="built_in">NSString</span> *_string;
+ }
+
+ __block ViewController *controller = <span class="keyword">self</span>;   
+    _block = ^{
+         <span class="built_in">NSLog</span>(@<span class="string">"string %@"</span>,controller-&gt;_string);
+    };
+</pre></figure>
+
+<h3>5.在独立的block中不能引用self，如果需要访问可以使用参数传递的方法(可以把其考虑成c+中参数传入函数指针对应copy)**</h3>
+<h3>6.不要随便用.语法</h3>
+<figure class="highlight"><pre><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;   </span>
+@<span class="class"><span class="keyword">interface</span> <span class="title">AppDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;
+@<span class="title">property</span> (<span class="title">nonatomic</span>, <span class="title">strong</span>) <span class="title">NSString</span> *<span class="title">stringProperty</span>;  
+@<span class="title">end</span>
+</pre></figure>
+
+<figure class="highlight"><pre><span class="preprocessor">#import <span class="title">"GCDAppDelegate.h"</span> </span>
+@<span class="class"><span class="keyword">implementation</span> <span class="id">AppDelegate</span> </span>
+@<span class="keyword">synthesize</span> stringProperty;  
+- (<span class="keyword">void</span>) BlockTestError{
+HelloBlock myBlock= ^(<span class="keyword">void</span>){
+	<span class="keyword">self</span><span class="variable">.stringProperty</span> = @<span class="string">"Block Objects"</span>; 
+	<span class="built_in">NSLog</span>(@<span class="string">"String property = %@"</span>, <span class="keyword">self</span><span class="variable">.stringProperty</span>);<span class="comment">//运行错误</span>
+};
+myBlock();
+}}  
+
+- (<span class="keyword">void</span>) BlockTestCorrect{
+	HelloBlock myBlock= ^(<span class="keyword">void</span>){
+		[<span class="keyword">self</span> setStringProperty:@<span class="string">"Block Objects"</span>];
+	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行错误</span>
+	};
+myBlock();
+}}  
+@<span class="keyword">end</span>
+</pre></figure>
+
 
         <hr />
         <span class="label label-warning">W</span>
-        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/02/ios15/">http://hufeng825.github.com/2013/09/02/ios15/
+        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/11/ios22/">http://hufeng825.github.com/2013/09/11/ios22/
          <hr />
         
   

@@ -4,13 +4,94 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-09-10T15:26:28.570Z</updated>
+  <updated>2013-09-11T16:28:18.409Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
     <email><![CDATA[hufeng@hufengvip.cn]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[ios开发--block应该知道的那几件事]]></title>
+    <link href="http://hufeng825.github.com/2013/09/11/ios22/"/>
+    <id>http://hufeng825.github.com/2013/09/11/ios22/</id>
+    <published>2013-09-11T15:32:18.000Z</published>
+    <updated>2013-09-11T16:27:32.000Z</updated>
+    <content type="html"><![CDATA[<p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br><a id="more"></a></p>
+<h2>:内联(inline)Block</h2>
+<blockquote>
+<p>内联block 说白了就是block被嵌入到一个函数中<br>例如:</p>
+</blockquote>
+<p><strong>typedef void (^HelloBlock)(void);</strong></p>
+<figure class="highlight"><pre><span class="pp">- <span class="params">(void)</span> BlockTest{
+HelloBlock myBlock= ^<span class="params">(void)</span>{
+NSLog<span class="params">(@<span class="string">"Hello Block"</span>)</span>;
+};
+myBlock<span class="params">()</span>;
+}
+</pre></figure>
+
+<h2>注意事项</h2>
+<h3>1.内联的block中内部定义的变量 自己本身有读写权限</h3>
+<h3>2.block内部要修改外部变量 需要将外部变量声明__block</h3>
+<h3>3.Block retain是无效的，要想保留block生命周期，可以通过copy来实现，记得release</h3>
+<h3>4.被block的应用的对象，retainCount会自动加一，为了打破这种 retain circle，可以在对象前加__block，这样block块就不会维护这个对象了</h3>
+<p> 下面的写法如果不加上_block a无法dealloc</p>
+<figure class="highlight"><pre>
+__block A  a =[ <span class="string">[[A alloc] init] withBlock:^{
+
+ [a action];
+
+ [ a release];
+
+}]; //这样A的dealloc方法就会调用
+</pre></figure>
+
+<figure class="highlight"><pre>
+@<span class="class"><span class="keyword">interface</span> <span class="id">ViewController</span> ： <span class="id">UIViewViewController</span> </span>
+ {
+        <span class="built_in">NSString</span> *_string;
+ }
+
+ __block ViewController *controller = <span class="keyword">self</span>;   
+    _block = ^{
+         <span class="built_in">NSLog</span>(@<span class="string">"string %@"</span>,controller-&gt;_string);
+    };
+</pre></figure>
+
+<h3>5.在独立的block中不能引用self，如果需要访问可以使用参数传递的方法(可以把其考虑成c+中参数传入函数指针对应copy)**</h3>
+<h3>6.不要随便用.语法</h3>
+<figure class="highlight"><pre><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;   </span>
+@<span class="class"><span class="keyword">interface</span> <span class="title">AppDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;
+@<span class="title">property</span> (<span class="title">nonatomic</span>, <span class="title">strong</span>) <span class="title">NSString</span> *<span class="title">stringProperty</span>;  
+@<span class="title">end</span>
+</pre></figure>
+
+<figure class="highlight"><pre><span class="preprocessor">#import <span class="title">"GCDAppDelegate.h"</span> </span>
+@<span class="class"><span class="keyword">implementation</span> <span class="id">AppDelegate</span> </span>
+@<span class="keyword">synthesize</span> stringProperty;  
+- (<span class="keyword">void</span>) BlockTestError{
+HelloBlock myBlock= ^(<span class="keyword">void</span>){
+	<span class="keyword">self</span><span class="variable">.stringProperty</span> = @<span class="string">"Block Objects"</span>; 
+	<span class="built_in">NSLog</span>(@<span class="string">"String property = %@"</span>, <span class="keyword">self</span><span class="variable">.stringProperty</span>);<span class="comment">//运行错误</span>
+};
+myBlock();
+}}  
+
+- (<span class="keyword">void</span>) BlockTestCorrect{
+	HelloBlock myBlock= ^(<span class="keyword">void</span>){
+		[<span class="keyword">self</span> setStringProperty:@<span class="string">"Block Objects"</span>];
+	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行错误</span>
+	};
+myBlock();
+}}  
+@<span class="keyword">end</span>
+</pre></figure>
+
+]]></content>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[git 系类教程之 懂的这些配置能让git 更好用]]></title>
     <link href="http://hufeng825.github.com/2013/09/02/git4/"/>
@@ -783,7 +864,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
 <li><p>输入您的Apple开发者证书，并选择一个团队。</p>
 </li>
 </ol>
-<p>加入团队后，Xcode的服务，您可以添加iOS开发设备运行单元测试时使用。</p>
+<p>加入团队后，Xcode���服务，您可以添加iOS开发设备运行单元测试时使用。</p>
 <h3>要添加一个iOS开发设备的Xcode服务</h3>
 <ol>
 <li><p>在服务器应用程序边栏中，选择的Xcode的服务。</p>
@@ -909,7 +990,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
 </li>
 <li><p>执行静态分析，你应该在您的集成包括静态分析。<br>静态分析是深刻检查你的代码，下面的代码路径，您的应用程序可能不遵循正常的发展过程中。这个过程揭示难以发现的编码错误，还确定了在你的代码不遵循建议的API的用法，比如基金会和AppKit的成语。</p>
 </li>
-<li><p>确保您的产品建立和正确打包。您您的产品作出了重大变化，特别是结构性的变化，如添加或删除文件后，应归档。让你的机器人自动为您归档。<br>当您的产品中包含的结构性问题，Xcode可以创建一个归档它为你的团队成员之间共享或提交到App Store。建立和归档产品的能力是你的代码更改的正确性的主要指标。</p>
+<li><p>确保您的产品建立和���确打包。您您的产品作出了重大变化，特别是结构性的变化，如添加或删除文件后，应归档。让你的机器人自动为您归档。<br>当您的产品中包含的结构性问题，Xcode可以创建一个归档它为你的团队成员之间共享或提交到App Store。建立和归档产品的能力是你的代码更改的正确性的主要指标。</p>
 </li>
 </ol>
 <h2>分享计划</h2>
@@ -1001,36 +1082,6 @@ for (int ii = 0; ii &lt; 10; ++ii)
 <p><strong>ps：让数组中的每个元素 都调用 aMethod  并把 withObject 后边的 oneObject 对象做为参数传给方法aMethod</strong></p>
 <p>因此可以利用隐私循环来快速清除subviews</p>
 <p>[[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];</p>
-]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[ios iphone5 适配 之 如何使app 适用不通分辨率]]></title>
-    <link href="http://hufeng825.github.com/2013/08/29/ios6/"/>
-    <id>http://hufeng825.github.com/2013/08/29/ios6/</id>
-    <published>2013-08-29T10:44:36.000Z</published>
-    <updated>2013-09-10T15:17:08.000Z</updated>
-    <content type="html"><![CDATA[<p>iphone5适配 有如下集中种思路</p>
-<a id="more"></a>
-
-<p>1：利用自身的autoresize 加上代码实现</p>
-<p>2：写两套xib</p>
-<p>3：利用ios5+ 以上的autolayout</p>
-<p>前两种方式应用比较广泛 ，因为毕竟国内还有部分应用ios4.3的用户</p>
-<p>下面给第二种方式应用下的部分代码</p>
-<figure class="highlight"><pre>- (<span class="keyword">id</span>)init
-{
-
-    <span class="built_in">NSString</span>    *clssName = NSStringFromClass([<span class="keyword">self</span> <span class="built_in">class</span>]);
-    <span class="built_in">NSString</span>    *xibName = is4InchScreen() ?[<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%@_4inch"</span>, clssName] : clssName;
-    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithNibName:xibName bundle:<span class="literal">nil</span>];
-    <span class="keyword">if</span> (<span class="keyword">self</span>) {}
-    <span class="keyword">return</span> <span class="keyword">self</span>;
-
-}
-</pre></figure>
-
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
