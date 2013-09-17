@@ -4,10 +4,10 @@
     <link href="/favicon.ico" rel="icon">
     <meta charset="utf-8">
     
-    <title>ios笔记--block应该知道的那几件事 | 阿峰的技术窝窝</title>
+    <title>再谈涉及模式 | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="block 现在已经基本上已经使用非常普遍了在引用中也又很多坑下面把block开发中应该知道的那几件事总结下.">
+  <meta name="description" content="某某曰:设计模式这东西没有好坏之分，只有合适于不合适">
   
   
   
@@ -16,7 +16,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="ios笔记--block应该知道的那几件事"/>
+    <meta property="og:title" content="再谈涉及模式"/>
     <meta property="og:site_name" content="阿峰的技术窝窝"/>
 
     
@@ -180,91 +180,155 @@ $(function () {
     <header class="page-header">
         
         <div class="icon"></div>
-        <time datetime="2013-09-11T15:32:18.000Z"><a href="/2013/09/11/ios22/">2013 9月 11</a></time>
+        <time datetime="2013-09-17T15:09:18.000Z"><a href="/2013/09/17/ios25/">2013 9月 17</a></time>
         
         
 
-<h1 class="title">ios笔记--block应该知道的那几件事</h1>
+<h1 class="title">再谈涉及模式</h1>
 
 
 
     </header>
     <div class="entry" id="post">
-        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br><a id="more"></a></p>
-<h2>:内联(inline)Block</h2>
-<blockquote>
-<p>内联block 说白了就是block被嵌入到一个函数中<br>例如:</p>
-</blockquote>
-<p><strong>typedef void (^HelloBlock)(void);</strong></p>
-<figure class="highlight"><pre><span class="pp">- <span class="params">(void)</span> BlockTest{
-HelloBlock myBlock= ^<span class="params">(void)</span>{
-NSLog<span class="params">(@<span class="string">"Hello Block"</span>)</span>;
-};
-myBlock<span class="params">()</span>;
-}
-</pre></figure>
+        <p>某某曰:设计模式这东西,没有好坏之分，只有合适于不合适<br><a id="more"></a></p>
+<p>天去面试很有意思,技术考官指着最后一道二选一的编程题说,这是昨天晚上专门为你新加的.当时我听后倍感惭愧哈,何德何能啊. 虽然当时在纸上把大概思路和设计说了下.为了感谢主考官的重视程度.我现在也亲自在电脑上把这个设计实现出来.<br>题目大概是这个意思: 一个咖啡店卖好几种咖啡:摩卡,布列夫,拿铁等等  咖啡有很多搭配:方糖,鲜牛奶,奶油,盐等. 试设计计算出咖啡(+搭配)的单价模型.</p>
+<p>下面来谈谈我的想法</p>
+<h2>一:虚基类 Coffee</h2>
+<p>首先 我抽象出了一个虚基类 Coffee, 什么摩卡 布列夫 拿铁都继承这个类</p>
+<p>这个类包含什么呢<br>{<br>. 咖啡的单价(不含 方糖 奶等 调味料) —&gt;price<br>. 一个存放调味料的容器 —&gt;ecoratorRelishChain<br>. 一个可以得到总价的方法 —&gt; getTotalPrices<br>}</p>
+<p>下面是代码</p>
+<p>基类咖啡.h</p>
+<pre><code> <span class="comment">//abstract 咖啡基类</span>
+ @<span class="class"><span class="keyword">class</span> <span class="title">DecoratorChain</span>;
 
-<h2>注意事项</h2>
-<h3>1.内联的block中内部定义的变量 自己本身有读写权限</h3>
-<h3>2.block内部要修改外部变量 需要将外部变量声明__block</h3>
-<h3>3.Block retain是无效的，要想保留block生命周期，可以通过copy来实现，记得release</h3>
-<h3>4.被block的应用的对象，retainCount会自动加一，为了打破这种 retain circle，可以在对象前加__block，这样block块就不会维护这个对象了</h3>
-<p> 下面的写法如果不加上_block a无法dealloc</p>
-<figure class="highlight"><pre>
-__block A  a =[ <span class="string">[[A alloc] init] withBlock:^{
+ @<span class="title">interface</span>  <span class="title">Coffee</span>: <span class="title">NSObject</span>
+ @<span class="title">property</span> ( <span class="title">nonatomic</span>,<span class="title">strong</span> ) <span class="title">DecoratorChain</span> *<span class="title">ecoratorRelishChain</span>;//用来存储 奶 方糖 等等的调料 可以把它想象成一个调味盒 
+ @<span class="title">property</span> ( <span class="title">nonatomic</span>,<span class="title">strong</span> ) <span class="title">NSDecimalNumber</span> *<span class="title">price</span>;//单价 不含配料
 
- [a action];
+ -(<span class="title">NSDecimalNumber</span> *) <span class="title">getTotalPrices</span>;//得到总价
 
- [ a release];
-
-}]; //这样A的dealloc方法就会调用
-</pre></figure>
-
-<figure class="highlight"><pre>
-@<span class="class"><span class="keyword">interface</span> <span class="id">ViewController</span> ： <span class="id">UIViewViewController</span> </span>
- {
-        <span class="built_in">NSString</span> *_string;
- }
-
- __block ViewController *controller = <span class="keyword">self</span>;   
-    _block = ^{
-         <span class="built_in">NSLog</span>(@<span class="string">"string %@"</span>,controller-&gt;_string);
-    };
-</pre></figure>
-
-<h3>5.在独立的block中不能引用self，如果需要访问可以使用参数传递的方法(可以把其考虑成c+中参数传入函数指针对应copy)**</h3>
-<h3>6.不要随便用.语法</h3>
-<figure class="highlight"><pre><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;   </span>
-@<span class="class"><span class="keyword">interface</span> <span class="title">AppDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;
-@<span class="title">property</span> (<span class="title">nonatomic</span>, <span class="title">strong</span>) <span class="title">NSString</span> *<span class="title">stringProperty</span>;  
-@<span class="title">end</span>
-</pre></figure>
-
-<figure class="highlight"><pre><span class="preprocessor">#import <span class="title">"GCDAppDelegate.h"</span> </span>
-@<span class="class"><span class="keyword">implementation</span> <span class="id">AppDelegate</span> </span>
-@<span class="keyword">synthesize</span> stringProperty;  
-- (<span class="keyword">void</span>) BlockTestError{
-HelloBlock myBlock= ^(<span class="keyword">void</span>){
-	<span class="keyword">self</span><span class="variable">.stringProperty</span> = @<span class="string">"Block Objects"</span>; 
-	<span class="built_in">NSLog</span>(@<span class="string">"String property = %@"</span>, <span class="keyword">self</span><span class="variable">.stringProperty</span>);<span class="comment">//运行错误</span>
-};
-myBlock();
-}}  
-
-- (<span class="keyword">void</span>) BlockTestCorrect{
-	HelloBlock myBlock= ^(<span class="keyword">void</span>){
-		[<span class="keyword">self</span> setStringProperty:@<span class="string">"Block Objects"</span>];
-	    <span class="built_in">NSLog</span>(@<span class="string">"self.stringProperty = %@"</span>, [<span class="keyword">self</span> stringProperty]); <span class="comment">//运行ok</span>
-	};
-myBlock();
-}}  
+ @<span class="title">end</span></code></pre>
+<p>基类咖啡.m</p>
+<pre><code>@<span class="class"><span class="keyword">interface</span> <span class="id">Coffee</span>()</span>
+@<span class="keyword">property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSString</span> * _coffeeName;
 @<span class="keyword">end</span>
-</pre></figure>
 
+@<span class="class"><span class="keyword">implementation</span> <span class="id">Coffee</span></span>
+
+@<span class="keyword">synthesize</span> _coffeeName,price,ecoratorRelishChain;
+- (<span class="keyword">id</span>)init
+{
+    <span class="keyword">self</span> = [<span class="keyword">super</span> init];
+    <span class="keyword">if</span> (<span class="keyword">self</span>) {
+        _coffeeName=@<span class="string">"咖啡名称"</span>;
+        price = [[NSDecimalNumber alloc] initWithString:@<span class="string">"20"</span>];
+    }
+    <span class="keyword">return</span> <span class="keyword">self</span>;
+}
+
+-(NSDecimalNumber *)getTotalPrices
+{
+
+    <span class="keyword">return</span> [<span class="keyword">self</span><span class="variable">.price</span> decimalNumberByAdding: [ecoratorRelishChain getCountPrice]];
+}
+
+@<span class="keyword">end</span></code></pre>
+<hr>
+<h2>二: 虚基类 EcoratorRelish</h2>
+<p>EcoratorRelish 是 方糖 奶油  牛奶 盐 等等的抽象类 这个继承在button  点击的时候 可以自动将自己加入到chain (调料盘中)</p>
+<p>这个类包含什么呢<br>{<br>. 自身的单价 —&gt;price<br>. 可以修改价钱的策略 —&gt; configPrivilege<br>}</p>
+<p>方糖 等抽象出来的基类EcoratorRelish.h</p>
+<pre><code>@<span class="class"><span class="keyword">interface</span>  <span class="title">EcoratorRelish</span>: <span class="title">UIButton</span>
+@<span class="title">property</span>(<span class="title">nonatomic</span>,<span class="title">strong</span>)  <span class="title">NSDecimalNumber</span> *<span class="title">price</span>;//单价 
+//<span class="title">Overload</span>
+-(<span class="title">void</span>)<span class="title">configPrivilege</span>;//可以配置优惠策略
+-(<span class="title">DecoratorChain</span> *)<span class="title">getComponentCoffee</span>;
+@<span class="title">end</span></code></pre>
+<p>EcoratorRelish.m</p>
+<pre><code>@<span class="class"><span class="keyword">implementation</span>  <span class="id">EcoratorRelish</span></span>
+@<span class="keyword">synthesize</span>  price;
+
+- (<span class="keyword">id</span>)init
+{
+    <span class="keyword">self</span> = [<span class="keyword">super</span> init];
+    <span class="keyword">if</span> (<span class="keyword">self</span>) {
+        [<span class="keyword">self</span> addTarget:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(addDecoratorChain) forControlEvents:UIControlEventTouchUpInside];
+    }
+    <span class="keyword">return</span> <span class="keyword">self</span>;
+}
+<span class="comment">//Overload</span>
+-(<span class="keyword">void</span>)configPrivilege
+{
+    <span class="comment">//可以配置优惠策略 </span>
+}
+
+<span class="comment">//获取当前的辅料坐在的ViewController</span>
+- (<span class="built_in">UIViewController</span> *)getViewController {
+    Class vcc = [<span class="built_in">UIViewController</span> <span class="built_in">class</span>];
+    UIResponder *responder = <span class="keyword">self</span>;
+    <span class="keyword">while</span> ((responder = [responder nextResponder]))
+        <span class="keyword">if</span> ([responder isKindOfClass: vcc])
+            <span class="keyword">return</span> (<span class="built_in">UIViewController</span> *)responder;
+    <span class="keyword">return</span> <span class="literal">nil</span>;
+}
+
+<span class="comment">//获取要装饰的咖啡的调味盒(chain)</span>
+-(DecoratorChain *)getEcoratorRelishChain
+{
+   <span class="keyword">return</span>  [<span class="keyword">self</span> getViewController]<span class="variable">.coffee</span><span class="variable">.ecoratorRelishChain</span>;
+}
+
+<span class="comment">//将自己加到咖啡的调味盒(chain)</span>
+-(<span class="keyword">void</span>)addDecoratorChain
+{
+    [[<span class="keyword">self</span> getEcoratorRelishChain] addDecoratorRelish:<span class="keyword">self</span>];
+}
+
+@<span class="keyword">end</span></code></pre>
+<hr>
+<h2>三: 调料盒 DecoratorChain</h2>
+<p>DecoratorChain.h</p>
+<pre><code><span class="comment">//用于保存配料的chain</span>
+@<span class="class"><span class="keyword">interface</span>  <span class="title">DecoratorChain</span>: <span class="title">NSMutableArray</span>
+-(<span class="title">void</span>)<span class="title">addDecoratorRelish</span>:(<span class="title">EcoratorRelish</span>*)<span class="title">ecoratorRelish</span>;
+@<span class="title">end</span></code></pre>
+<p>DecoratorChain.m</p>
+<pre><code>@<span class="class"><span class="keyword">interface</span> <span class="id">DecoratorChain</span>()</span>
+@<span class="keyword">property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) NSDecimalNumber * _countPrice;
+@<span class="keyword">end</span>
+
+@<span class="class"><span class="keyword">implementation</span> <span class="id">DecoratorChain</span></span>
+@<span class="keyword">synthesize</span> _countPrice;
+
+- (<span class="keyword">id</span>)init
+{
+    <span class="keyword">self</span> = [<span class="keyword">super</span> init];
+    <span class="keyword">if</span> (<span class="keyword">self</span>) {
+        _countPrice = [[NSDecimalNumber alloc]init];
+    }
+    <span class="keyword">return</span> <span class="keyword">self</span>;
+}
+
+-(<span class="keyword">void</span>)addDecoratorRelish:(EcoratorRelish*)ecoratorRelish
+{
+    [<span class="keyword">self</span> addObject:ecoratorRelish];
+}
+
+<span class="comment">//得到当前所有chain 里面的总价</span>
+-(NSDecimalNumber*)getCountPrice
+{
+    <span class="keyword">for</span> (EcoratorRelish *tmp  in <span class="keyword">self</span> ) {
+        [_countPrice decimalNumberByAdding:tmp<span class="variable">.price</span>];
+    }
+    <span class="keyword">return</span> _countPrice;
+}
+
+@<span class="keyword">end</span></code></pre>
+<p>下面的实现代码大家应该都会写了吧. 其实回头看下 中间下应用到的设计模式 最明显的是 装饰 和 组合 策略</p>
 
         <hr />
         <span class="label label-warning">W</span>
-        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/11/ios22/">http://hufeng825.github.com/2013/09/11/ios22/
+        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/17/ios25/">http://hufeng825.github.com/2013/09/17/ios25/
          <hr />
         
   
