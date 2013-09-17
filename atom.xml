@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-09-17T15:39:31.819Z</updated>
+  <updated>2013-09-17T15:45:27.693Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,9 +16,9 @@
     <link href="http://hufeng825.github.com/2013/09/17/ios25/"/>
     <id>http://hufeng825.github.com/2013/09/17/ios25/</id>
     <published>2013-09-17T15:09:18.000Z</published>
-    <updated>2013-09-17T15:38:50.000Z</updated>
+    <updated>2013-09-17T15:45:20.000Z</updated>
     <content type="html"><![CDATA[<p>某某曰:设计模式这东西,没有好坏之分，只有合适于不合适<br><a id="more"></a></p>
-<p>天去面试很有意思,技术考官指着最后一道二选一的编程题说,这是昨天晚上专门为你新加的.当时我听后倍感惭愧哈,何德何能啊. 虽然当时在纸上把大概思路和设计说了下.为了感谢主考官的重视程度.我现在也亲自在电脑上把这个设计实现出来.<br>题目大概是这个意思: 一个咖啡店卖好几种咖啡:摩卡,布列夫,拿铁等等  咖啡有很多搭配:方糖,鲜牛奶,奶油,盐等. 试设计计算出咖啡(+搭配)的单价模型.</p>
+<p>天去面试很有意思,技术考官指着最后一道二选一的编程题说,这是昨天晚上专门为你新加的.当时我听后倍感惭愧. 虽然当时在纸上把大概思路和设计说了下.为了感谢主考官的重视程度.我现在也亲自在电脑上把这个设计实现出来.<br>题目大概是这个意思: 一个咖啡店卖好几种咖啡:摩卡,布列夫,拿铁等等  咖啡有很多搭配:方糖,鲜牛奶,奶油,盐等. 试设计计算出咖啡(+搭配)的单价模型.</p>
 <p>下面来谈谈我的想法</p>
 <h2>一:虚基类 Coffee</h2>
 <p>首先 我抽象出了一个虚基类 Coffee, 什么摩卡 布列夫 拿铁都继承这个类</p>
@@ -151,7 +151,7 @@
 }
 
 @<span class="keyword">end</span></code></pre>
-<p>下面的实现代码大家应该都会写了吧. 其实回头看下 中间下应用到的设计模式 最明显的是 装饰 和 组合 策略</p>
+<p>下面的实现代码大家应该都会写了吧. 其实回头看下 中间应用到的设计模式 最明显的是 装饰 和 组合 策略</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
@@ -516,7 +516,7 @@ __block <span class="built_in">UIImage</span> *image = <span class="literal">nil
 
     <span class="comment">// wait操作-1</span>
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    <span class="comment">//显示图���</span>
+    <span class="comment">//显示图片</span>
     <span class="comment">// signal操作+1</span>
     dispatch_semaphore_signal(semaphore);
 });</code></pre>
@@ -650,7 +650,7 @@ myBlock();
 <ol>
 <li><p>市场上能够承接到的合同项目，利润很小。而高利润的项目则被有权势的人或机构掌控。 </p>
 </li>
-<li><p>项目需求和验收受制于客户。开发过程中���客户会不断变更需求，导致开发方不断修改软件，项目验收被不断地延后，开发方成本（包括机会成本）越来越高。</p>
+<li><p>项目需求和验收受制于客户。开发过程中，客户会不断变���需求，导致开发方不断修改软件，项目验收被不断地延后，开发方成本（包括机会成本）越来越高。</p>
 </li>
 <li><p>缺乏规模复制效益。由于合同项目都是针对特定客户（甲方）的特定需求而签订的，即使做成功了一个合同项目，也很难“复制这个项目”直接卖给下一个客户。</p>
 </li>
@@ -910,7 +910,7 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 <h2>17.恢复本地修改</h2>
 <p>svn revert: 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。revert:<br>用法: revert PATH…<br>注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录</p>
 <h2>18.代码库URL变更</h2>
-<p>svn switch (sw): 更新工作副本至���同的URL。</p>
+<p>svn switch (sw): 更新工作副本至不同的URL。</p>
 <p>用法: </p>
 <ol>
 <li>switch URL [PATH]</li>
