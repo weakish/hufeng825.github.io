@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-09-22T15:00:01.385Z</updated>
+  <updated>2013-09-22T15:02:29.896Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,7 +16,7 @@
     <link href="http://hufeng825.github.com/2013/09/22/ios29/"/>
     <id>http://hufeng825.github.com/2013/09/22/ios29/</id>
     <published>2013-09-22T11:50:03.000Z</published>
-    <updated>2013-09-22T14:47:47.000Z</updated>
+    <updated>2013-09-22T15:01:50.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>Xcode5正式版发布了，全新的ui当然带来了全新的功能。今天阿峰就给大家来介绍下Sprite Kit。</p>
 </blockquote>
@@ -26,7 +26,7 @@
 <a id="more"></a> 
 
 <h2>一、什么是Sprite Kit</h2>
-<p>打开app store 下载最多的的是2D 游戏。比较有名不如 愤怒的小鸟 割绳子啦。 这些游戏之所以能够如此受欢迎跟他们 出色的粒子特效 物理引擎 炫酷的动画 还有漂亮的界面和声音效果离不开。</p>
+<p>打开app store 下载最多的的是2D 游戏。比较有名比如 愤怒的小鸟 割绳子啦。 这些游戏之所以能够如此受欢迎跟他们 出色的粒子特效 物理引擎 炫酷的动画 还有漂亮的界面和声音效果离不开。</p>
 <p>在ios7 发布之前 想要做出这样的游戏 只能依靠第三方的游戏引擎库，比较有名的就是Cocos2d 以及衍生的Cocos2d-X。现在ios7发布了 我们可以不借助第三方工具就可以实现了。Sprite Kit 提供了 包括 动画精灵，形状，粒子（火焰，烟雾），动画，物理效果，音频 视频等。Xcode5 还提供支持了纹理包和粒子设计哦。</p>
 <p>Sprite Kit 可以在逻辑上分为以下的三个部分</p>
 <h3>Scenes(场景)</h3>
