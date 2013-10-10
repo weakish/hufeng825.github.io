@@ -4,10 +4,10 @@
     <link href="/favicon.ico" rel="icon">
     <meta charset="utf-8">
     
-    <title>gitssss | 阿峰的技术窝窝</title>
+    <title>IOS 开发之 CocoaPods讲解 | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="C/C++/Linux/嵌入式/IOS/WEB/JAVA">
+  <meta name="description" content="什么是CocoaPods?看看你的项目吧肯定会用到很多第三方的开源库比如ASISBJsonMBProgressHUD等等.">
   
   
   
@@ -16,7 +16,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="gitssss"/>
+    <meta property="og:title" content="IOS 开发之 CocoaPods讲解"/>
     <meta property="og:site_name" content="阿峰的技术窝窝"/>
 
     
@@ -180,26 +180,105 @@ $(function () {
     <header class="page-header">
         
         <div class="icon"></div>
-        <time datetime="2013-10-09T08:30:00.000Z"><a href="/2013/10/09/gitssss/">2013 10月 9</a></time>
+        <time datetime="2013-10-10T16:53:01.000Z"><a href="/2013/10/11/ios30/">2013 10月 11</a></time>
         
         
 
-<h1 class="title">gitssss</h1>
+<h1 class="title">IOS 开发之 CocoaPods讲解</h1>
 
 
 
     </header>
     <div class="entry" id="post">
-        
+        <h2>什么是CocoaPods?</h2>
+<p>看看你的项目吧,肯定会用到很多第三方的开源库,比如ASI,SBJson,MBProgressHUD等等.<br><a id="more"></a></p>
+<p>比如下面这款APP</p>
+<img src="http://ww4.sinaimg.cn/mw690/a43af4ffjw1e9gkhrfkupj207g0bgdgc.jpg" width="200" height="300">
+
+
+
+<p>用到的库就包含如下这样多 </p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9gki1ovsqj205p09cgm3.jpg" width="200" height="300">
+
+
+<p>随着你的工程越来越大,你引入的第三方的开源库可能会越来越多.这些依赖的开源库维护管理越久越来越困难.于是CocoaPods出现了,它可以帮助管理Xcode项目的依赖关系。(说到这做过java的同学应该想到了maven了吧).<br>你可以定义一个非常简单的文本来管理配置这些依赖 .</p>
+<hr>
+<h2>安装步骤</h2>
+<h3>1.前期工作</h3>
+<p> 因为CocoaPods是基于Ruby的 介于天朝的特殊国情,你如果直接gem install 安装的话 肯定会遇到问题的所以首先你需要吧你的源换下. 换成什么呢?还是感谢下阿里吧.阿里给我们搭建了一个RubyGems 镜像.</p>
+<blockquote>
+<p>由于国内网络原因（你懂的），导致 rubygems.org 存放在 Amazon S3 上面的资源文件间歇性连接失败。所以你会与遇到 gem install rack 或 bundle install 的时候半天没有响应，具体可以用 gem install rails -V 来查看执行过程。<br>这是一个完整 rubygems.org 镜像，你可以用此代替官方版本，同步频率目前为15分钟一次以保证尽量与官方服务同步。</p>
+</blockquote>
+<pre><code>$ gem sources --remove https://rubygems<span class="preprocessor">.org</span>/
+$ gem sources -a http://ruby<span class="preprocessor">.taobao</span><span class="preprocessor">.org</span>/
+$ gem sources -l
+*** CURRENT SOURCES ***
+
+<span class="label">http:</span>//ruby<span class="preprocessor">.taobao</span><span class="preprocessor">.org</span>
+<span class="preprocessor"># 请确保只有 ruby.taobao.org</span></code></pre>
+<h3>2.开始安装</h3>
+<pre><code><span class="variable">$ </span>[sudo] gem install cocoapods
+<span class="variable">$ </span>pod setup    </code></pre>
+<hr>
+<h2>如何使用</h2>
+<h3>1.创建配置文件</h3>
+<p>首先在你的工程下(我创建的是CocoaPodsTest)创建一个空的Podfile文件,这个文件就是用来配置依赖的</p>
+<pre><code><span class="variable">$ </span>vi <span class="constant">Podfile</span></code></pre>
+<h3>2. 保存退出</h3>
+<pre><code><span class="variable">$ </span>wq</code></pre>
+<h3>3. 安装 pod</h3>
+<pre><code><span class="variable">$ </span>pod install</code></pre>
+<p>如果成功后您会看到如下信息</p>
+<img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e9gkg71ll2j20dh06cq3y.jpg" width="300" height="200">
+
+
+<p>并且在你的工程下如多出如下文件</p>
+<img src="http://ww4.sinaimg.cn/mw690/a43af4ffjw1e9gkht6s51j205n048mxa.jpg">
+
+
+<h3>4. 查询确认你要引用的库</h3>
+<p>比如我要引入SBJson 为了确认CocoaPods能不能导入这个库 我需要执行</p>
+<pre><code><span class="variable">$ </span>pod search <span class="constant">SBJson</span></code></pre>
+<p>结果返回了如下信息 则证明可以引入</p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9gkftzdavj20i104bq3r.jpg" width="350" height="300">
+
+
+<h3>5. 加入引入的库</h3>
+<p>打开Podfile配置文件 加上如下内容保存</p>
+<pre><code><span class="title">platform</span> :ios
+<span class="title">pod</span><span class="string"> 'SBJson'</span></code></pre>
+<p>当然你也可以指定特定的版本 例如<br>    pod ‘SBJson’, &#39;~&gt; 3.2&#39;</p>
+<h3>6. 保存更新</h3>
+<pre><code>$ pod <span class="operator"><span class="keyword">update</span></code></pre>
+<p>更新成功后出现如下信息</p>
+<pre><code>Analyzing dependencies
+Downloading dependencies
+Installing SBJson (<span class="number">3.2</span>)
+Generating Pods <span class="keyword">project</span>
+Integrating client <span class="keyword">project</span> </code></pre>
+<p>打开CocoaPodsTest.xcworkspace  此刻会发现已经把我们想要的库下载好了<br>如图</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9gkhxhn3ej207109mwf0.jpg" width="300" height="400">
+
+
+
+<p>6:设置Target头文件索引,第一次使用 需要配置下相应的头文件索引,不然他们虽然在一个工作区下 但是不在同一个项目中也无法直接使用 因此您需要<br>按着下图,进行相应的配置 </p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9gkjbu1t8j20pu06qwfm.jpg">
+
+
+<p>7:ok 大功告成 以后你只要更执行如下命令 就可以更新你引入的所有第三方库了</p>
+<pre><code>$ pod <span class="operator"><span class="keyword">update</span></code></pre>
+<hr>
+<p>更详细的内容可以看下cocoapods的官网哈.<br><a href="http://docs.cocoapods.org/guides/getting_started.html" target="_blank">http://docs.cocoapods.org/guides/getting_started.html</a></p>
+
         <hr />
         <span class="label label-warning">W</span>
-        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/10/09/gitssss/">http://hufeng825.github.com/2013/10/09/gitssss/
+        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/10/11/ios30/">http://hufeng825.github.com/2013/10/11/ios30/
          <hr />
         
   
   <div class="tags">
     <a  href="/tags/技术/">技术</a> ----
-    <a  href="/categories/hexo/">hexo</a>
+    <a  href="/categories/ios/">ios</a>
   </div>
 
     </div>

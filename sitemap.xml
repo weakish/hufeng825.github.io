@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://hufeng825.github.com/2013/10/09/gitssss/</loc>
-    <lastmod>2013-10-09T08:30:00.000Z</lastmod>
+    <loc>http://hufeng825.github.com/2013/10/11/ios30/</loc>
+    <lastmod>2013-10-10T17:28:45.000Z</lastmod>
   </url>
   <url>
     <loc>http://hufeng825.github.com/2013/09/03/git8/</loc>
@@ -61,10 +61,6 @@
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
-    <loc>http://hufeng825.github.com/2013/09/03/svn9/</loc>
-    <lastmod>2013-09-15T05:04:07.000Z</lastmod>
-  </url>
-  <url>
     <loc>http://hufeng825.github.com/2013/09/03/svn5/</loc>
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
@@ -89,6 +85,10 @@
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
+    <loc>http://hufeng825.github.com/2013/09/03/svn9/</loc>
+    <lastmod>2013-09-15T05:04:07.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://hufeng825.github.com/2013/09/03/git10/</loc>
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
@@ -101,11 +101,11 @@
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
-    <loc>http://hufeng825.github.com/2013/09/03/git13/</loc>
+    <loc>http://hufeng825.github.com/2013/09/03/23/</loc>
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
-    <loc>http://hufeng825.github.com/2013/09/03/23/</loc>
+    <loc>http://hufeng825.github.com/2013/09/03/git13/</loc>
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
@@ -117,7 +117,11 @@
     <lastmod>2013-09-15T05:04:07.000Z</lastmod>
   </url>
   <url>
-    <loc>http://hufeng825.github.com/2013/08/29/ios3/</loc>
+    <loc>http://hufeng825.github.com/2013/08/31/ios13/</loc>
+    <lastmod>2013-09-10T15:17:08.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://hufeng825.github.com/2013/09/02/mac1/</loc>
     <lastmod>2013-09-10T15:17:08.000Z</lastmod>
   </url>
   <url>
@@ -141,15 +145,11 @@
     <lastmod>2013-09-10T15:17:08.000Z</lastmod>
   </url>
   <url>
+    <loc>http://hufeng825.github.com/2013/08/29/ios3/</loc>
+    <lastmod>2013-09-10T15:17:08.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://hufeng825.github.com/2013/09/02/git2/</loc>
-    <lastmod>2013-09-10T15:17:08.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://hufeng825.github.com/2013/08/31/ios13/</loc>
-    <lastmod>2013-09-10T15:17:08.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://hufeng825.github.com/2013/09/02/mac1/</loc>
     <lastmod>2013-09-10T15:17:08.000Z</lastmod>
   </url>
   <url>
