@@ -4,13 +4,23 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-10-08T15:17:12.166Z</updated>
+  <updated>2013-10-10T10:04:23.911Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
     <email><![CDATA[hufeng@hufengvip.cn]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[gitssss]]></title>
+    <link href="http://hufeng825.github.com/2013/10/09/gitssss/"/>
+    <id>http://hufeng825.github.com/2013/10/09/gitssss/</id>
+    <published>2013-10-09T08:30:00.000Z</published>
+    <updated>2013-10-09T08:30:00.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
+    <category scheme="http://hufeng825.github.com/categories/hexo/" term="hexo"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[ios7之Sprite Kit vs Cocos2D]]></title>
     <link href="http://hufeng825.github.com/2013/09/22/ios29/"/>
@@ -479,8 +489,8 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 <p>其中有一道是关于是问“你平时上国外的一些网站吗?上那些网站呢?”</p>
 <p>我平时大部分时间就是上stackoverflow.和cocoscontrol github 还有apple 的dev论坛.</p>
 <p>“你们项目中为什么多线程用GCD 而不用NSOperation呢? 你有没有发现国外的大牛他们多线程都是用NSOperation? 你能告诉我他们这样做的理由吗?”</p>
-<p>一下子把我问懵了.我之所以用GCD 是因为GCD用起来比较简单.代码不用分散 比较集中维护度比较高.而且代码的执行效率也要比NSOperation快些. 但是至于国外的大牛们为什么那样做 我还真的不清楚. 后来挂完电话 正好搜狐的家明哥打电话过来 我问了下他.家明哥跟我说他包括他之前在新浪做项目时也是能用GCD的地方就用GCD 尽量减少NSOperation的使用,因为GCD在多核CPU上线程切换的时间比较短 效率相对高些,至于阿里为什么那样,可能每个公司对某个技术有着不同的理解吧.</p>
-<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自���的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法比拟的优势.”</p>
+<p>一下子把我问懵了.我之所以用GCD 是因为GCD用起来比较简单.代码不用分散 比较集中维护度比较高.而且代码的执行效率也要比NSOperation快些. 但是至于国外的大牛们为什么那样做 我还真的不���楚. 后来挂完电话 正好搜狐的家明哥打电话过来 我问了下他.家明哥跟我说他包括他之前在新浪做项目时也是能用GCD的地方就用GCD 尽量减少NSOperation的使用,因为GCD在多核CPU上线程切换的时间比较短 效率相对高些,至于阿里为什么那样,可能每个公司对某个技术有着不同的理解吧.</p>
+<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自己的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法比拟的优势.”</p>
 <p>但是对我来说 我还是倾向于用GCD,正如家明说的 每个公司对相同的技术有着不同的理解吧.</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
@@ -1541,20 +1551,5 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/git/" term="git"/>
     <category scheme="http://hufeng825.github.com/categories/git/svn/" term="svn"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[git错误 git rebase master First, rewinding head to replay your work on top of it... error: The following unt]]></title>
-    <link href="http://hufeng825.github.com/2013/09/03/git12/"/>
-    <id>http://hufeng825.github.com/2013/09/03/git12/</id>
-    <published>2013-09-03T05:39:50.000Z</published>
-    <updated>2013-09-15T05:04:07.000Z</updated>
-    <content type="html"><![CDATA[<p>git rebase master<br>First, rewinding head to replay your work on top of it…<br>error: The following untracked working tree files would be overwritten by checkout:<br><a id="more"></a><br>HFFrame.xcodeproj/project.xcworkspace/xcuserdata/apple.xcuserdatad/UserInterfaceState.xcuserstate<br>Please move or remove them before you can switch branches.<br>Aborting<br>could not detach HEAD</p>
-<p>执行</p>
-<figure class="highlight"><pre><span class="comment">~/Desktop/HFFrame(example)</span> <span class="comment">$</span> <span class="comment">git</span> <span class="comment">clean</span> <span class="literal">-</span><span class="comment">d</span> <span class="literal">-</span><span class="comment">fx</span> <span class="comment">""
-</pre></figure>
-
-]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/git/" term="git"/>
   </entry>
 </feed>
