@@ -4,13 +4,378 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-10-11T12:26:08.230Z</updated>
+  <updated>2013-10-13T18:07:05.384Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
     <email><![CDATA[hufeng@hufengvip.cn]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[如何建立基于CocoaPods的ReactiveCocoa工程]]></title>
+    <link href="http://hufeng825.github.com/2013/10/13/ios31/"/>
+    <id>http://hufeng825.github.com/2013/10/13/ios31/</id>
+    <published>2013-10-13T14:23:32.000Z</published>
+    <updated>2013-10-13T18:05:46.000Z</updated>
+    <content type="html"><![CDATA[<p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.<br><a id="more"></a></p>
+<p>其实不光ios 学习任何一门语音最快最直接的方法就是上手. 如果单单是看看文档只能是走马观花得到一个感性认识罢了.前两天之前一个公司的测试人员跟我联系说如何学习JAVA,我问他是怎么学的,他说从网上下了好多视频教程,一直在看视频教程,也买了一些书. 我问他敲了多少代码,他说很少. 其实跟他一样的人不少. 我觉得任何事情都不简单,因为看起来简单的事情自己没有实际做过的话 往往会遇到各种各样的问题. 这也是为什么在工作中制定项目进度计划的时候 我尽量给自己和团队中的人多争取时间的最主要的一个因素.  </p>
+<p>好了,自己一些啰嗦和感悟. 下面开始正式.</p>
+<hr>
+<h2>What is Reactive Cocoa?</h2>
+<p> RAV is an Object-C framework for Functional Reavtive Programming;<br> 两个关键点:<br> 1:framework 既然是framework 那就跟你用的其他framework没什么区别 无非就是加到工程中引用罢了.不做多余解释<br> 2:Functional Reavtive Programming 实时响应式编程</p>
+<p>虾米引用被阿里收购后现在先上的mac版本的虾米音乐就是用Reactive Cocoa开发的.用阿里人自己的话来说就是</p>
+<blockquote>
+<p>好东西啊，以前我们用 KVO 或 Notification 来自动绑定数据，改用 ReactiveCocoa 写以后，代码结构更佳简单清晰，同时代码行数直接减少 60% 以上</p>
+</blockquote>
+<p>来点直观的对比吧,比如我们想要实现一个需求:当变量中的字符串改变后即时做出相应的反馈 我们用KVO 需要如下这样做</p>
+<figure class="highlight"><pre>// In your viewDidLoad/awakeFromNib/init
+[self addObserver:self 
+       forKeyPath:<span class="decorator">@"someString" </span>
+          options:NSKeyValueObservingOptionNew 
+          context:&someStringChangeContext];
+
+// In dealloc
+[self removeObserver:self 
+          forKeyPath:<span class="decorator">@"someString" </span>
+             context:&someStringChangeContext];
+
+// Elsewhere <span class="keyword">in</span> your <span class="class"><span class="keyword">class</span>
+- <span class="params">(void)</span><span class="title">observeValueForKeyPath</span>:</span>(NSString *)keyPath 
+                      ofObject:(id)object 
+                        change:(NSDictionary *)change 
+                       context:(void *)context
+{
+    <span class="keyword">if</span> (context == &someStringChangeContext) {
+        <span class="keyword">if</span> ([keyPath isEqualToString:<span class="decorator">@"someString"]) {        </span>
+            // Do a bunch of stuff here
+        }
+    }
+}
+</pre></figure>
+
+<p>上面一坨代码 在应用Reactive Cocoa后 只有短短一行</p>
+<figure class="highlight"><pre>[RACObserve(self, someString) distinctUntilChanged] subscribeNext:^(NSString *string) {
+    // <span class="operator"><span class="keyword">Do</span> a bunch <span class="keyword">of</span> things here, just <span class="keyword">like</span> you would <span class="keyword">with</span> KVO
+}];</span>
+</pre></figure>
+
+<h2>开始动手</h2>
+<p>因为我之前安装了<a href="http://hufeng825.github.io/2013/10/11/ios30/" target="_blank">CocoaPods</a>,所以我这次写的ReactiveCocoaDemo 是基于CocoaPods的.如果没有安装的可以童鞋,可以直接从github上下载<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank">ReactiveCocoa</a></p>
+<h3>前期工作:</h3>
+<p>1.打开xcode 创建一个工程,我命名的工程名为ReactiveCocoaDemo,</p>
+<p>2.终端到工程路径下</p>
+<pre><code><span class="title">cd</span> <span class="type">ReactiveCocoaDemo</span>/
+<span class="title">pod</span> search <span class="type">ReactiveCocoa</span></code></pre>
+<p>3.配置依赖文件</p>
+<pre><code><span class="title">vi</span> <span class="type">Podfile</span>
+    platform :ios,'<span class="number">5.0</span>'
+    pod<span class="string"> 'ReactiveCocoa'</span>
+<span class="title">wq</span></code></pre>
+<p>4.下载文件  </p>
+<pre><code> pod install /<span class="operator"><span class="keyword">update</span></code></pre>
+<p>5:打开“Build Phases” 选中相应的target, 添加 RAC 到 “Link Binary With Libraries”.加上libReactiveCocoa-iOS.a</p>
+<p>如下图</p>
+<p>6:在Header Search Paths 中添加$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include&quot; </p>
+<p>7:在  “Other Linker Flags” 添加 -ObjC </p>
+<p>8:在ReactiveCocoaDemo-Prefix.pch 将RAC的头文件加进去 </p>
+<pre><code>#<span class="import"><span class="keyword">import</span> "ReactiveCocoa.h"</span></code></pre>
+<h3>现在要实现如下功能</h3>
+<p>两个输入框 一个提示的Lable 一个按钮,<br>1.当两个输入框的内容相同时 提示文字显示“成功” 按钮可以点击<br>2.当任意一个输入框没有输入内容时 提示文字显示“请输入”  按钮不可点击<br>3.当输入框非空且两个输入内容不同时 提示“请重新输入”  按钮不可点击</p>
+<p>下面是部分实现代码:</p>
+<figure class="highlight"><pre>@weakify(<span class="keyword">self</span>);
+[[RACObserve(<span class="keyword">self</span>, warningText)
+  filter:^(<span class="built_in">NSString</span> *newString) {
+      <span class="keyword">self</span><span class="variable">.resultLabel</span><span class="variable">.text</span> = newString;
+      <span class="keyword">return</span> <span class="literal">YES</span>;
+<span class="comment">//          return [newString hasPrefix:@"Success"];</span>
+  }]
+ subscribeNext:^(<span class="built_in">NSString</span> *newString) {
+     @strongify(<span class="keyword">self</span>);
+     <span class="keyword">self</span><span class="variable">.bt</span><span class="variable">.enabled</span> = [newString hasPrefix:@<span class="string">"Success"</span>];
+ }];
+
+
+RAC(<span class="keyword">self</span>,<span class="keyword">self</span><span class="variable">.warningText</span>) = [RACSignal combineLatest:@[
+RACObserve(<span class="keyword">self</span>,<span class="keyword">self</span><span class="variable">.input</span><span class="variable">.text</span>),RACObserve(<span class="keyword">self</span>, <span class="keyword">self</span><span class="variable">.verifyInput</span><span class="variable">.text</span>)]
+reduce:^(<span class="built_in">NSString</span> *password, <span class="built_in">NSString</span> *passwordConfirm)
+{
+    <span class="keyword">if</span> ([passwordConfirm isEqualToString:password])
+    {
+        <span class="keyword">return</span> @<span class="string">"Success"</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span>([password length] == <span class="number">0</span> || [passwordConfirm length] ==<span class="number">0</span> )
+    {
+        <span class="keyword">return</span> @<span class="string">"Please Input"</span>;
+    }
+    <span class="keyword">else</span>
+    <span class="keyword">return</span> @<span class="string">"Input Error"</span>;
+}
+  ];
+</pre></figure>
+
+<p>对应关系如下图所示</p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9k2n3lrisj20kf0960ty.jpg">
+
+
+<p>学过C++ 的应该觉得这个很类似于Qt中的信号槽机制</p>
+<p><strong>需要说明的是</strong> 因为RAC很大程度上是依赖于Block的.所以在RAC前面我们加上@weakify(my_variable) 避免循环引用,然后在每一个<br>RAC块中为了防止提前释放我们需要用@strongify(my_variable)来对对象进行持有.<a href="https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTScope.h" target="_blank">详情点击</a></p>
+<p>运行效果图如下</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9k2zoesjqj208e069t8m.jpg">
+
+
+
+
+<hr>
+<h2>文档附录</h2>
+<h3>Subscription</h3>
+<p>The [-subscribe…][RACSignal] methods give you access to the current and future values in a signal:</p>
+<figure class="highlight lang-objc"><pre>RACSignal <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence.signal;
+
+<span class="regexp">//</span> Outputs: A B C D
+[letters subscribeNext:^(NSString <span class="variable">*x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+</pre></figure>
+
+<p>For a cold signal, side effects will be performed once <em>per subscription</em>:</p>
+<figure class="highlight lang-objc"><pre>__block <span class="keyword">unsigned</span> subscriptions = <span class="number">0</span>;
+
+RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
+    subscriptions++;
+    [subscriber sendCompleted];
+    <span class="keyword">return</span> <span class="literal">nil</span>;
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// subscription 1</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// subscription 2</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+</pre></figure>
+
+<p>This behavior can be changed using a [connection][Connections].</p>
+<h3>Injecting effects</h3>
+<p>The [-do…][RACSignal+Operations] methods add side effects to a signal without actually<br>subscribing to it:</p>
+<figure class="highlight lang-objc"><pre>__block <span class="keyword">unsigned</span> subscriptions = <span class="number">0</span>;
+
+RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
+    subscriptions++;
+    [subscriber sendCompleted];
+    <span class="keyword">return</span> <span class="literal">nil</span>;
+}];
+
+<span class="comment">// Does not output anything yet</span>
+loggingSignal = [loggingSignal doCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"about to complete subscription %u"</span>, subscriptions);
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// about to complete subscription 1</span>
+<span class="comment">// subscription 1</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+</pre></figure>
+
+<h2>Transforming streams</h2>
+<p>These operators transform a single stream into a new stream.</p>
+<h3>Mapping</h3>
+<p>The [-map:][RACStream] method is used to transform the values in a stream, and<br>create a new stream with the results:</p>
+<figure class="highlight lang-objc"><pre>RACSequence *letters = [<span class="string">@"A B C D E F G H I"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
+
+<span class="comment">// Contains: AA BB CC DD EE FF GG HH II</span>
+RACSequence *mapped = [letters map:^(NSString *<span class="keyword">value</span>) {
+    <span class="keyword">return</span> [<span class="keyword">value</span> stringByAppendingString:<span class="keyword">value</span>];
+}];
+</pre></figure>
+
+<h3>Filtering</h3>
+<p>The [-filter:][RACStream] method uses a block to test each value, including it<br>into the resulting stream only if the test passes:</p>
+<figure class="highlight lang-objc"><pre>RACSequence *numbers = [<span class="string">@"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
+
+<span class="comment">// Contains: 2 4 6 8</span>
+RACSequence *filtered = [numbers filter:^ BOOL (NSString *<span class="keyword">value</span>) {
+    <span class="keyword">return</span> (<span class="keyword">value</span>.intValue % <span class="number">2</span>) == <span class="number">0</span>;
+}];
+</pre></figure>
+
+<h2>Combining streams</h2>
+<p>These operators combine multiple streams into a single new stream.</p>
+<h3>Concatenating</h3>
+<p>The [-concat:][RACStream] method appends one stream&#39;s values to another:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+
+<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence <span class="variable">*concatenated</span> = [letters concat:numbers];
+</pre></figure>
+
+<h3>Flattening</h3>
+<p>The [-flatten][RACStream] operator is applied to a stream-of-streams, and<br>combines their values into a single new stream.</p>
+<p>Sequences are <a href="#concatenating">concatenated</a>:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*sequenceOfSequences</span> = <span class="variable">@[</span> letters, numbers ].rac_sequence;
+
+<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence <span class="variable">*flattened</span> = [sequenceOfSequences flatten];
+</pre></figure>
+
+<p>Signals are <a href="#merging">merged</a>:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
+RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
+RACSignal *signalOfSignals = [RACSignal createSignal:^ RACDisposable * (id&lt;RACSubscriber&gt; subscriber) {
+    [subscriber sendNext:letters]<span class="comment">;</span>
+    [subscriber sendNext:numbers]<span class="comment">;</span>
+    [subscriber sendCompleted]<span class="comment">;</span>
+    return nil<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+RACSignal *flattened = [signalOfSignals flatten]<span class="comment">;</span>
+
+// Outputs: A <span class="number">1</span> B C <span class="number">2</span>
+[flattened subscribeNext:^(NSString *<span class="built_in">x</span>) {
+    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
+</pre></figure>
+
+<h3>Mapping and flattening</h3>
+<p><a href="#flattening">Flattening</a> isn&#39;t that interesting on its own, but understanding<br>how it works is important for [-flattenMap:][RACStream].</p>
+<p><code>-flattenMap:</code> is used to transform each of a stream&#39;s values into <em>a new<br>stream</em>. Then, all of the streams returned will be flattened down into a single<br>stream. In other words, it&#39;s <a href="#mapping">-map:</a> followed by <a href="#flattening">-flatten</a>.</p>
+<p>This can be used to extend or edit sequences:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+
+<span class="regexp">//</span> Contains: <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span> <span class="number">3</span> <span class="number">4</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">6</span> <span class="number">6</span> <span class="number">7</span> <span class="number">7</span> <span class="number">8</span> <span class="number">8</span> <span class="number">9</span> <span class="number">9</span>
+RACSequence <span class="variable">*extended</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
+    <span class="keyword">return</span> <span class="variable">@[</span> num, num ].rac_sequence;
+}];
+
+<span class="regexp">//</span> Contains: <span class="number">1_</span> <span class="number">3_</span> <span class="number">5_</span> <span class="number">7_</span> <span class="number">9_</span>
+RACSequence <span class="variable">*edited</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
+    <span class="keyword">if</span> (num.intValue % <span class="number">2</span> == <span class="number">0</span>) {
+        <span class="keyword">return</span> [RACSequence empty];
+    } <span class="keyword">else</span> {
+        NSString <span class="variable">*newNum</span> = [num stringByAppendingString:<span class="variable">@"</span><span class="number">_</span><span class="string">"];
+        return [RACSequence return:newNum]; 
+    }
+}];
+</pre></figure>
+
+<p>Or create multiple signals of work which are automatically recombined:</p>
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+
+<span class="string">[[letters
+    flattenMap:^(NSString *letter) {
+        return [database saveEntriesForLetter:letter];
+    }]
+    subscribeCompleted:^{
+        NSLog(@"All database entries saved successfully.");
+    }];
+</pre></figure>
+
+<h2>Combining signals</h2>
+<p>These operators combine multiple signals into a single new [RACSignal][].</p>
+<h3>Sequencing</h3>
+<p>[-then:][RACSignal+Operations] starts the original signal,<br>waits for it to complete, and then only forwards the values from a new signal:</p>
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+
+// The new signal only contains: <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+//
+// But when subscribed to, it also outputs: A B C D E F G H I
+RACSignal *sequenced = <span class="string">[[letters
+    doNext:^(NSString *letter) {
+        NSLog(@"%@", letter);
+    }]
+    then:^{
+        return [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence.signal;
+    }];
+</pre></figure>
+
+<p>This is most useful for executing all the side effects of one signal, then<br>starting another, and only returning the second signal&#39;s values.</p>
+<h3>Merging</h3>
+<p>The [+merge:][RACSignal+Operations] method will forward the values from many<br>signals into a single stream, as soon as those values arrive:</p>
+<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
+RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
+RACSignal <span class="variable">*merged</span> = [RACSignal merge:<span class="variable">@[</span> letters, numbers ]];
+
+<span class="regexp">//</span> Outputs: A <span class="number">1</span> B C <span class="number">2</span>
+[merged subscribeNext:^(NSString <span class="variable">*x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+
+[letters sendNext:<span class="variable">@"</span>A"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">1</span><span class="string">"];
+[letters sendNext:<span class="variable">@"</span>B"</span>];
+[letters sendNext:<span class="variable">@"</span>C<span class="string">"];
+[numbers sendNext:<span class="variable">@"</span>2"</span>];
+</pre></figure>
+
+<h3>Combining latest values</h3>
+<p>The [+combineLatest:][RACSignal+Operations] and <code>+combineLatest:reduce:</code> methods<br>will watch multiple signals for changes, and then send the latest values from<br><em>all</em> of them when a change occurs:</p>
+<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
+RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
+RACSignal <span class="variable">*combined</span> = [RACSignal
+    combineLatest:<span class="variable">@[</span> letters, numbers ]
+    reduce:^(NSString <span class="variable">*letter</span>, NSString <span class="variable">*number</span>) {
+        <span class="keyword">return</span> [letter stringByAppendingString:number];
+    }];
+
+<span class="regexp">//</span> Outputs: B1 B2 C2 C3
+[combined subscribeNext:^(id <span class="keyword">x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+
+[letters sendNext:<span class="variable">@"</span>A"</span>];
+[letters sendNext:<span class="variable">@"</span>B<span class="string">"];
+[numbers sendNext:<span class="variable">@"</span>1"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">2</span><span class="string">"];
+[letters sendNext:<span class="variable">@"</span>C"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">3</span><span class="string">"];
+</pre></figure>
+
+<p>Note that the combined signal will only send its first value when all of the<br>inputs have sent at least one. In the example above, <code>@&quot;A&quot;</code> was never<br>forwarded because <code>numbers</code> had not sent a value yet.</p>
+<h3>Switching</h3>
+<p>The [-switchToLatest][RACSignal+Operations] operator is applied to<br>a signal-of-signals, and always forwards the values from the latest signal:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
+RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
+RACSubject *signalOfSignals = [RACSubject subject]<span class="comment">;</span>
+
+RACSignal *switched = [signalOfSignals switchToLatest]<span class="comment">;</span>
+
+// Outputs: A B <span class="number">1</span> D
+[switched subscribeNext:^(NSString *<span class="built_in">x</span>) {
+    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+[signalOfSignals sendNext:letters]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
+
+[signalOfSignals sendNext:numbers]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
+
+[signalOfSignals sendNext:letters]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"D"</span>]<span class="comment">;</span>
+</pre></figure>
+
+]]></content>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[IOS 开发之 CocoaPods讲解]]></title>
     <link href="http://hufeng825.github.com/2013/10/11/ios30/"/>
@@ -121,7 +486,7 @@ Integrating client <span class="keyword">project</span> </code></pre>
 <h3>Scenes(场景)</h3>
 <p>在cocos2d的游戏场景的视觉层。他提供了物体（如树木，汽车，飞机，头像等）的背景。</p>
 <h3>Actions(动作)</h3>
-<p>流畅的动画是游戏的重要组成部分。苹果设计的Actions非常简洁。他可以让你实现你想要做的任何事情。比如说一些常见的动作:移动 淡入淡出 缩放 旋转 动画纹理 组动画等等。 如果这���你还不满足，你可以自己创建一个代码块来实现自己想要的动作来操控对象。</p>
+<p>流畅的动画是游戏的重要组成部分。苹果设计的Actions非常简洁。他可以让你实现你想要做的任何事情。比如说一些常见的动作:移动 淡入淡出 缩放 旋转 动画纹理 组动画等等。 如果这些你还不满足，你可以自己创建一个代码块来实现自己想要的动作来操控对象。</p>
 <h3>Physics(物理引擎)</h3>
 <p>你想让你一个游戏具有很强的现实感，那物理引擎你一定用的到。 不然射出的子弹永远不会落地，橡胶球落地不会弹起来哈。</p>
 <hr>
@@ -248,7 +613,7 @@ Integrating client <span class="keyword">project</span> </code></pre>
     <span class="keyword">return</span> <span class="keyword">self</span>;
 }</code></pre>
 <h3>CCSprite vs. SKSpriteNode</h3>
-<p>精灵对象通常用来显示某种图形。他有如下几种属性：旋转 缩放 位移 框架 等等。Cocos2D 实现如下：</p>
+<p>精灵对象通常用来显示某种图形。他有如下几种属性：旋转 缩放 位移 框架 等等。Cocos2D 实现���下：</p>
 <pre><code>CCSprite* aSprite<span class="comment">;</span>
 aSprite = [CCSprite spriteWithFile:@<span class="string">"player.png"</span>]<span class="comment">;</span>
 aSprite<span class="preprocessor">.scale</span> = <span class="number">.5</span><span class="comment">;</span>
@@ -473,7 +838,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 <p><a href="https://github.com/hufeng825/LockScreenInfo.git" target="_blank">下载源码</a></p>
 <h2>开始动手</h2>
 <h3>让App支持后台运行</h3>
-<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist 中声明属性.<br>添加如下属性</p>
+<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist ���声明属性.<br>添加如下属性</p>
 <p>Required background modes -&gt; App plays audio<br>如下图</p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e8r45ojlcuj20l80a2q4l.jpg" class="left" width="300" height="400">
 
@@ -569,7 +934,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 <p>我平时大部分时间就是上stackoverflow.和cocoscontrol github 还有apple 的dev论坛.</p>
 <p>“你们项目中为什么多线程用GCD 而不用NSOperation呢? 你有没有发现国外的大牛他们多线程都是用NSOperation? 你能告诉我他们这样做的理由吗?”</p>
 <p>一下子把我问懵了.我之所以用GCD 是因为GCD用起来比较简单.代码不用分散 比较集中维护度比较高.而且代码的执行效率也要比NSOperation快些. 但是至于国外的大牛们为什么那样做 我还真的不清楚. 后来挂完电话 正好搜狐的家明哥打电话过来 我问了下他.家明哥跟我说他包括他之前在新浪做项目时也是能用GCD的地方就用GCD 尽量减少NSOperation的使用,因为GCD在多核CPU上线程切换的时间比较短 效率相对高些,至于阿里为什么那样,可能每个公司对某个技术有着不同的理解吧.</p>
-<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自己的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法比拟的优势.”</p>
+<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自己的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法���拟的优势.”</p>
 <p>但是对我来说 我还是倾向于用GCD,正如家明说的 每个公司对相同的技术有着不同的理解吧.</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
@@ -593,7 +958,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
  @<span class="class"><span class="keyword">class</span> <span class="title">DecoratorChain</span>;
 
  @<span class="title">interface</span>  <span class="title">Coffee</span>: <span class="title">NSObject</span>
- @<span class="title">property</span> ( <span class="title">nonatomic</span>,<span class="title">strong</span> ) <span class="title">DecoratorChain</span> *<span class="title">ecoratorRelishChain</span>;//用来存储 奶 方糖 等等的调料 可以把它想象成一个调���盒 
+ @<span class="title">property</span> ( <span class="title">nonatomic</span>,<span class="title">strong</span> ) <span class="title">DecoratorChain</span> *<span class="title">ecoratorRelishChain</span>;//用来存储 奶 方糖 等等的调料 可以把它想象成一个调味盒 
  @<span class="title">property</span> ( <span class="title">nonatomic</span>,<span class="title">strong</span> ) <span class="title">NSDecimalNumber</span> *<span class="title">price</span>;//单价 不含配料
 
  -(<span class="title">NSDecimalNumber</span> *) <span class="title">getTotalPrices</span>;//得到总价
@@ -731,7 +1096,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 
 <p>但是这个问题来了Category 和 Extension 就近又什么区别呢?<br><a id="more"></a></p>
 <h2>1:什么是Category?</h2>
-<p>实现这样一种场景,当我们用我们用NSArray的时候经常会遇到要去重的操作,可是自带的NSArray并没有这个方法,想要用你第一印象是���己写个类继承他,OC 给我们提供了一个方法可以直接在原有的基础上进行扩展.这就Category.分类能够做到的事情主要是：即使在你不知道一个类的源码情况下，向这个类添加扩展的方法。一个类可以有n+个分类,这些分类的实现可以在不同的文件中.</p>
+<p>实现这样一种场景,当我们用我们用NSArray的时候经常会遇到要去重的操作,可是自带的NSArray并没有这个方法,想要用你第一印象是自己写个类继承他,OC 给我们提供了一个方法可以直接在原有的基础上进行扩展.这就Category.分类能够做到的事情主要是：即使在你不知道一个类的源码情况下，向这个类添加扩展的方法。一个类可以有n+个分类,这些分类的实现可以在不同的文件中.</p>
 <p>下面是我写的一个分类</p>
 <p>NSArray+Unique.h</p>
 <pre><code>@<span class="class"><span class="keyword">interface</span> <span class="title">NSArray</span> (<span class="title">Unique</span>)
@@ -850,7 +1215,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 <h2>2:简单的Demo</h2>
 <p>因为GCD 是应用最广的 而且也是苹果现在极力鼓动开发者应用的 所以NSThread NSOperation 只做简单应用</p>
 <h3>1:NSThread</h3>
-<h3>1.1 NSThread 有���种直接创建方式：</h3>
+<h3>1.1 NSThread 有两种直接创建方式：</h3>
 <p>第一个是实例方法—直接创建线程并且开始运行线程</p>
 <ul>
 <li>(id)initWithTarget:(id)target selector:(SEL)selector object:(id)</li>
@@ -955,7 +1320,7 @@ while (true) {
 <ul>
 <li>方法五，NSDistributedLock，分布锁</li>
 </ul>
-<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程<br>用tryLock方法获取锁。<br>用unlock方法释放锁。<br>如果一个获取锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
+<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程<br>用tryLock方法获取锁。<br>用unlock方法释放锁。<br>如果一个获���锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
 <p><strong>本章节(多线程互斥同步问题)参考自:<a href="http://blog.sina.com.cn/s/blog_72819b170101590n.html" target="_blank">http://blog.sina.com.cn/s/blog_72819b170101590n.html</a></strong></p>
 <h2>3:GCD多线程互斥同步问题(阻塞线程的方式去实现同步)</h2>
 <p><a href="http://blog.devtang.com/blog/2012/02/22/use-gcd/" target="_blank">注释3</a></p>
@@ -1086,7 +1451,7 @@ __block <span class="built_in">UIImage</span> *image = <span class="literal">nil
 });</code></pre>
 <p>dispatch_wait会阻塞线程并且检测信号量的值,直到信号量值大于0才会开始往下执行,同时对信号量执行-1操作.<br>dispatch_signal则是+1操作.</p>
 <h3>3.后台运行</h3>
-<p>GCD的另一个用处是可以让程序在后台较长久的运行。在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
+<p>GCD���另一个用处是可以让程序在后台较长久的运行。在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
 <p>让程序在后台长久运行的示例代码如下：</p>
 <figure class="highlight"><pre><span class="comment">// AppDelegate.h文件</span>
 @<span class="keyword">property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) UIBackgroundTaskIdentifier backgroundUpdateTask;
@@ -1216,7 +1581,7 @@ myBlock();
 </li>
 <li><p>项目需求和验收受制于客户。开发过程中，客户会不断变更需求，导致开发方不断修改软件，项目验收被不断地延后，开发方成本（包括机会成本）越来越高。</p>
 </li>
-<li><p>缺乏规模复制效益。由于合同项目都是针对特定客户（甲方）的特定需求而签订的，即使做成功了一个合同项目，也很难“复制这个项目”直接卖给下一个客户。</p>
+<li><p>缺乏规模复制效益。由于合同项目都是针对特定客户（甲方）的特定需求而签订的，即使做成功了一个合同项目，也很难“���制这个项目”直接卖给下一个客户。</p>
 </li>
 </ol>
 <h3>二、开发并销售通用软件产品</h3>
@@ -1252,7 +1617,7 @@ myBlock();
 </pre></figure>
 
 ]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技���"/>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
     <category scheme="http://hufeng825.github.com/categories/ios/mac/" term="mac"/>
   </entry>
@@ -1480,7 +1845,7 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 <li>switch URL [PATH]</li>
 <li><p>switch –relocate FROM TO [PATH…]</p>
 <ul>
-<li><p>更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。</p>
+<li><p>更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者���记的方法。</p>
 </li>
 <li><p>改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系。</p>
 </li>
@@ -1607,28 +1972,5 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/svn/" term="svn"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[mac 开发 git svn 应该添加那些忽略列表]]></title>
-    <link href="http://hufeng825.github.com/2013/09/03/git13/"/>
-    <id>http://hufeng825.github.com/2013/09/03/git13/</id>
-    <published>2013-09-03T05:45:11.000Z</published>
-    <updated>2013-09-15T05:04:07.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>如题，git svn 应该添加那些忽略列表?<br><a id="more"></a></p>
-</blockquote>
-<ol>
-<li>.DS_Store</li>
-<li>build</li>
-<li>*~.nib</li>
-<li>*.so</li>
-<li>*.pbxuser</li>
-<li>*.mode</li>
-<li><em>.perspective</em></li>
-</ol>
-]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/git/" term="git"/>
-    <category scheme="http://hufeng825.github.com/categories/git/svn/" term="svn"/>
   </entry>
 </feed>

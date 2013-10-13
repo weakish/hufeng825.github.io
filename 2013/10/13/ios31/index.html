@@ -1,0 +1,631 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="/favicon.ico" rel="icon">
+    <meta charset="utf-8">
+    
+    <title>如何建立基于CocoaPods的ReactiveCocoa工程 | 阿峰的技术窝窝</title>
+    <meta name="author" content="Jason Hu">
+    
+  <meta name="description" content="ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.">
+  
+  
+  
+    <meta name="keywords" content="技术">
+  
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="如何建立基于CocoaPods的ReactiveCocoa工程"/>
+    <meta property="og:site_name" content="阿峰的技术窝窝"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link href="/favicon.png" rel="icon">
+    <link rel="alternate" href="/atom.xml" title="阿峰的技术窝窝" type="application/atom+xml">
+
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/hexobootstrapcss.css" rel="stylesheet" media="screen">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="/css/hf.css" rel="stylesheet" media="screen">
+    <link href="/css/tab.css" rel="stylesheet" media="screen">
+    <link href="/css/xcode.css" rel="stylesheet" media="screen">
+
+  <!--link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen"-->
+   <!--script src="/fancybox/jquery.fancybox.pack.js"></script>-->
+   <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script> -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.imagesloaded.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.scrollUp.min.js"></script>
+
+    
+ 
+
+
+  <!--  <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script> -->
+    
+    <script type="text/javascript">
+
+
+$(function () {
+      $.scrollUp({
+            scrollName: 'scrollUp', // Element ID
+            scrollDistance: 300, // Distance from top/bottom before showing element (px)
+            scrollFrom: 'top', // 'top' or 'bottom'
+            scrollSpeed: 300, // Speed back to top (ms)
+            easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+            animation: 'fade', // Fade, slide, none
+            animationInSpeed: 200, // Animation in speed (ms)
+            animationOutSpeed: 200, // Animation out speed (ms)
+            scrollText: '▲', // Text for element, can contain HTML
+            scrollTitle: false, // Set a custom <a> title if required. Defaults to scrollText
+            scrollImg: false, // Set true to use image
+            activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+            zIndex: 2147483647 // Z-Index for the overlay
+      });
+    });
+
+        $(document).ready(function () {
+
+            $('.dropdown-toggle').dropdown();
+
+//            $('[data-spy="scroll"]').each(function () {
+//                var $spy = $(this).scrollspy('refresh')
+//            });
+        });
+
+    </script>
+</head>
+<!--[if lt IE 9]>
+    <div class="alert alert-block ie-alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>浏览器版本过低</h4>
+        <br>
+        <p style="text-align:center">你知道不？你还在用几年前的浏览器！这个网页上的有很多好看的东西和动画效果都显示不了！</p>
+        <p style="text-align:center">建议赶快<a href="http://windows.microsoft.com/zh-cn/internet-explorer/downloads/ie-10/worldwide-languages" target="_blank">升级</a>你的浏览器版本或使用 <a href="http://www.google.com/intl/zh-CN/chrome/browser/" target="_blank">Chrome</a> 或 <a href="http://www.apple.com.cn/safari/" target="_blank">Safari</a> 等高级浏览器。</p>
+    </div>
+<![endif]-->
+
+
+<body>
+<!--导航 -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+           <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="brand" >主页</a>
+            <a href="/Jianli.html" class="brand" >简历</a>
+
+            <div class="nav-collapse collapse">
+                <p class="navbar-text pull-right">
+                </p>
+                <ul class="nav">
+                    <!--
+                    <li><a href="/">主页</a></li>
+                     -->
+
+                    <li>
+                    </li>
+                     <li>  <a href="http://blog.csdn.net/hufeng825">CSDN</a>  </li>
+                    <!--
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">其他窝<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+                            <li><a href="http://blog.csdn.net/hufeng825"><i class="icon-tags"></i>csdn
+                            </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    -->
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">标签(2)<b
+                                    class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+                            
+                            <li><a href="/tags/情感/"><i class="icon-book"></i> 情感
+                                <small>2</small>
+                            </a>
+
+                            </li>
+                            
+                            <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
+                                <small>64</small>
+                            </a>
+
+                            </li>
+                            
+                            
+
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="nav pull-right">
+                   <!--form class="navbar-search " action="//google.com/search" method="get" accept-charset="utf-8"-->
+                  <form class="navbar-search " action="/search.html" method="get" accept-charset="utf-8">
+
+                        <input type="text"   class="search-query" name="query" results="0" placeholder="键入你感兴趣的内容吧"  speech=”speech” x-webkit-speech=”x-webkit-speech” x-webkit-grammar=”builtin:translate”>
+                    </form>
+                    <li> 
+                    <a href="/atom.xml">RSS</a> 
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<!-- 内容 -->
+<div class="container-fluid" style="margin-top: 60px">
+    <div class="row-fluid">
+            <div class="span9">
+            <div class="content">
+    <header class="page-header">
+        
+        <div class="icon"></div>
+        <time datetime="2013-10-13T14:23:32.000Z"><a href="/2013/10/13/ios31/">2013 10月 13</a></time>
+        
+        
+
+<h1 class="title">如何建立基于CocoaPods的ReactiveCocoa工程</h1>
+
+
+
+    </header>
+    <div class="entry" id="post">
+        <p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.<br><a id="more"></a></p>
+<p>其实不光ios 学习任何一门语音最快最直接的方法就是上手. 如果单单是看看文档只能是走马观花得到一个感性认识罢了.前两天之前一个公司的测试人员跟我联系说如何学习JAVA,我问他是怎么学的,他说从网上下了好多视频教程,一直在看视频教程,也买了一些书. 我问他敲了多少代码,他说很少. 其实跟他一样的人不少. 我觉得任何事情都不简单,因为看起来简单的事情自己没有实际做过的话 往往会遇到各种各样的问题. 这也是为什么在工作中制定项目进度计划的时候 我尽量给自己和团队中的人多争取时间的最主要的一个因素.  </p>
+<p>好了,自己一些啰嗦和感悟. 下面开始正式.</p>
+<hr>
+<h2>What is Reactive Cocoa?</h2>
+<p> RAV is an Object-C framework for Functional Reavtive Programming;<br> 两个关键点:<br> 1:framework 既然是framework 那就跟你用的其他framework没什么区别 无非就是加到工程中引用罢了.不做多余解释<br> 2:Functional Reavtive Programming 实时响应式编程</p>
+<p>虾米引用被阿里收购后现在先上的mac版本的虾米音乐就是用Reactive Cocoa开发的.用阿里人自己的话来说就是</p>
+<blockquote>
+<p>好东西啊，以前我们用 KVO 或 Notification 来自动绑定数据，改用 ReactiveCocoa 写以后，代码结构更佳简单清晰，同时代码行数直接减少 60% 以上</p>
+</blockquote>
+<p>来点直观的对比吧,比如我们想要实现一个需求:当变量中的字符串改变后即时做出相应的反馈 我们用KVO 需要如下这样做</p>
+<figure class="highlight"><pre>// In your viewDidLoad/awakeFromNib/init
+[self addObserver:self 
+       forKeyPath:<span class="decorator">@"someString" </span>
+          options:NSKeyValueObservingOptionNew 
+          context:&someStringChangeContext];
+
+// In dealloc
+[self removeObserver:self 
+          forKeyPath:<span class="decorator">@"someString" </span>
+             context:&someStringChangeContext];
+
+// Elsewhere <span class="keyword">in</span> your <span class="class"><span class="keyword">class</span>
+- <span class="params">(void)</span><span class="title">observeValueForKeyPath</span>:</span>(NSString *)keyPath 
+                      ofObject:(id)object 
+                        change:(NSDictionary *)change 
+                       context:(void *)context
+{
+    <span class="keyword">if</span> (context == &someStringChangeContext) {
+        <span class="keyword">if</span> ([keyPath isEqualToString:<span class="decorator">@"someString"]) {        </span>
+            // Do a bunch of stuff here
+        }
+    }
+}
+</pre></figure>
+
+<p>上面一坨代码 在应用Reactive Cocoa后 只有短短一行</p>
+<figure class="highlight"><pre>[RACObserve(self, someString) distinctUntilChanged] subscribeNext:^(NSString *string) {
+    // <span class="operator"><span class="keyword">Do</span> a bunch <span class="keyword">of</span> things here, just <span class="keyword">like</span> you would <span class="keyword">with</span> KVO
+}];</span>
+</pre></figure>
+
+<h2>开始动手</h2>
+<p>因为我之前安装了<a href="http://hufeng825.github.io/2013/10/11/ios30/" target="_blank">CocoaPods</a>,所以我这次写的ReactiveCocoaDemo 是基于CocoaPods的.如果没有安装的可以童鞋,可以直接从github上下载<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank">ReactiveCocoa</a></p>
+<h3>前期工作:</h3>
+<p>1.打开xcode 创建一个工程,我命名的工程名为ReactiveCocoaDemo,</p>
+<p>2.终端到工程路径下</p>
+<pre><code><span class="title">cd</span> <span class="type">ReactiveCocoaDemo</span>/
+<span class="title">pod</span> search <span class="type">ReactiveCocoa</span></code></pre>
+<p>3.配置依赖文件</p>
+<pre><code><span class="title">vi</span> <span class="type">Podfile</span>
+    platform :ios,'<span class="number">5.0</span>'
+    pod<span class="string"> 'ReactiveCocoa'</span>
+<span class="title">wq</span></code></pre>
+<p>4.下载文件  </p>
+<pre><code> pod install /<span class="operator"><span class="keyword">update</span></code></pre>
+<p>5:打开“Build Phases” 选中相应的target, 添加 RAC 到 “Link Binary With Libraries”.加上libReactiveCocoa-iOS.a</p>
+<p>如下图</p>
+<p>6:在Header Search Paths 中添加$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include&quot; </p>
+<p>7:在  “Other Linker Flags” 添加 -ObjC </p>
+<p>8:在ReactiveCocoaDemo-Prefix.pch 将RAC的头文件加进去 </p>
+<pre><code>#<span class="import"><span class="keyword">import</span> "ReactiveCocoa.h"</span></code></pre>
+<h3>现在要实现如下功能</h3>
+<p>两个输入框 一个提示的Lable 一个按钮,<br>1.当两个输入框的内容相同时 提示文字显示“成功” 按钮可以点击<br>2.当任意一个输入框没有输入内容时 提示文字显示“请输入”  按钮不可点击<br>3.当输入框非空且两个输入内容不同时 提示“请重新输入”  按钮不可点击</p>
+<p>下面是部分实现代码:</p>
+<figure class="highlight"><pre>@weakify(<span class="keyword">self</span>);
+[[RACObserve(<span class="keyword">self</span>, warningText)
+  filter:^(<span class="built_in">NSString</span> *newString) {
+      <span class="keyword">self</span><span class="variable">.resultLabel</span><span class="variable">.text</span> = newString;
+      <span class="keyword">return</span> <span class="literal">YES</span>;
+<span class="comment">//          return [newString hasPrefix:@"Success"];</span>
+  }]
+ subscribeNext:^(<span class="built_in">NSString</span> *newString) {
+     @strongify(<span class="keyword">self</span>);
+     <span class="keyword">self</span><span class="variable">.bt</span><span class="variable">.enabled</span> = [newString hasPrefix:@<span class="string">"Success"</span>];
+ }];
+
+
+RAC(<span class="keyword">self</span>,<span class="keyword">self</span><span class="variable">.warningText</span>) = [RACSignal combineLatest:@[
+RACObserve(<span class="keyword">self</span>,<span class="keyword">self</span><span class="variable">.input</span><span class="variable">.text</span>),RACObserve(<span class="keyword">self</span>, <span class="keyword">self</span><span class="variable">.verifyInput</span><span class="variable">.text</span>)]
+reduce:^(<span class="built_in">NSString</span> *password, <span class="built_in">NSString</span> *passwordConfirm)
+{
+    <span class="keyword">if</span> ([passwordConfirm isEqualToString:password])
+    {
+        <span class="keyword">return</span> @<span class="string">"Success"</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span>([password length] == <span class="number">0</span> || [passwordConfirm length] ==<span class="number">0</span> )
+    {
+        <span class="keyword">return</span> @<span class="string">"Please Input"</span>;
+    }
+    <span class="keyword">else</span>
+    <span class="keyword">return</span> @<span class="string">"Input Error"</span>;
+}
+  ];
+</pre></figure>
+
+<p>对应关系如下图所示</p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9k2n3lrisj20kf0960ty.jpg">
+
+
+<p>学过C++ 的应该觉得这个很类似于Qt中的信号槽机制</p>
+<p><strong>需要说明的是</strong> 因为RAC很大程度上是依赖于Block的.所以在RAC前面我们加上@weakify(my_variable) 避免循环引用,然后在每一个<br>RAC块中为了防止提前释放我们需要用@strongify(my_variable)来对对象进行持有.<a href="https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTScope.h" target="_blank">详情点击</a></p>
+<p>运行效果���如下</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9k2zoesjqj208e069t8m.jpg">
+
+
+
+
+<hr>
+<h2>文档附录</h2>
+<h3>Subscription</h3>
+<p>The [-subscribe…][RACSignal] methods give you access to the current and future values in a signal:</p>
+<figure class="highlight lang-objc"><pre>RACSignal <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence.signal;
+
+<span class="regexp">//</span> Outputs: A B C D
+[letters subscribeNext:^(NSString <span class="variable">*x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+</pre></figure>
+
+<p>For a cold signal, side effects will be performed once <em>per subscription</em>:</p>
+<figure class="highlight lang-objc"><pre>__block <span class="keyword">unsigned</span> subscriptions = <span class="number">0</span>;
+
+RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
+    subscriptions++;
+    [subscriber sendCompleted];
+    <span class="keyword">return</span> <span class="literal">nil</span>;
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// subscription 1</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// subscription 2</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+</pre></figure>
+
+<p>This behavior can be changed using a [connection][Connections].</p>
+<h3>Injecting effects</h3>
+<p>The [-do…][RACSignal+Operations] methods add side effects to a signal without actually<br>subscribing to it:</p>
+<figure class="highlight lang-objc"><pre>__block <span class="keyword">unsigned</span> subscriptions = <span class="number">0</span>;
+
+RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
+    subscriptions++;
+    [subscriber sendCompleted];
+    <span class="keyword">return</span> <span class="literal">nil</span>;
+}];
+
+<span class="comment">// Does not output anything yet</span>
+loggingSignal = [loggingSignal doCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"about to complete subscription %u"</span>, subscriptions);
+}];
+
+<span class="comment">// Outputs:</span>
+<span class="comment">// about to complete subscription 1</span>
+<span class="comment">// subscription 1</span>
+[loggingSignal subscribeCompleted:^{
+    <span class="built_in">NSLog</span>(@<span class="string">"subscription %u"</span>, subscriptions);
+}];
+</pre></figure>
+
+<h2>Transforming streams</h2>
+<p>These operators transform a single stream into a new stream.</p>
+<h3>Mapping</h3>
+<p>The [-map:][RACStream] method is used to transform the values in a stream, and<br>create a new stream with the results:</p>
+<figure class="highlight lang-objc"><pre>RACSequence *letters = [<span class="string">@"A B C D E F G H I"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
+
+<span class="comment">// Contains: AA BB CC DD EE FF GG HH II</span>
+RACSequence *mapped = [letters map:^(NSString *<span class="keyword">value</span>) {
+    <span class="keyword">return</span> [<span class="keyword">value</span> stringByAppendingString:<span class="keyword">value</span>];
+}];
+</pre></figure>
+
+<h3>Filtering</h3>
+<p>The [-filter:][RACStream] method uses a block to test each value, including it<br>into the resulting stream only if the test passes:</p>
+<figure class="highlight lang-objc"><pre>RACSequence *numbers = [<span class="string">@"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
+
+<span class="comment">// Contains: 2 4 6 8</span>
+RACSequence *filtered = [numbers filter:^ BOOL (NSString *<span class="keyword">value</span>) {
+    <span class="keyword">return</span> (<span class="keyword">value</span>.intValue % <span class="number">2</span>) == <span class="number">0</span>;
+}];
+</pre></figure>
+
+<h2>Combining streams</h2>
+<p>These operators combine multiple streams into a single new stream.</p>
+<h3>Concatenating</h3>
+<p>The [-concat:][RACStream] method appends one stream&#39;s values to another:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+
+<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence <span class="variable">*concatenated</span> = [letters concat:numbers];
+</pre></figure>
+
+<h3>Flattening</h3>
+<p>The [-flatten][RACStream] operator is applied to a stream-of-streams, and<br>combines their values into a single new stream.</p>
+<p>Sequences are <a href="#concatenating">concatenated</a>:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+RACSequence <span class="variable">*sequenceOfSequences</span> = <span class="variable">@[</span> letters, numbers ].rac_sequence;
+
+<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence <span class="variable">*flattened</span> = [sequenceOfSequences flatten];
+</pre></figure>
+
+<p>Signals are <a href="#merging">merged</a>:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
+RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
+RACSignal *signalOfSignals = [RACSignal createSignal:^ RACDisposable * (id&lt;RACSubscriber&gt; subscriber) {
+    [subscriber sendNext:letters]<span class="comment">;</span>
+    [subscriber sendNext:numbers]<span class="comment">;</span>
+    [subscriber sendCompleted]<span class="comment">;</span>
+    return nil<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+RACSignal *flattened = [signalOfSignals flatten]<span class="comment">;</span>
+
+// Outputs: A <span class="number">1</span> B C <span class="number">2</span>
+[flattened subscribeNext:^(NSString *<span class="built_in">x</span>) {
+    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
+</pre></figure>
+
+<h3>Mapping and flattening</h3>
+<p><a href="#flattening">Flattening</a> isn&#39;t that interesting on its own, but understanding<br>how it works is important for [-flattenMap:][RACStream].</p>
+<p><code>-flattenMap:</code> is used to transform each of a stream&#39;s values into <em>a new<br>stream</em>. Then, all of the streams returned will be flattened down into a single<br>stream. In other words, it&#39;s <a href="#mapping">-map:</a> followed by <a href="#flattening">-flatten</a>.</p>
+<p>This can be used to extend or edit sequences:</p>
+<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+
+<span class="regexp">//</span> Contains: <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span> <span class="number">3</span> <span class="number">4</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">6</span> <span class="number">6</span> <span class="number">7</span> <span class="number">7</span> <span class="number">8</span> <span class="number">8</span> <span class="number">9</span> <span class="number">9</span>
+RACSequence <span class="variable">*extended</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
+    <span class="keyword">return</span> <span class="variable">@[</span> num, num ].rac_sequence;
+}];
+
+<span class="regexp">//</span> Contains: <span class="number">1_</span> <span class="number">3_</span> <span class="number">5_</span> <span class="number">7_</span> <span class="number">9_</span>
+RACSequence <span class="variable">*edited</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
+    <span class="keyword">if</span> (num.intValue % <span class="number">2</span> == <span class="number">0</span>) {
+        <span class="keyword">return</span> [RACSequence empty];
+    } <span class="keyword">else</span> {
+        NSString <span class="variable">*newNum</span> = [num stringByAppendingString:<span class="variable">@"</span><span class="number">_</span><span class="string">"];
+        return [RACSequence return:newNum]; 
+    }
+}];
+</pre></figure>
+
+<p>Or create multiple signals of work which are automatically recombined:</p>
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+
+<span class="string">[[letters
+    flattenMap:^(NSString *letter) {
+        return [database saveEntriesForLetter:letter];
+    }]
+    subscribeCompleted:^{
+        NSLog(@"All database entries saved successfully.");
+    }];
+</pre></figure>
+
+<h2>Combining signals</h2>
+<p>These operators combine multiple signals into a single new [RACSignal][].</p>
+<h3>Sequencing</h3>
+<p>[-then:][RACSignal+Operations] starts the original signal,<br>waits for it to complete, and then only forwards the values from a new signal:</p>
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+
+// The new signal only contains: <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+//
+// But when subscribed to, it also outputs: A B C D E F G H I
+RACSignal *sequenced = <span class="string">[[letters
+    doNext:^(NSString *letter) {
+        NSLog(@"%@", letter);
+    }]
+    then:^{
+        return [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence.signal;
+    }];
+</pre></figure>
+
+<p>This is most useful for executing all the side effects of one signal, then<br>starting another, and only returning the second signal&#39;s values.</p>
+<h3>Merging</h3>
+<p>The [+merge:][RACSignal+Operations] method will forward the values from many<br>signals into a single stream, as soon as those values arrive:</p>
+<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
+RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
+RACSignal <span class="variable">*merged</span> = [RACSignal merge:<span class="variable">@[</span> letters, numbers ]];
+
+<span class="regexp">//</span> Outputs: A <span class="number">1</span> B C <span class="number">2</span>
+[merged subscribeNext:^(NSString <span class="variable">*x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+
+[letters sendNext:<span class="variable">@"</span>A"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">1</span><span class="string">"];
+[letters sendNext:<span class="variable">@"</span>B"</span>];
+[letters sendNext:<span class="variable">@"</span>C<span class="string">"];
+[numbers sendNext:<span class="variable">@"</span>2"</span>];
+</pre></figure>
+
+<h3>Combining latest values</h3>
+<p>The [+combineLatest:][RACSignal+Operations] and <code>+combineLatest:reduce:</code> methods<br>will watch multiple signals for changes, and then send the latest values from<br><em>all</em> of them when a change occurs:</p>
+<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
+RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
+RACSignal <span class="variable">*combined</span> = [RACSignal
+    combineLatest:<span class="variable">@[</span> letters, numbers ]
+    reduce:^(NSString <span class="variable">*letter</span>, NSString <span class="variable">*number</span>) {
+        <span class="keyword">return</span> [letter stringByAppendingString:number];
+    }];
+
+<span class="regexp">//</span> Outputs: B1 B2 C2 C3
+[combined subscribeNext:^(id <span class="keyword">x</span>) {
+    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+}];
+
+[letters sendNext:<span class="variable">@"</span>A"</span>];
+[letters sendNext:<span class="variable">@"</span>B<span class="string">"];
+[numbers sendNext:<span class="variable">@"</span>1"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">2</span><span class="string">"];
+[letters sendNext:<span class="variable">@"</span>C"</span>];
+[numbers sendNext:<span class="variable">@"</span><span class="number">3</span><span class="string">"];
+</pre></figure>
+
+<p>Note that the combined signal will only send its first value when all of the<br>inputs have sent at least one. In the example above, <code>@&quot;A&quot;</code> was never<br>forwarded because <code>numbers</code> had not sent a value yet.</p>
+<h3>Switching</h3>
+<p>The [-switchToLatest][RACSignal+Operations] operator is applied to<br>a signal-of-signals, and always forwards the values from the latest signal:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
+RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
+RACSubject *signalOfSignals = [RACSubject subject]<span class="comment">;</span>
+
+RACSignal *switched = [signalOfSignals switchToLatest]<span class="comment">;</span>
+
+// Outputs: A B <span class="number">1</span> D
+[switched subscribeNext:^(NSString *<span class="built_in">x</span>) {
+    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
+}]<span class="comment">;</span>
+
+[signalOfSignals sendNext:letters]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
+
+[signalOfSignals sendNext:numbers]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
+
+[signalOfSignals sendNext:letters]<span class="comment">;</span>
+[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
+[letters sendNext:@<span class="string">"D"</span>]<span class="comment">;</span>
+</pre></figure>
+
+
+        <hr />
+        <span class="label label-warning">W</span>
+        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/10/13/ios31/">http://hufeng825.github.com/2013/10/13/ios31/
+         <hr />
+        
+  
+  <div class="tags">
+    <a  href="/tags/技术/">技术</a> ----
+    <a  href="/categories/ios/">ios</a>
+  </div>
+
+    </div>
+</div>
+           <!--  -->
+            
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"hufeng825"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+
+        </div>
+        <div class="span3 hidden-phone">
+            <div id="menuIndex"></div>
+<script src="/js/jquery.menuindex.js"></script>
+<script type="text/javascript">
+
+    $('#menuIndex').menuIndex({content: '#post'
+        ,ulClass: "span3 nav nav-list widget affix"});
+    $('body').scrollspy({offset:100});
+
+</script>
+            <div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer id="footer" >
+ <div class="navbar navbar-bottom" >
+ <div class="navbar-inner">
+ <br />
+ <div class="row">
+ <div class="span12">  
+ <center>
+<!--版权声明 -->
+<p>
+    
+    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    
+</p>
+ </center>
+ </div>
+
+ </div>
+ </div>
+ </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
