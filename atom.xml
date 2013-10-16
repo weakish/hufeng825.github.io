@@ -4,13 +4,41 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-10-14T13:14:48.492Z</updated>
+  <updated>2013-10-16T15:55:05.903Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
     <email><![CDATA[hufeng@hufengvip.cn]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[mac下如何看凤凰卫视直播]]></title>
+    <link href="http://hufeng825.github.com/2013/10/16/mac5/"/>
+    <id>http://hufeng825.github.com/2013/10/16/mac5/</id>
+    <published>2013-10-16T14:23:30.000Z</published>
+    <updated>2013-10-16T15:54:17.000Z</updated>
+    <content type="html"><![CDATA[<p>本人算是凤凰卫视的直播控吧,之前通过<a href="http://360kan.pptv.com/live/ahws/?site=pptv" target="_blank">360电视直播</a>看凤凰卫视,但是因为版权现在360直播现在把凤凰给下线了.<br><a id="more"></a></p>
+<h2>攻城狮的方法</h2>
+<p>于是跟在凤凰的兄弟要了他们的直播源,然后充分发挥自己攻城狮的优势动手编写了一个mac上的应用.<br>程序没什么技术含量,对我来说够用就行.<br><a href="http://download.csdn.net/detail/hufeng825/6410419" target="_blank">代码上传到csdn上了</a>有需要的朋友可以去看看.</p>
+<p>运行效果如图:</p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9ngc18tzyj20ev0cxgn0.jpg">
+
+
+<h2>mac小白可以用的方法</h2>
+<p>其实可以不用像我这样麻烦可以直接用ALC这个播放器<br>具体步骤如下图<br>1:commadn + N 在打开的界面把直播的源地址添加进去</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9nghxpcbcj20j40ect9w.jpg">
+
+
+<p>2:打开属性 可以修改频道名称如图</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9ngc3ppxej20ky0i40uo.jpg">
+
+
+<p>3:ok 可以播放了</p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e9ngc8k2juj20ky0i4q4a.jpg">
+]]></content>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
+    <category scheme="http://hufeng825.github.com/categories/mac/" term="mac"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[如何建立基于CocoaPods的ReactiveCocoa工程]]></title>
     <link href="http://hufeng825.github.com/2013/10/13/ios31/"/>
@@ -81,7 +109,7 @@
 <pre><code>#<span class="import"><span class="keyword">import</span> "ReactiveCocoa.h"</span></code></pre>
 <h3>现在要实现如下功能</h3>
 <p>两个输入框 一个提示的Lable 一个按钮,<br>1.当两个输入框的内容相同时 提示文字显示“成功” 按钮可以点击<br>2.当任意一个输入框没有输入内容时 提示文字显示“请输入”  按钮不可点击<br>3.当输入框非空且两个输入内容不同时 提示“请重新输入”  按钮不可点击</p>
-<p>下面是部分实现代码:</p>
+<p>下面是部���实现代码:</p>
 <figure class="highlight"><pre>@weakify(<span class="keyword">self</span>);
 [[RACObserve(<span class="keyword">self</span>, warningText)
   filter:^(<span class="built_in">NSString</span> *newString) {
@@ -613,7 +641,7 @@ Integrating client <span class="keyword">project</span> </code></pre>
     <span class="keyword">return</span> <span class="keyword">self</span>;
 }</code></pre>
 <h3>CCSprite vs. SKSpriteNode</h3>
-<p>精灵对象通常用来显示某种图形。他有如下几种属性：旋转 缩放 位移 框架 等等。Cocos2D 实现���下：</p>
+<p>精灵对象通常用来显示某种图形。他有如下几种属性：旋转 缩放 位移 框架 等等。Cocos2D 实现如下：</p>
 <pre><code>CCSprite* aSprite<span class="comment">;</span>
 aSprite = [CCSprite spriteWithFile:@<span class="string">"player.png"</span>]<span class="comment">;</span>
 aSprite<span class="preprocessor">.scale</span> = <span class="number">.5</span><span class="comment">;</span>
@@ -672,7 +700,7 @@ gameScene <span class="method">setPosition:</span><span class="class">CGPointMak
 <p>上面代码做了下面几件事情</p>
 <ol>
 <li>激活触摸时间</li>
-<li>将敲击的坐标转换成内部坐标</li>
+<li>将敲击的坐标转换成���部坐标</li>
 <li>验证敲击的坐标是否在SKLabelNode的动画场景内</li>
 <li>创建过渡动画</li>
 <li>转换场景</li>
@@ -838,7 +866,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 <p><a href="https://github.com/hufeng825/LockScreenInfo.git" target="_blank">下载源码</a></p>
 <h2>开始动手</h2>
 <h3>让App支持后台运行</h3>
-<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist ���声明属性.<br>添加如下属性</p>
+<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist 中声明属性.<br>添加如下属性</p>
 <p>Required background modes -&gt; App plays audio<br>如下图</p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e8r45ojlcuj20l80a2q4l.jpg" class="left" width="300" height="400">
 
@@ -929,12 +957,12 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
     <id>http://hufeng825.github.com/2013/09/18/ios26/</id>
     <published>2013-09-18T05:31:04.000Z</published>
     <updated>2013-09-18T06:32:31.000Z</updated>
-    <content type="html"><![CDATA[<p>今天早上接到了阿里从杭州打过来的电话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有“IT界的黄浦军校”的阿里面试官接触还是不免紧张.<br><a id="more"></a><br>面试持续了三四十分钟吧,期间我手机信号不好挂断了一次,大部分问题都是更加简历上的项目经验而来的,个人感觉问的不算太难但是却很深入,很明显不是能够背几道面试题能够搞定的.而且每个题基本上都跟优化设计和性能相关.</p>
+    <content type="html"><![CDATA[<p>今天早上接到了阿里从杭州打过来的���话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有“IT界的黄浦军校”的阿里面试官接触还是不免紧张.<br><a id="more"></a><br>面试持续了三四十分钟吧,期间我手机信号不好挂断了一次,大部分问题都是更加简历上的项目经验而来的,个人感觉问的不算太难但是却很深入,很明显不是能够背几道面试题能够搞定的.而且每个题基本上都跟优化设计和性能相关.</p>
 <p>其中有一道是关于是问“你平时上国外的一些网站吗?上那些网站呢?”</p>
 <p>我平时大部分时间就是上stackoverflow.和cocoscontrol github 还有apple 的dev论坛.</p>
 <p>“你们项目中为什么多线程用GCD 而不用NSOperation呢? 你有没有发现国外的大牛他们多线程都是用NSOperation? 你能告诉我他们这样做的理由吗?”</p>
 <p>一下子把我问懵了.我之所以用GCD 是因为GCD用起来比较简单.代码不用分散 比较集中维护度比较高.而且代码的执行效率也要比NSOperation快些. 但是至于国外的大牛们为什么那样做 我还真的不清楚. 后来挂完电话 正好搜狐的家明哥打电话过来 我问了下他.家明哥跟我说他包括他之前在新浪做项目时也是能用GCD的地方就用GCD 尽量减少NSOperation的使用,因为GCD在多核CPU上线程切换的时间比较短 效率相对高些,至于阿里为什么那样,可能每个公司对某个技术有着不同的理解吧.</p>
-<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自己的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法���拟的优势.”</p>
+<p>跟明哥挂了电话 我给对方回过去,到底为什么? 对方笑着问我:“你用GCD在ASI上封装的那层网络请求 为什么后来有创建了自己的一个队列对维护这些请求?NSOperation是建立在GCD之上的 虽然使用起来比较复杂 但是在线程并发管理 优先级 上有着GCD 无法比拟的优势.”</p>
 <p>但是对我来说 我还是倾向于用GCD,正如家明说的 每个公司对相同的技术有着不同的理解吧.</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
@@ -1161,7 +1189,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 }  
 
 @<span class="keyword">end</span> </code></pre>
-<p><strong>虽然它们的语法的确很相似。虽然都可以用来为一个现有的类添加方法和属性，但它们的目的和行为却是不同的。</strong></p>
+<p><strong>虽然它们的语法的确很相似。虽然都可以用来为一个现有的类添加方法和���性，但它们的目的和行为却是不同的。</strong></p>
 <h2>Class extensions注意事项:</h2>
 <ol>
 <li><p>可以定义属性(实例变量)</p>
@@ -1270,7 +1298,7 @@ NSInvocationOperation *operation = <span class="string">[[NSInvocationOperation 
 <ul>
 <li>方法二，NSLock</li>
 </ul>
-<p>NSLock对象实现了NSLocking protocol，包含几个方法：<br>lock，加锁<br>unlock，解锁<br>tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO<br>lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO<br>比如<br>：<br>    NSLock *theLock = [[NSLock alloc] init]; </p>
+<p>NSLock对象实现了NSLocking protocol���包含几个方法：<br>lock，加锁<br>unlock，解锁<br>tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO<br>lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO<br>比如<br>：<br>    NSLock *theLock = [[NSLock alloc] init]; </p>
 <pre><code>if ([the<span class="operator"><span class="keyword">Lock</span> <span class="keyword">lock</span>]) {
 
 //<span class="keyword">do</span> something here
@@ -1320,7 +1348,7 @@ while (true) {
 <ul>
 <li>方法五，NSDistributedLock，分布锁</li>
 </ul>
-<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程<br>用tryLock方法获取锁。<br>用unlock方法释放锁。<br>如果一个获���锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
+<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程<br>用tryLock方法获取锁。<br>用unlock方法释放锁。<br>如果一个获取锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
 <p><strong>本章节(多线程互斥同步问题)参考自:<a href="http://blog.sina.com.cn/s/blog_72819b170101590n.html" target="_blank">http://blog.sina.com.cn/s/blog_72819b170101590n.html</a></strong></p>
 <h2>3:GCD多线程互斥同步问题(阻塞线程的方式去实现同步)</h2>
 <p><a href="http://blog.devtang.com/blog/2012/02/22/use-gcd/" target="_blank">注释3</a></p>
@@ -1418,7 +1446,7 @@ dispatch_group_notify(<span class="keyword">group</span>, queue, ^{
 
 <span class="comment">// 释放掉</span>
 dispatch_release(<span class="keyword">group</span>);</code></pre>
-<p>dispatch_group 也要手动创建和释放.<br>dispatch_notify()提供了一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
+<p>dispatch_group 也要手动创建和释放.<br>dispatch_notify()提供���一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
 <h3>4.信号量</h3>
 <p>信号量 和 琐 的作用差不多,可以用来实现同步的方式.<br>但是信号量通常用在 允许几个线程同时访问一个资源,通过信号量来控制访问的线程个数.</p>
 <p>// 信号量初始化为1<br>    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</p>
@@ -1451,7 +1479,7 @@ __block <span class="built_in">UIImage</span> *image = <span class="literal">nil
 });</code></pre>
 <p>dispatch_wait会阻塞线程并且检测信号量的值,直到信号量值大于0才会开始往下执行,同时对信号量执行-1操作.<br>dispatch_signal则是+1操作.</p>
 <h3>3.后台运行</h3>
-<p>GCD���另一个用处是可以让程序在后台较长久的运行。在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
+<p>GCD的另一个用处是可以让程序在后台较长久的运行。在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
 <p>让程序在后台长久运行的示例代码如下：</p>
 <figure class="highlight"><pre><span class="comment">// AppDelegate.h文件</span>
 @<span class="keyword">property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) UIBackgroundTaskIdentifier backgroundUpdateTask;
@@ -1581,7 +1609,7 @@ myBlock();
 </li>
 <li><p>项目需求和验收受制于客户。开发过程中，客户会不断变更需求，导致开发方不断修改软件，项目验收被不断地延后，开发方成本（包括机会成本）越来越高。</p>
 </li>
-<li><p>缺乏规模复制效益。由于合同项目都是针对特定客户（甲方）的特定需求而签订的，即使做成功了一个合同项目，也很难“���制这个项目”直接卖给下一个客户。</p>
+<li><p>缺乏规模复制效益。由于合同项目都是针对特定客户（甲方）的特定需求而签订的，即使做成功了一个合同项目，也很难“复制这个项目”直接卖给下一个客户。</p>
 </li>
 </ol>
 <h3>二、开发并销售通用软件产品</h3>
@@ -1845,7 +1873,7 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 <li>switch URL [PATH]</li>
 <li><p>switch –relocate FROM TO [PATH…]</p>
 <ul>
-<li><p>更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者���记的方法。</p>
+<li><p>更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。</p>
 </li>
 <li><p>改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系。</p>
 </li>
@@ -1953,22 +1981,6 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 </pre></figure>
 
 <p>此步骤将恢复后的111版本提交，但是此时的版本号为113</p>
-]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/svn/" term="svn"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[svn错误：SVN remains in conflict?]]></title>
-    <link href="http://hufeng825.github.com/2013/09/03/svn3/"/>
-    <id>http://hufeng825.github.com/2013/09/03/svn3/</id>
-    <published>2013-09-03T05:49:56.000Z</published>
-    <updated>2013-09-15T05:04:07.000Z</updated>
-    <content type="html"><![CDATA[<p>解决如下:</p>
-<figure class="highlight"><pre><span class="comment">svn</span> <span class="comment">remove</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">force</span> <span class="comment">yourfilename</span>
-<span class="comment">svn</span> <span class="comment">resolve</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">accept=working</span>  <span class="comment">yourfilename</span>
-<span class="comment">svn</span> <span class="comment">commit</span> <span class="literal">-</span><span class="comment">m</span> <span class="comment">""
-</pre></figure>
-
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/svn/" term="svn"/>

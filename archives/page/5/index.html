@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>64</small>
+                                <small>65</small>
                             </a>
 
                             </li>
@@ -178,6 +178,36 @@ $(function () {
     <header>
         <!--div class="icon"></div-->
         <span class="badge badge-warning">
+        <time datetime="2013-09-02T00:23:19.000Z"><a href="/2013/09/02/ios15/" style="color:#FFFFFF">2013 9月 2</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/09/02/ios15/">如何禁用禁用uwebiview 的反弹功能(bounces)</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
+<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
+  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
+    ((UIScrollView *)subview).bounces = NO;</code></pre>
+<p>// iOS 5+</p>
+<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
         <time datetime="2013-09-02T00:18:20.000Z"><a href="/2013/09/02/ios14/" style="color:#FFFFFF">2013 9月 2</a></time>
         </span>
         
@@ -189,7 +219,7 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>每个app 难免要���NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦<br>
+        <p>每个app 难免要在NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦<br>
         
     </div>
     <footer>
@@ -463,35 +493,6 @@ for (int ii = 0; ii &lt; 10; ++ii)
         
         <div class="alignleft">
             <a href="/2013/08/29/ios7/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-29T10:44:36.000Z"><a href="/2013/08/29/ios6/" style="color:#FFFFFF">2013 8月 29</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/29/ios6/">ios iphone5 适配 之 如何使app 适用不通分辨率</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <p>iphone5适配 有如下集中种思路</p>
-
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/29/ios6/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>

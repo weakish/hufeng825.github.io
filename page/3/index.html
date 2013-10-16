@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>64</small>
+                                <small>65</small>
                             </a>
 
                             </li>
@@ -191,6 +191,10 @@ $(function () {
   <ul class="entry">
     
       <li>
+        <a href="/2013/10/16/mac5/">mac下如何看凤凰卫视直���</a>
+      </li>
+    
+      <li>
         <a href="/2013/10/13/ios31/">如何建立基于CocoaPods的ReactiveCocoa工程</a>
       </li>
     
@@ -204,10 +208,6 @@ $(function () {
     
       <li>
         <a href="/2013/09/18/ios28/">ios开发之MPNowPlayingInfoCenter 锁屏显示正在播放的音乐</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/18/ios26/">阿里IOS面试题之多线程选用NSOperation or GCD</a>
       </li>
     
   </ul>
@@ -230,6 +230,8 @@ $(function () {
   
     <li><a href="/categories/ios/mac/">mac</a><small> (5)</small></li>
   
+    <li><a href="/categories/mac/">mac</a><small> (1)</small></li>
+  
     <li><a href="/categories/git/svn/">svn</a><small> (3)</small></li>
   
     <li><a href="/categories/svn/">svn</a><small> (7)</small></li>
@@ -250,6 +252,36 @@ $(function () {
 
         </div>
         <div class="span9 panel">
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-03T05:49:56.000Z"><a href="/2013/09/03/svn3/" style="color:#FFFFFF">2013 9月 3</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/09/03/svn3/">svn错误：SVN remains in conflict?</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>解决如下:</p>
+<figure class="highlight"><pre><span class="comment">svn</span> <span class="comment">remove</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">force</span> <span class="comment">yourfilename</span>
+<span class="comment">svn</span> <span class="comment">resolve</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">accept=working</span>  <span class="comment">yourfilename</span>
+<span class="comment">svn</span> <span class="comment">commit</span> <span class="literal">-</span><span class="comment">m</span> <span class="comment">""
+</pre></figure>
+
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
             
             <div class="content">
     <header>
@@ -510,34 +542,6 @@ $(function () {
         
         <div class="alignleft">
             <a href="/2013/09/03/git6/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-09-03T01:50:37.000Z"><a href="/2013/09/03/git5/" style="color:#FFFFFF">2013 9月 3</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/09/03/git5/">git系列教程之 修改远程仓库地址 modify remote url</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <p>某天突然IT部门告之服务器要换地址了，本地有clone出来的git厍，则需要修改一下origin的地址，以便能继续push和pull，方法是，在命令行项目所在目录下执行：<br>
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/09/03/git5/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>
