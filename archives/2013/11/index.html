@@ -4,19 +4,16 @@
     <link href="/favicon.ico" rel="icon">
     <meta charset="utf-8">
     
-    <title>git 系类教程之 log显示 | 阿峰的技术窝窝</title>
+    <title> | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="查看log是程序员常用的操作之一不要以为一个git log了事下面介绍下git log 的高级操作.">
+  <meta name="description" content="C/C++/Linux/嵌入式/IOS/WEB/JAVA">
   
-  
-  
-    <meta name="keywords" content="技术">
   
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="git 系类教程之 log显示"/>
+    
     <meta property="og:site_name" content="阿峰的技术窝窝"/>
 
     
@@ -175,84 +172,71 @@ $(function () {
 <!-- 内容 -->
 <div class="container-fluid" style="margin-top: 60px">
     <div class="row-fluid">
-            <div class="span9">
+        <div class="span9 panel">
+            
             <div class="content">
-    <header class="page-header">
-        
-        <div class="icon"></div>
-        <time datetime="2013-09-02T09:59:59.000Z"><a href="/2013/09/02/git2/">2013 9月 2</a></time>
-        
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-11-06T06:16:04.000Z"><a href="/2013/11/06/iosdynamics0/" style="color:#FFFFFF">2013 11月 6</a></time>
+        </span>
         
 
-<h1 class="title">git 系类教程之 log显示</h1>
+<h1 class="title"><a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系列教程之Gravity+Collision</a></h1>
 
 
 
     </header>
-    <div class="entry" id="post">
-        <p>查看log是程序员常用的操作之一,不要以为一个git log了事,下面介绍下git log 的高级操作.<br><a id="more"></a></p>
-<ol>
-<li><p>显示所有提交记录的包括提交时间 提交人员联系方式等等: git log</p>
-</li>
-<li><p>显示所有提交记录 只显示提交信息: git shortlog</p>
-</li>
-<li><p>显⽰示版本历史,以及版本间的内容差异:git log -p</p>
-</li>
-<li><p>只显⽰示最近⼀一次提交:git log -1</p>
-</li>
-<li><p>显⽰示最近的20个提交:以及版本间的内容差异:git log -20 -p</p>
-</li>
-<li><p>显⽰示最近6⼩小时的提交:git log —since=“6 hours”</p>
-</li>
-<li><p>显⽰示两天之前的提交:git log —before=“2 days”</p>
-</li>
-</ol>
-
-        <hr />
-        <span class="label label-warning">W</span>
-        本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/02/git2/">http://hufeng825.github.com/2013/09/02/git2/
-         <hr />
+    <div class="entry">
         
-  
-  <div class="tags">
-    <a  href="/tags/技术/">技术</a> ----
-    <a  href="/categories/git/">git</a>
-  </div>
-
+        <p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是“既视感”不强.<br>
+        
     </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/11/06/iosdynamics0/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
 </div>
-           <!--  -->
+
             
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
+            <!-- 分页 -->
+			<script src="/js/jquery.pagination.js"></script>
 <script type="text/javascript">
-var duoshuoQuery = {short_name:"hufeng825"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
+    var fistRun = true;
+    function pageselectCallback(page_index, jq) {
+        if(fistRun){
+            fistRun = false;
+        }else{
+            if(page_index === 0){
+                window.location.href = "/";
+            }else{
+                window.location.href = "/page/" + (page_index + 1) + "/";
+            }
+            console.log("xxx-->" + page_index);
+        }
+    }
+
+    $(document).ready(function () {
+        var totalPage = '1' * '10';
+        var currentPage = '1' - 1;
+        $("#Pagination").pagination(totalPage, {
+            items_per_page: '10',
+            current_page: currentPage,
+            callback: pageselectCallback
+        });
+    });
+</script>
+<div class="pagination pagination-centered " id="Pagination" >
+</div>
+
 
 
         </div>
         <div class="span3 hidden-phone">
-            <div id="menuIndex"></div>
-<script src="/js/jquery.menuindex.js"></script>
-<script type="text/javascript">
-
-    $('#menuIndex').menuIndex({content: '#post'
-        ,ulClass: "span3 nav nav-list widget affix"});
-    $('body').scrollspy({offset:100});
-
-</script>
-            <div>
         </div>
-
     </div>
 
 </div>

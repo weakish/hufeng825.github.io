@@ -4,13 +4,251 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-10-16T15:55:05.903Z</updated>
+  <updated>2013-11-08T06:53:17.735Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
     <email><![CDATA[hufeng@hufengvip.cn]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[ios UIKit Dynamics 系列教程之Gravity+Collision]]></title>
+    <link href="http://hufeng825.github.com/2013/11/06/iosdynamics0/"/>
+    <id>http://hufeng825.github.com/2013/11/06/iosdynamics0/</id>
+    <published>2013-11-06T06:16:04.000Z</published>
+    <updated>2013-11-08T06:51:58.000Z</updated>
+    <content type="html"><![CDATA[<p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是“既视感”不强.<br><a id="more"></a></p>
+<p>理论性的东西不太擅长.引用<a href="http://onevcat.com/2013/06/uikit-dynamics-started/" target="_blank">onevcat</a>老师的博客.</p>
+<h2>UIKitUIKit动力架构：</h2>
+<h3>1 UIDynamicItem；</h3>
+<p>Dynamic的协议对象</p>
+<h3>2 UIDynamicBehavior：</h3>
+<p>动力行为的描述，用来指定UIDynamicItem应该如何运动，即定义适用的物理规则；</p>
+<p>其下面又有几种行为</p>
+<ol>
+<li><p>吸附行为（UIAttachmentBehavior）： 有一个对象UIAttachmentBehavior，该对象用来指定两个动力项（项或点）之间的连接，当一个项或者点移动时，吸附的项也随之移动。当然，这个连接并不是完全是静态的（static），吸附的项有两个属性damping(阻尼)和oscillation(震荡)，这两个属性决定了吸附项的行为是如何随时间而变化的。</p>
+</li>
+<li><p>碰撞行为（UICollisionBehavior）： 通过对象UICollisionBehavior指定一个边界，并且让各个动力项，在该边界内参与碰撞。UICollisionBehavior对象还可以指定这些动力项适当的回应碰撞。</p>
+</li>
+<li><p>重力行为（UIGravityBehavior）： 通过对象UIGravityBehavior给动力项指定一个重力矢量，具有重力矢量的动力项，会在重力矢量的方向上一直加速，直到与别的动力项产生了冲突或者，遇到了边界。</p>
+</li>
+<li><p>推动行为（UIPushBehavior）： 通过对象UIPushBehavior给动力项指定一个持续的或者瞬时的力（force vector）。</p>
+</li>
+<li><p>捕捉行为（UISnapBehavior）： 通过对象UISnapBehavior给动力项指定一个捕捉点。动力项会根据配置的效果，来抓住这一捕捉点。</p>
+</li>
+</ol>
+<p>当动力行为被添加到animator（UIDynamicAnimator类的实例对象）时，动力行为就被激活。animator为动力行为的执行提供了上下文。动力项可以以组合形式出现,只要添加到同一个animator中即可。</p>
+<h3>3 UIDynamicAnimator；</h3>
+<p>动画的播放者，动力行为（UIDynamicBehavior）的容器，添加到容器内的行为将发挥作用；</p>
+<h3>4 ReferenceView：</h3>
+<p>等同于力学参考系，</p>
+<p>只有当想要添加力学的UIView是ReferenceView的子view时，动力UI才发生作用。</p>
+<hr>
+<p>下面开始动手来做<br>比如我们要实现下面的功能</p>
+<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1eadm5jtkwkg208z0dwb29.gif" class="center">
+
+
+
+<ol>
+<li>首先创建 我们的animatior</li>
+</ol>
+<figure class="highlight"><pre>UIDynamicAnimator *animator = <span class="string">[[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+</pre></figure>
+
+<ol>
+<li>对你想要进行动画的 item 添加上想要的物理行为 下面 我对square1 分别添加了 重力和碰撞还有吸附引擎.</li>
+</ol>
+<figure class="highlight"><pre>UIGravityBehavior *gravityBeahvior = <span class="string">[[UIGravityBehavior alloc] initWithItems:@[self.square1]]</span>;
+UICollisionBehavior *collisionBehavior = <span class="string">[[UICollisionBehavior alloc] initWithItems:@[self.square1]]</span>;
+
+CGPoint anchorPoint = CGPointMake(self.square1.center.x, self.square1.center.y - <span class="number">110.0</span>);
+UIAttachmentBehavior *attachmentBehavior = <span class="string">[[UIAttachmentBehavior alloc] initWithItem:self.square1 attachedToAnchor:anchorPoint];
+
+//anchorPoint 为描点 及Beahvior相对应的作力点
+</pre></figure>
+
+<ol>
+<li>激活碰撞引擎的边界属性</li>
+</ol>
+<figure class="highlight"><pre>collisionBehavior<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;
+</pre></figure>
+
+<p>他的边界是针对于你设置的animator中的referenceView而定的,即self.view  当然我们也可以自定义某一个区域作为碰撞边界</p>
+<figure class="highlight"><pre><span class="title">[collisionBehavior setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, 0, 100.0, 100.0)]</span><span class="comment">;</span>
+</pre></figure>
+
+<p>这样子还不能满足你的需求 cocoa 还提供了添加UIBezierPath的方法 addBoundaryWithIdentifier:forPath:和添加一条线段为边界的 addBoundaryWithIdentifier:fromPoint:toPoint 方法</p>
+<p>4: 为了方便显示 我们给square1添加一个imageView, 然后设置图片的渲染属性 这样子我们可以很方便的改变图片的颜色用以</p>
+<p>self.square1ImageView.image = [self.square1ImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];</p>
+<p>5:设置震荡频率和阻尼</p>
+<figure class="highlight"><pre>// These parameters <span class="operator"><span class="keyword">set</span> the attachment <span class="keyword">in</span> spring mode, instead <span class="keyword">of</span> a rigid
+// <span class="keyword">connection</span>.
+[attachmentBehavior setFrequency:<span class="number">.5</span>];</span>
+[attachmentBehavior setDamping:0.2];
+</pre></figure>
+
+<p>6: 为了更清楚的显示描点 和 item 显示的作用力 我们用绳子来展示</p>
+<p>实现机制很简单 就是用绳子图片进行拼接 然后KVO 描点和item的运动轨迹 动态刷新 </p>
+<figure class="highlight"><pre><span class="literal">-</span> <span class="comment">(void)trackAndDrawAttachmentFromView:(UIView*)attachmentPointView</span> <span class="comment">toView:(UIView*)attachedView</span> <span class="comment">withAttachmentOffset:(CGPoint)attachmentOffset</span>
+<span class="comment">{</span>
+    <span class="comment">if</span> <span class="comment">(!self</span>.<span class="comment">attachmentDecorationLayers)</span>
+        <span class="comment">//</span> <span class="comment">First</span> <span class="comment">time</span> <span class="comment">initialization</span>.
+    <span class="comment">{</span>
+        <span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span> <span class="comment">=</span> <span class="title">[</span><span class="comment">NSMutableArray</span> <span class="comment">arrayWithCapacity:4</span>]<span class="comment">;</span>
+        <span class="comment">for</span> <span class="comment">(NSUInteger</span> <span class="comment">i=0;</span> <span class="comment">i</span>&lt;<span class="comment">4;</span> <span class="comment">i</span>+<span class="literal">+</span><span class="comment">)</span>
+        <span class="comment">{</span>
+            <span class="comment">UIImage</span> <span class="comment">*dashImage</span> <span class="comment">=</span> <span class="title">[</span><span class="comment">UIImage</span> <span class="comment">imageNamed:</span>[<span class="comment">NSString</span> <span class="comment">stringWithFormat:@"DashStyle%i"</span>, <span class="comment">(i</span> <span class="comment">%</span> <span class="comment">3)</span> <span class="literal">+</span> <span class="comment">1</span>]<span class="title">]</span><span class="comment">;</span>
+            
+            <span class="comment">CALayer</span> <span class="comment">*dashLayer</span> <span class="comment">=</span> <span class="title">[</span><span class="comment">CALayer</span> <span class="comment">layer</span>]<span class="comment">;</span>
+            <span class="comment">dashLayer</span>.<span class="comment">contents</span> <span class="comment">=</span> <span class="comment">(__bridge</span> <span class="comment">id)(dashImage</span>.<span class="comment">CGImage);</span>
+            <span class="comment">dashLayer</span>.<span class="comment">bounds</span> <span class="comment">=</span> <span class="comment">CGRectMake(0</span>, <span class="comment">0</span>, <span class="comment">dashImage</span>.<span class="comment">size</span>.<span class="comment">width</span>, <span class="comment">dashImage</span>.<span class="comment">size</span>.<span class="comment">height);</span>
+            <span class="comment">dashLayer</span>.<span class="comment">anchorPoint</span> <span class="comment">=</span> <span class="comment">CGPointMake(0</span>.<span class="comment">5</span>, <span class="comment">0);</span>
+            
+            <span class="title">[</span><span class="comment">self</span>.<span class="comment">layer</span> <span class="comment">insertSublayer:dashLayer</span> <span class="comment">atIndex:0</span>]<span class="comment">;</span>
+            <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span> <span class="comment">addObject:dashLayer</span>]<span class="comment">;</span>
+        <span class="comment">}</span>
+    <span class="comment">}</span>
+    
+    <span class="comment">//</span> <span class="comment">A</span> <span class="comment">word</span> <span class="comment">about</span> <span class="comment">performance</span>.
+    <span class="comment">//</span> <span class="comment">Tracking</span> <span class="comment">changes</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">properties</span> <span class="comment">of</span> <span class="comment">any</span> <span class="comment">id</span>&lt;<span class="comment">UIDynamicItem</span>&gt; <span class="comment">involved</span> <span class="comment">in</span>
+    <span class="comment">//</span> <span class="comment">a</span> <span class="comment">simulation</span> <span class="comment">incurs</span> <span class="comment">a</span> <span class="comment">performance</span> <span class="comment">cost</span>.  <span class="comment">You</span> <span class="comment">will</span> <span class="comment">receive</span> <span class="comment">a</span> <span class="comment">callback</span>
+    <span class="comment">//</span> <span class="comment">during</span> <span class="comment">each</span> <span class="comment">step</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">simulation</span> <span class="comment">in</span> <span class="comment">which</span> <span class="comment">the</span> <span class="comment">tracked</span> <span class="comment">item</span> <span class="comment">is</span> <span class="comment">not</span> <span class="comment">at</span>
+    <span class="comment">//</span> <span class="comment">rest</span>.  <span class="comment">You</span> <span class="comment">should</span> <span class="comment">therefore</span> <span class="comment">strive</span> <span class="comment">to</span> <span class="comment">make</span> <span class="comment">your</span> <span class="comment">callback</span> <span class="comment">code</span> <span class="comment">as</span>
+    <span class="comment">//</span> <span class="comment">efficient</span> <span class="comment">as</span> <span class="comment">possible</span>.
+    
+    <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachmentPointView</span> <span class="comment">removeObserver:self</span> <span class="comment">forKeyPath:@"center"</span>]<span class="comment">;</span>
+    <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachedView</span> <span class="comment">removeObserver:self</span> <span class="comment">forKeyPath:@"center"</span>]<span class="comment">;</span>
+    
+    <span class="comment">self</span>.<span class="comment">attachmentPointView</span> <span class="comment">=</span> <span class="comment">attachmentPointView;</span>
+    <span class="comment">self</span>.<span class="comment">attachedView</span> <span class="comment">=</span> <span class="comment">attachedView;</span>
+    <span class="comment">self</span>.<span class="comment">attachmentOffset</span> <span class="comment">=</span> <span class="comment">attachmentOffset;</span>
+    
+    <span class="comment">//</span> <span class="comment">Observe</span> <span class="comment">the</span> <span class="comment">'center'</span> <span class="comment">property</span> <span class="comment">of</span> <span class="comment">both</span> <span class="comment">views</span> <span class="comment">to</span> <span class="comment">know</span> <span class="comment">when</span> <span class="comment">they</span> <span class="comment">move</span>.
+    <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachmentPointView</span> <span class="comment">addObserver:self</span> <span class="comment">forKeyPath:@"center"</span> <span class="comment">options:0</span> <span class="comment">context:NULL</span>]<span class="comment">;</span>
+    <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachedView</span> <span class="comment">addObserver:self</span> <span class="comment">forKeyPath:@"center"</span> <span class="comment">options:0</span> <span class="comment">context:NULL</span>]<span class="comment">;</span>
+    
+    <span class="title">[</span><span class="comment">self</span> <span class="comment">setNeedsLayout</span>]<span class="comment">;</span>
+<span class="comment">}</span>
+
+<span class="comment">//|</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+<span class="literal">-</span> <span class="comment">(void)layoutSubviews</span>
+<span class="comment">{</span>
+    <span class="title">[</span><span class="comment">super</span> <span class="comment">layoutSubviews</span>]<span class="comment">;</span>
+    
+    <span class="comment">if</span> <span class="comment">(self</span>.<span class="comment">attachmentDecorationLayers)</span>
+    <span class="comment">{</span>
+        <span class="comment">//</span> <span class="comment">Here</span> <span class="comment">we</span> <span class="comment">adjust</span> <span class="comment">the</span> <span class="comment">line</span> <span class="comment">dash</span> <span class="comment">pattern</span> <span class="comment">visualizing</span> <span class="comment">the</span> <span class="comment">attachement</span>
+        <span class="comment">//</span> <span class="comment">between</span> <span class="comment">attachmentPointView</span> <span class="comment">and</span> <span class="comment">attachedView</span> <span class="comment">to</span> <span class="comment">account</span> <span class="comment">for</span> <span class="comment">a</span> <span class="comment">change</span>
+        <span class="comment">//</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">position</span> <span class="comment">of</span> <span class="comment">either</span>.
+        
+        <span class="comment">const</span> <span class="comment">NSUInteger</span> <span class="comment">MaxDashes</span> <span class="comment">=</span> <span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span>.<span class="comment">count;</span>
+        
+        <span class="comment">CGPoint</span> <span class="comment">attachmentPointViewCenter</span> <span class="comment">=</span> <span class="comment">CGPointMake(self</span>.<span class="comment">attachmentPointView</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">width/2</span>, <span class="comment">self</span>.<span class="comment">attachmentPointView</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">height/2);</span>
+        <span class="comment">attachmentPointViewCenter</span> <span class="comment">=</span> <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachmentPointView</span> <span class="comment">convertPoint:attachmentPointViewCenter</span> <span class="comment">toView:self</span>]<span class="comment">;</span>
+        <span class="comment">CGPoint</span> <span class="comment">attachedViewAttachmentPoint</span> <span class="comment">=</span> <span class="comment">CGPointMake(self</span>.<span class="comment">attachedView</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">width/2</span> <span class="literal">+</span> <span class="comment">self</span>.<span class="comment">attachmentOffset</span>.<span class="comment">x</span>, <span class="comment">self</span>.<span class="comment">attachedView</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">height/2</span> <span class="literal">+</span> <span class="comment">self</span>.<span class="comment">attachmentOffset</span>.<span class="comment">y);</span>
+        <span class="comment">attachedViewAttachmentPoint</span> <span class="comment">=</span>  <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachedView</span> <span class="comment">convertPoint:attachedViewAttachmentPoint</span> <span class="comment">toView:self</span>]<span class="comment">;</span>
+        
+        <span class="comment">CGFloat</span> <span class="comment">distance</span> <span class="comment">=</span> <span class="comment">sqrtf(</span> <span class="comment">powf(attachedViewAttachmentPoint</span>.<span class="comment">x</span>-<span class="comment">attachmentPointViewCenter</span>.<span class="comment">x</span>, <span class="comment">2</span>.<span class="comment">0)</span> <span class="literal">+</span>
+                                 <span class="comment">powf(attachedViewAttachmentPoint</span>.<span class="comment">y</span>-<span class="comment">attachmentPointViewCenter</span>.<span class="comment">y</span>, <span class="comment">2</span>.<span class="comment">0)</span> <span class="comment">);</span>
+        <span class="comment">CGFloat</span> <span class="comment">angle</span> <span class="comment">=</span> <span class="comment">atan2(</span> <span class="comment">attachedViewAttachmentPoint</span>.<span class="comment">y</span>-<span class="comment">attachmentPointViewCenter</span>.<span class="comment">y</span>,
+                              <span class="comment">attachedViewAttachmentPoint</span>.<span class="comment">x</span>-<span class="comment">attachmentPointViewCenter</span>.<span class="comment">x</span> <span class="comment">);</span>
+        
+        <span class="comment">NSUInteger</span> <span class="comment">requiredDashes</span> <span class="comment">=</span> <span class="comment">0;</span>
+        <span class="comment">CGFloat</span> <span class="comment">d</span> <span class="comment">=</span> <span class="comment">0</span>.<span class="comment">0f;</span>
+        
+        <span class="comment">//</span> <span class="comment">Depending</span> <span class="comment">on</span> <span class="comment">the</span> <span class="comment">distance</span> <span class="comment">between</span> <span class="comment">the</span> <span class="comment">two</span> <span class="comment">views</span>, <span class="comment">a</span> <span class="comment">smaller</span> <span class="comment">number</span> <span class="comment">of</span>
+        <span class="comment">//</span> <span class="comment">dashes</span> <span class="comment">may</span> <span class="comment">be</span> <span class="comment">needed</span> <span class="comment">to</span> <span class="comment">adequately</span> <span class="comment">visualize</span> <span class="comment">the</span> <span class="comment">attachment</span>.  <span class="comment">Starting</span>
+        <span class="comment">//</span> <span class="comment">with</span> <span class="comment">a</span> <span class="comment">distance</span> <span class="comment">of</span> <span class="comment">0</span>, <span class="comment">we</span> <span class="comment">add</span> <span class="comment">the</span> <span class="comment">length</span> <span class="comment">of</span> <span class="comment">each</span> <span class="comment">dash</span> <span class="comment">until</span> <span class="comment">we</span> <span class="comment">exceed</span>
+        <span class="comment">//</span> <span class="comment">'distance'</span> <span class="comment">computed</span> <span class="comment">previously</span> <span class="comment">or</span> <span class="comment">we</span> <span class="comment">use</span> <span class="comment">the</span> <span class="comment">maximum</span> <span class="comment">number</span> <span class="comment">of</span> <span class="comment">allowed</span>
+        <span class="comment">//</span> <span class="comment">dashes</span>, <span class="comment">'MaxDashes'</span>.
+        <span class="comment">while</span> <span class="comment">(requiredDashes</span> &lt; <span class="comment">MaxDashes)</span>
+        <span class="comment">{</span>
+            <span class="comment">CALayer</span> <span class="comment">*dashLayer</span> <span class="comment">=</span> <span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span>[<span class="comment">requiredDashes</span>]<span class="comment">;</span>
+            
+            <span class="comment">if</span> <span class="comment">(d</span> <span class="literal">+</span> <span class="comment">dashLayer</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">height</span> &lt; <span class="comment">distance)</span> <span class="comment">{</span>
+                <span class="comment">d</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">dashLayer</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">height;</span>
+                <span class="comment">dashLayer</span>.<span class="comment">hidden</span> <span class="comment">=</span> <span class="comment">NO;</span>
+                <span class="comment">requiredDashes</span>+<span class="literal">+</span><span class="comment">;</span>
+            <span class="comment">}</span> <span class="comment">else</span>
+                <span class="comment">break;</span>
+        <span class="comment">}</span>
+        
+        <span class="comment">//</span> <span class="comment">Based</span> <span class="comment">on</span> <span class="comment">the</span> <span class="comment">total</span> <span class="comment">length</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">dashes</span> <span class="comment">we</span> <span class="comment">previously</span> <span class="comment">determined</span> <span class="comment">were</span>
+        <span class="comment">//</span> <span class="comment">necessary</span> <span class="comment">to</span> <span class="comment">visualize</span> <span class="comment">the</span> <span class="comment">attachment</span>, <span class="comment">determine</span> <span class="comment">the</span> <span class="comment">spacing</span> <span class="comment">between</span>
+        <span class="comment">//</span> <span class="comment">each</span> <span class="comment">dash</span>.
+        <span class="comment">CGFloat</span> <span class="comment">dashSpacing</span> <span class="comment">=</span> <span class="comment">(distance</span> <span class="literal">-</span> <span class="comment">d)</span> <span class="comment">/</span> <span class="comment">(requiredDashes</span> <span class="literal">+</span> <span class="comment">1);</span>
+        
+        <span class="comment">//</span> <span class="comment">Hide</span> <span class="comment">the</span> <span class="comment">excess</span> <span class="comment">dashes</span>.
+        <span class="comment">for</span> <span class="comment">(;</span> <span class="comment">requiredDashes</span> &lt; <span class="comment">MaxDashes;</span> <span class="comment">requiredDashes</span>+<span class="literal">+</span><span class="comment">)</span>
+            <span class="title">[</span><span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span>[<span class="comment">requiredDashes</span>] <span class="comment">setHidden:YES</span>]<span class="comment">;</span>
+        
+        <span class="comment">//</span> <span class="comment">Disable</span> <span class="comment">any</span> <span class="comment">animations</span>.  <span class="comment">The</span> <span class="comment">changes</span> <span class="comment">must</span> <span class="comment">take</span> <span class="comment">full</span> <span class="comment">effect</span> <span class="comment">immediately</span>.
+        <span class="title">[</span><span class="comment">CATransaction</span> <span class="comment">begin</span>]<span class="comment">;</span>
+        <span class="title">[</span><span class="comment">CATransaction</span> <span class="comment">setAnimationDuration:0</span>]<span class="comment">;</span>
+        
+        <span class="comment">//</span> <span class="comment">Each</span> <span class="comment">dash</span> <span class="comment">layer</span> <span class="comment">is</span> <span class="comment">positioned</span> <span class="comment">by</span> <span class="comment">altering</span> <span class="comment">its</span> <span class="comment">affineTransform</span>.  <span class="comment">We</span>
+        <span class="comment">//</span> <span class="comment">combine</span> <span class="comment">the</span> <span class="comment">position</span> <span class="comment">of</span> <span class="comment">rotation</span> <span class="comment">into</span> <span class="comment">an</span> <span class="comment">affine</span> <span class="comment">transformation</span> <span class="comment">matrix</span>
+        <span class="comment">//</span> <span class="comment">that</span> <span class="comment">is</span> <span class="comment">assigned</span> <span class="comment">to</span> <span class="comment">each</span> <span class="comment">dash</span>.
+        <span class="comment">CGAffineTransform</span> <span class="comment">transform</span> <span class="comment">=</span> <span class="comment">CGAffineTransformMakeTranslation(attachmentPointViewCenter</span>.<span class="comment">x</span>, <span class="comment">attachmentPointViewCenter</span>.<span class="comment">y);</span>
+        <span class="comment">transform</span> <span class="comment">=</span> <span class="comment">CGAffineTransformRotate(transform</span>, <span class="comment">angle</span> <span class="literal">-</span> <span class="comment">M_PI/2);</span>
+        
+        <span class="comment">for</span> <span class="comment">(NSUInteger</span> <span class="comment">drawnDashes</span> <span class="comment">=</span> <span class="comment">0;</span> <span class="comment">drawnDashes</span> &lt; <span class="comment">requiredDashes;</span> <span class="comment">drawnDashes</span>+<span class="literal">+</span><span class="comment">)</span>
+        <span class="comment">{</span>
+            <span class="comment">CALayer</span> <span class="comment">*dashLayer</span> <span class="comment">=</span> <span class="comment">self</span>.<span class="comment">attachmentDecorationLayers</span>[<span class="comment">drawnDashes</span>]<span class="comment">;</span>
+            
+            <span class="comment">transform</span> <span class="comment">=</span> <span class="comment">CGAffineTransformTranslate(transform</span>, <span class="comment">0</span>, <span class="comment">dashSpacing);</span>
+            
+            <span class="title">[</span><span class="comment">dashLayer</span> <span class="comment">setAffineTransform:transform</span>]<span class="comment">;</span>
+            
+            <span class="comment">transform</span> <span class="comment">=</span> <span class="comment">CGAffineTransformTranslate(transform</span>, <span class="comment">0</span>, <span class="comment">dashLayer</span>.<span class="comment">bounds</span>.<span class="comment">size</span>.<span class="comment">height);</span>
+        <span class="comment">}</span>
+        
+        <span class="title">[</span><span class="comment">CATransaction</span> <span class="comment">commit</span>]<span class="comment">;</span>
+    <span class="comment">}</span>
+<span class="comment">}</span>
+
+
+<span class="comment">//|</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+<span class="literal">-</span> <span class="comment">(void)observeValueForKeyPath:(NSString</span> <span class="comment">*)keyPath</span> <span class="comment">ofObject:(id)object</span> <span class="comment">change:(NSDictionary</span> <span class="comment">*)change</span> <span class="comment">context:(void</span> <span class="comment">*)context</span>
+<span class="comment">{</span>
+    <span class="comment">if</span> <span class="comment">(object</span> <span class="comment">==</span> <span class="comment">self</span>.<span class="comment">attachmentPointView</span> <span class="comment">||</span> <span class="comment">object</span> <span class="comment">==</span> <span class="comment">self</span>.<span class="comment">attachedView)</span>
+        <span class="title">[</span><span class="comment">self</span> <span class="comment">setNeedsLayout</span>]<span class="comment">;</span>
+    <span class="comment">else</span>
+        <span class="title">[</span><span class="comment">super</span> <span class="comment">observeValueForKeyPath:keyPath</span> <span class="comment">ofObject:object</span> <span class="comment">change:change</span> <span class="comment">context:context</span>]<span class="comment">;</span>
+<span class="comment">}
+</pre></figure>
+
+<p>6: 为了让程序更有意思点 我们可以用UICollisionBehaviorDelegate来处理碰撞回掉 比如碰到边界 我们改变下颜色</p>
+<figure class="highlight"><pre>
+<span class="literal">-</span> <span class="comment">(void)collisionBehavior:(UICollisionBehavior*)behavior</span> <span class="comment">beganContactForItem:(id</span>&lt;<span class="comment">UIDynamicItem</span>&gt;<span class="comment">)item</span> <span class="comment">withBoundaryIdentifier:(id</span>&lt;<span class="comment">NSCopying</span>&gt;<span class="comment">)identifier</span> <span class="comment">atPoint:(CGPoint)p</span>
+<span class="comment">{</span>
+    <span class="comment">//</span> <span class="comment">Lighten</span> <span class="comment">the</span> <span class="comment">tint</span> <span class="comment">color</span> <span class="comment">when</span> <span class="comment">the</span> <span class="comment">view</span> <span class="comment">is</span> <span class="comment">in</span> <span class="comment">contact</span> <span class="comment">with</span> <span class="comment">a</span> <span class="comment">boundary</span>.
+    <span class="title">[</span><span class="comment">(UIView*)item</span> <span class="comment">setTintColor:</span>[<span class="comment">UIColor</span> <span class="comment">redColor</span>]<span class="title">]</span><span class="comment">;</span>
+
+<span class="comment">}</span>
+
+<span class="comment">//|</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+<span class="comment">//</span>  <span class="comment">This</span> <span class="comment">method</span> <span class="comment">is</span> <span class="comment">called</span> <span class="comment">when</span> <span class="comment">square1</span> <span class="comment">stops</span> <span class="comment">contacting</span> <span class="comment">a</span> <span class="comment">collision</span> <span class="comment">boundary</span>.
+<span class="comment">//</span>  <span class="comment">In</span> <span class="comment">this</span> <span class="comment">demo</span>, <span class="comment">the</span> <span class="comment">only</span> <span class="comment">collision</span> <span class="comment">boundary</span> <span class="comment">is</span> <span class="comment">the</span> <span class="comment">bounds</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">reference</span>
+<span class="comment">//</span>  <span class="comment">view</span> <span class="comment">(self</span>.<span class="comment">view)</span>.
+<span class="comment">//</span>
+<span class="literal">-</span> <span class="comment">(void)collisionBehavior:(UICollisionBehavior*)behavior</span> <span class="comment">endedContactForItem:(id</span>&lt;<span class="comment">UIDynamicItem</span>&gt;<span class="comment">)item</span> <span class="comment">withBoundaryIdentifier:(id</span>&lt;<span class="comment">NSCopying</span>&gt;<span class="comment">)identifier</span>
+<span class="comment">{</span>
+    <span class="comment">//</span> <span class="comment">Restore</span> <span class="comment">the</span> <span class="comment">default</span> <span class="comment">color</span> <span class="comment">when</span> <span class="comment">ending</span> <span class="comment">a</span> <span class="comment">contcact</span>.
+    <span class="title">[</span><span class="comment">(UIView*)item</span> <span class="comment">setTintColor:</span>[<span class="comment">UIColor</span> <span class="comment">greenColor</span>]<span class="title">]</span><span class="comment">;</span>
+
+<span class="comment">}
+</pre></figure>
+
+<p>7: 添加手势 这样子才能够让方框指哪打哪</p>
+<ul>
+<li>(IBAction)handleSpringAttachmentGesture:(UIGestureRecognizer*)gesture<br>{<br> [self.attachmentBehavior setAnchorPoint:[gesture locationInView:self.view]];<br> self.attachmentView.center = self.attachmentBehavior.anchorPoint;</li>
+</ul>
+<p>}</p>
+]]></content>
+    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
+    <category scheme="http://hufeng825.github.com/categories/ios/" term="ios"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[mac下如何看凤凰卫视直播]]></title>
     <link href="http://hufeng825.github.com/2013/10/16/mac5/"/>
@@ -109,7 +347,7 @@
 <pre><code>#<span class="import"><span class="keyword">import</span> "ReactiveCocoa.h"</span></code></pre>
 <h3>现在要实现如下功能</h3>
 <p>两个输入框 一个提示的Lable 一个按钮,<br>1.当两个输入框的内容相同时 提示文字显示“成功” 按钮可以点击<br>2.当任意一个输入框没有输入内容时 提示文字显示“请输入”  按钮不可点击<br>3.当输入框非空且两个输入内容不同时 提示“请重新输入”  按钮不可点击</p>
-<p>下面是部���实现代码:</p>
+<p>下面是部分实现代码:</p>
 <figure class="highlight"><pre>@weakify(<span class="keyword">self</span>);
 [[RACObserve(<span class="keyword">self</span>, warningText)
   filter:^(<span class="built_in">NSString</span> *newString) {
@@ -423,7 +661,7 @@ RACSignal *switched = [signalOfSignals switchToLatest]<span class="comment">;</s
 
 <p>随着你的工程越来越大,你引入的第三方的开源库可能会越来越多.这些依赖的开源库维护管理越久越来越困难.于是CocoaPods出现了,它可以帮助管理Xcode项目的依赖关系。(说到这做过java的同学应该想到了maven了吧).<br>你可以定义一个非常简单的文本来管理配置这些依赖 .</p>
 <hr>
-<h2>安装步骤</h2>
+<h2>���装步骤</h2>
 <h3>1.前期工作</h3>
 <p> 因为CocoaPods是基于Ruby的 介于天朝的特殊国情,你如果直接gem install 安装的话 肯定会遇到问题的所以首先你需要吧你的源换下. 换成什么呢?还是感谢下阿里吧.阿里给我们搭建了一个RubyGems 镜像.</p>
 <blockquote>
@@ -700,7 +938,7 @@ gameScene <span class="method">setPosition:</span><span class="class">CGPointMak
 <p>上面代码做了下面几件事情</p>
 <ol>
 <li>激活触摸时间</li>
-<li>将敲击的坐标转换成���部坐标</li>
+<li>将敲击的坐标转换成内部坐标</li>
 <li>验证敲击的坐标是否在SKLabelNode的动画场景内</li>
 <li>创建过渡动画</li>
 <li>转换场景</li>
@@ -957,7 +1195,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
     <id>http://hufeng825.github.com/2013/09/18/ios26/</id>
     <published>2013-09-18T05:31:04.000Z</published>
     <updated>2013-09-18T06:32:31.000Z</updated>
-    <content type="html"><![CDATA[<p>今天早上接到了阿里从杭州打过来的���话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有“IT界的黄浦军校”的阿里面试官接触还是不免紧张.<br><a id="more"></a><br>面试持续了三四十分钟吧,期间我手机信号不好挂断了一次,大部分问题都是更加简历上的项目经验而来的,个人感觉问的不算太难但是却很深入,很明显不是能够背几道面试题能够搞定的.而且每个题基本上都跟优化设计和性能相关.</p>
+    <content type="html"><![CDATA[<p>今天早上接到了阿里从杭州打过来的电话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有“IT界的黄浦军校”的阿里面试官接触还是不免紧张.<br><a id="more"></a><br>面试持续了三四十分钟吧,期间我手机信号不好挂断了一次,大部分问题都是更加简历上的项目经验而来的,个人感觉问的不算太难但是却很深入,很明显不是能够背几道面试题能够搞定的.而且每个题基本上都跟优化设计和性能相关.</p>
 <p>其中有一道是关于是问“你平时上国外的一些网站吗?上那些网站呢?”</p>
 <p>我平时大部分时间就是上stackoverflow.和cocoscontrol github 还有apple 的dev论坛.</p>
 <p>“你们项目中为什么多线程用GCD 而不用NSOperation呢? 你有没有发现国外的大牛他们多线程都是用NSOperation? 你能告诉我他们这样做的理由吗?”</p>
@@ -1019,7 +1257,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 @<span class="keyword">end</span></code></pre>
 <hr>
 <h2>二: 虚基类 EcoratorRelish</h2>
-<p>EcoratorRelish 是 方糖 奶油  牛奶 盐 等等的抽象类 这个继承在button  点击的时候 可以自动将自己加入到chain (调料盘中)</p>
+<p>EcoratorRelish 是 方糖 奶油  牛奶 盐 等等的抽象类 这个继承在button  点击的时候 可以自动���自己加入到chain (调料盘中)</p>
 <p>这个类包含什么呢<br>{<br>. 自身的单价 —&gt;price<br>. 可以修改价钱的策略 —&gt; configPrivilege<br>}</p>
 <p>方糖 等抽象出来的基类EcoratorRelish.h</p>
 <pre><code>@<span class="class"><span class="keyword">interface</span>  <span class="title">EcoratorRelish</span>: <span class="title">UIButton</span>
@@ -1189,7 +1427,7 @@ smokeTrail.position = CGPointMake(CGRectGetMidX(self.frame)+40,CGRectGetMidY(sel
 }  
 
 @<span class="keyword">end</span> </code></pre>
-<p><strong>虽然它们的语法的确很相似。虽然都可以用来为一个现有的类添加方法和���性，但它们的目的和行为却是不同的。</strong></p>
+<p><strong>虽然它们的语法的确很相似。虽然都可以用来为一个现有的类添加方法和属性，但它们的目的和行为却是不同的。</strong></p>
 <h2>Class extensions注意事项:</h2>
 <ol>
 <li><p>可以定义属性(实例变量)</p>
@@ -1298,7 +1536,7 @@ NSInvocationOperation *operation = <span class="string">[[NSInvocationOperation 
 <ul>
 <li>方法二，NSLock</li>
 </ul>
-<p>NSLock对象实现了NSLocking protocol���包含几个方法：<br>lock，加锁<br>unlock，解锁<br>tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO<br>lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO<br>比如<br>：<br>    NSLock *theLock = [[NSLock alloc] init]; </p>
+<p>NSLock对象实现了NSLocking protocol，包含几个方法：<br>lock，加锁<br>unlock，解锁<br>tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO<br>lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO<br>比如<br>：<br>    NSLock *theLock = [[NSLock alloc] init]; </p>
 <pre><code>if ([the<span class="operator"><span class="keyword">Lock</span> <span class="keyword">lock</span>]) {
 
 //<span class="keyword">do</span> something here
@@ -1446,7 +1684,7 @@ dispatch_group_notify(<span class="keyword">group</span>, queue, ^{
 
 <span class="comment">// 释放掉</span>
 dispatch_release(<span class="keyword">group</span>);</code></pre>
-<p>dispatch_group 也要手动创建和释放.<br>dispatch_notify()提供���一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
+<p>dispatch_group 也要手动创建和释放.<br>dispatch_notify()提供了一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
 <h3>4.信号量</h3>
 <p>信号量 和 琐 的作用差不多,可以用来实现同步的方式.<br>但是信号量通常用在 允许几个线程同时访问一个资源,通过信号量来控制访问的线程个数.</p>
 <p>// 信号量初始化为1<br>    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</p>
@@ -1948,39 +2186,6 @@ svn <span class="keyword">update</span> test.php(更新，于版本库同步。�
 <p>例如：</p>
 <p>l<figure class="highlight"><pre><span class="comment">svn</span> <span class="comment">ci</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">username</span> <span class="comment">hufeng</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">password</span> <span class="comment">####
 </pre></figure></p>
-]]></content>
-    <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
-    <category scheme="http://hufeng825.github.com/categories/svn/" term="svn"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[svn 版本恢复命令行操作（转）]]></title>
-    <link href="http://hufeng825.github.com/2013/09/03/svn4/"/>
-    <id>http://hufeng825.github.com/2013/09/03/svn4/</id>
-    <published>2013-09-03T05:51:18.000Z</published>
-    <updated>2013-09-15T05:04:07.000Z</updated>
-    <content type="html"><![CDATA[<p>svn没有恢复旧版本的直接功能，不过可以使用svn merge命令恢复。<br>比如说当前HEAD为14，而我要恢复成10版本，怎么做？用svn merge：<br><a id="more"></a></p>
-<figure class="highlight"><pre><span class="title">svn</span> update
-<span class="title">svn</span> merge <span class="comment">--revision 14:10</span>
-<span class="title">svn</span> commit -m <span class="string">"restore to revision 10"</span>
-</pre></figure>
-
-<p>可能会很奇怪，因为不理解为什么合并能恢复旧版本。</p>
-<p>这里要理解一个关键点，就是svn merge的原理。merge是比较指定版本的差异，然后把这些差异应用到本地工作副本，而-r后的14:10，是指相对于版本14来说版本10的变化（注意，这个版本的次序很重要。），也就是相对版本14，我版本10添加了哪些文件或目录，以及哪些文件添加了哪些行删除了哪些行。</p>
-<p>由于在客户端提交应用程序时的误操作，导致修改了基线版本，此处利用两个命令来进行恢复：</p>
-<ol>
-<li>将客户端恢复合并到指定版本：</li>
-</ol>
-<figure class="highlight"><pre><span class="title">svn</span> merge -r <span class="number">112</span>:<span class="number">111</span> <span class="url">svn://192.168.0.119/UBoot/trunk/u-boot-1.3.3
-</pre></figure>
-
-<p>此步骤将下位机由112恢复到111版本：</p>
-<ol>
-<li>重新修订基线版本</li>
-</ol>
-<figure class="highlight"><pre>svn <span class="operator"><span class="keyword">commit</span> -m <span class="string">"Undoing change committed in r111."</span>
-</pre></figure>
-
-<p>此步骤将恢复后的111版本提交，但是此时的版本号为113</p>
 ]]></content>
     <category scheme="http://hufeng825.github.com/tags/技术/" term="技术"/>
     <category scheme="http://hufeng825.github.com/categories/svn/" term="svn"/>
