@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2013-11-08T06:53:17.735Z</updated>
+  <updated>2013-11-08T06:59:29.749Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,7 +16,7 @@
     <link href="http://hufeng825.github.com/2013/11/06/iosdynamics0/"/>
     <id>http://hufeng825.github.com/2013/11/06/iosdynamics0/</id>
     <published>2013-11-06T06:16:04.000Z</published>
-    <updated>2013-11-08T06:51:58.000Z</updated>
+    <updated>2013-11-08T06:59:12.000Z</updated>
     <content type="html"><![CDATA[<p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是“既视感”不强.<br><a id="more"></a></p>
 <p>理论性的东西不太擅长.引用<a href="http://onevcat.com/2013/06/uikit-dynamics-started/" target="_blank">onevcat</a>老师的博客.</p>
 <h2>UIKitUIKit动力架构：</h2>
@@ -45,7 +45,7 @@
 <p>只有当想要添加力学的UIView是ReferenceView的子view时，动力UI才发生作用。</p>
 <hr>
 <p>下面开始动手来做<br>比如我们要实现下面的功能</p>
-<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1eadm5jtkwkg208z0dwb29.gif" class="center">
+<img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1eadmdoeir3g208z0d8x4h.gif" class="center">
 
 
 
