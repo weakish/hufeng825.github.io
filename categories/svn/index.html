@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -182,15 +182,15 @@ $(function () {
   
     <li><a href="/categories/git/">git</a><small> (13)</small></li>
   
-    <li><a href="/categories/hexo/">hexo</a><small> (4)</small></li>
+    <li><a href="/categories/hexo/">hexo</a><small> (2)</small></li>
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (33)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (38)</small></li>
   
     <li><a href="/categories/ios/mac/">mac</a><small> (5)</small></li>
   
-    <li><a href="/categories/mac/">mac</a><small> (1)</small></li>
+    <li><a href="/categories/mac/">mac</a><small> (2)</small></li>
   
     <li><a href="/categories/git/svn/">svn</a><small> (3)</small></li>
   
@@ -209,23 +209,23 @@ $(function () {
   <ul class="entry">
     
       <li>
+        <a href="/2014/01/13/ios35/">ios系列教程之用instruments来检验你的app</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a>
+      </li>
+    
+      <li>
         <a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系列教程之Gravity+Collision</a>
       </li>
     
       <li>
         <a href="/2013/10/16/mac5/">mac下如何看凤凰卫视直播</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/13/ios31/">如何建立基于CocoaPods的ReactiveCocoa工程</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/11/ios30/">IOS 开发之 CocoaPods讲解</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/22/ios29/">ios7之Sprite Kit vs Cocos2D</a>
       </li>
     
   </ul>
@@ -250,8 +250,9 @@ $(function () {
     </header>
     <div class="entry">
         
-        <h2>1. 创建分支</h2>
-<p>svn cp <a href="http://svn.trunk/" target="_blank">http://svn.trunk/</a> <a href="http://svn.branches/" target="_blank">http://svn.branches/</a>  –m “create a branch”<br>
+        <h2 id="1-">1. 创建分支</h2>
+<p>svn cp <a href="http://svn.trunk/" target="_blank">http://svn.trunk/</a> <a href="http://svn.branches/" target="_blank">http://svn.branches/</a>  –m “create a branch”
+
         
     </div>
     <footer>
@@ -279,7 +280,9 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>在svn命令行merge之后文件经常会出现local add, incoming add upon merge问题，导致无法提交，可以通过以下命令解决冲突<br>Summarizing to resolve the tree conflict committing your working dir with svn client 1.6.x you can use:<br>
+        <p>在svn命令行merge之后文件经常会出现local add, incoming add upon merge问题，导致无法提交，可以通过以下命令解决冲突 
+Summarizing to resolve the tree conflict committing your working dir with svn client 1.6.x you can use: 
+
         
     </div>
     <footer>
@@ -307,7 +310,7 @@ $(function () {
     </header>
     <div class="entry">
         
-        <figure class="highlight"><pre>svn cp . <span class="symbol">http:</span>/<span class="regexp">/svnserver/svn</span><span class="regexp">/pingan/client</span><span class="regexp">/iPhone2/tags</span><span class="regexp">/appstore_v1.010_rc01  -m "1.010"
+        <figure class="highlight"><pre>svn cp . <span class="symbol">http:</span>/<span class="regexp">/svnserver/svn</span><span class="regexp">/pingan/client</span><span class="regexp">/iPhone2/tags</span><span class="regexp">/appstore_v1.010_rc01  -m "1.010"</span>
 </pre></figure>
 
 
@@ -334,11 +337,11 @@ $(function () {
     </header>
     <div class="entry">
         
-        <figure class="highlight"><pre>svn merge -r <span class="symbol">rHEAD:</span><span class="number">4367</span> <span class="symbol">http:</span>/<span class="regexp">/svnserver/svn</span><span class="regexp">/pingan/client</span><span class="regexp">/iPhone2/trunk</span><span class="regexp">/
+        <figure class="highlight"><pre>svn merge -r <span class="symbol">rHEAD:</span><span class="number">4367</span> <span class="symbol">http:</span>/<span class="regexp">/svnserver/svn</span><span class="regexp">/pingan/client</span><span class="regexp">/iPhone2/trunk</span><span class="regexp">/</span>
 </pre></figure>
 
 <p>本地回退</p>
-<figure class="highlight"><pre><span class="title">svn</span> ci -m <span class="string">"提交"</span>
+<figure class="highlight"><pre>svn ci <span class="attribute">-m</span> <span class="string">"提交"</span>
 </pre></figure>
 
 
@@ -365,7 +368,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>作为team leader  有时候需要帮别人解决技术问题，尝尝再别人的电脑上改了某些代码，提交的时候遇到了问题，就是怎样临时用自己的账户提交，提交完后 用不影响同事的电脑原有的svn账号<br>
+        <p>作为team leader  有时候需要帮别人解决技术问题，尝尝再别人的电脑上改了某些代码，提交的时候遇到了问题，就是怎样临时用自己的账户提交，提交完后 用不影响同事的电脑原有的svn账号
+
         
     </div>
     <footer>
@@ -393,7 +397,9 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>svn没有恢复旧版本的直接功能，不过可以使用svn merge命令恢复。<br>比如说当前HEAD为14，而我要恢复成10版本，怎么做？用svn merge：<br>
+        <p>svn没有恢复旧版本的直接功能，不过可以使用svn merge命令恢复。
+比如说当前HEAD为14，而我要恢复成10版本，怎么做？用svn merge：
+
         
     </div>
     <footer>
@@ -422,9 +428,9 @@ $(function () {
     <div class="entry">
         
         <p>解决如下:</p>
-<figure class="highlight"><pre><span class="comment">svn</span> <span class="comment">remove</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">force</span> <span class="comment">yourfilename</span>
-<span class="comment">svn</span> <span class="comment">resolve</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">accept=working</span>  <span class="comment">yourfilename</span>
-<span class="comment">svn</span> <span class="comment">commit</span> <span class="literal">-</span><span class="comment">m</span> <span class="comment">""
+<figure class="highlight"><pre>svn remove <span class="comment">--force yourfilename</span>
+svn resolve <span class="comment">--accept=working  yourfilename</span>
+svn <span class="operator"><span class="keyword">commit</span> -m <span class="string">""</span></span>
 </pre></figure>
 
 
@@ -484,7 +490,7 @@ $(function () {
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

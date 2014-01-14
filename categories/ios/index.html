@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -182,15 +182,15 @@ $(function () {
   
     <li><a href="/categories/git/">git</a><small> (13)</small></li>
   
-    <li><a href="/categories/hexo/">hexo</a><small> (4)</small></li>
+    <li><a href="/categories/hexo/">hexo</a><small> (2)</small></li>
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (33)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (38)</small></li>
   
     <li><a href="/categories/ios/mac/">mac</a><small> (5)</small></li>
   
-    <li><a href="/categories/mac/">mac</a><small> (1)</small></li>
+    <li><a href="/categories/mac/">mac</a><small> (2)</small></li>
   
     <li><a href="/categories/git/svn/">svn</a><small> (3)</small></li>
   
@@ -209,23 +209,23 @@ $(function () {
   <ul class="entry">
     
       <li>
+        <a href="/2014/01/13/ios35/">ios系列教程之用instruments来检验你的app</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a>
+      </li>
+    
+      <li>
         <a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系列教程之Gravity+Collision</a>
       </li>
     
       <li>
         <a href="/2013/10/16/mac5/">mac下如何看凤凰卫视直播</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/13/ios31/">如何建立基于CocoaPods的ReactiveCocoa工程</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/11/ios30/">IOS 开发之 CocoaPods讲解</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/22/ios29/">ios7之Sprite Kit vs Cocos2D</a>
       </li>
     
   </ul>
@@ -234,6 +234,74 @@ $(function () {
         </div>
 
         <div class="span9 panel">
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2014-01-13T13:44:58.000Z"><a href="/2014/01/13/ios35/" style="color:#FFFFFF">2014 1月 13</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2014/01/13/ios35/">ios系列教程之用instruments来检验你的app</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <blockquote>
+<p>比较了好多关于instruments 还是发现老外写的比较牛逼.于是果断翻译过来.有能力的的可以去看英文原版,鼓励大家看原版资料远离二手教程
+<a href="http://www.raywenderlich.com/23037/how-to-use-instruments-in-xcode" target="_blank">http://www.raywenderlich.com/23037/how-to-use-instruments-in-xcode</a></p>
+</blockquote>
+<h2 id="-">入门</h2>
+<p>为了节省大家的时间,提供一个演示的Demo给大家.<a href="http://cdn4.raywenderlich.com/downloads/InstrumentsTutorial.zip" target="_blank">代码传送门</a>.
+下载后解压然后用xcode打开.
+编译运行APP后 然后在搜索框内输入任意词汇,点击结果你会看到下面的结果   </p>
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1eci9qbiaq7j208v0da3zj.jpg" class="center">
+
+
+<p>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2014/01/13/ios35/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-11-30T12:44:06.000Z"><a href="/2013/11/30/ios34/" style="color:#FFFFFF">2013 11月 30</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>最近把项目转到ARC 下了,之前__block 之前总结过一篇关于 <a href="http://blog.csdn.net/hufengvip/article/details/11585537" target="_blank">block</a> 的文章,有兴趣的童鞋可以去看下.</p>
+
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/11/30/ios34/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
             
             <div class="content">
     <header>
@@ -250,7 +318,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是“既视感”不强.<br>
+        <p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是&quot;既视感&quot;不强.
+
         
     </div>
     <footer>
@@ -278,7 +347,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.<br>
+        <p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.
+
         
     </div>
     <footer>
@@ -306,14 +376,45 @@ $(function () {
     </header>
     <div class="entry">
         
-        <h2>什么是CocoaPods?</h2>
-<p>看看你的项目吧,肯定会用到很多第三方的开源库,比如ASI,SBJson,MBProgressHUD等等.<br>
+        <h2 id="-cocoapods-">什么是CocoaPods?</h2>
+<p>看看你的项目吧,肯定会用到很多第三方的开源库,比如ASI,SBJson,MBProgressHUD等等.
+
         
     </div>
     <footer>
         
         <div class="alignleft">
             <a href="/2013/10/11/ios30/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-09-23T10:51:01.000Z"><a href="/2013/09/23/ios33/" style="color:#FFFFFF">2013 9月 23</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/09/23/ios33/">ios开发之你真的了解了KVC吗？</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <blockquote>
+<p>之前一直以为自己了解KVC 其实只是井底之蛙啦，真正的要把KVC原原本本的说出来还真的不是一件简单的事情。于是今天写下这边文章，告诫自己要知其然还要知其所以然。
+
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/09/23/ios33/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>
@@ -369,7 +470,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>今天在床上玩唱吧,听着歌锁屏了,当点亮屏幕的时候,锁屏页面出现了我正在听得歌曲 壁纸也换成了唱吧里面的歌手图片.做ios好几年了,从没有做过这个需求 于是好奇就翻看ios的<a href="https://developer.apple.com/library/ios/documentation/mediaplayer/reference/MPNowPlayingInfoCenter_Class/Reference/Reference.html" target="_blank">API文档</a>找到了这个类.<br>
+        <p>今天在床上玩唱吧,听着歌锁屏了,当点亮屏幕的时候,锁屏页面出现了我正在听得歌曲 壁纸也换成了唱吧里面的歌手图片.做ios好几年了,从没有做过这个需求 于是好奇就翻看ios的<a href="https://developer.apple.com/library/ios/documentation/mediaplayer/reference/MPNowPlayingInfoCenter_Class/Reference/Reference.html" target="_blank">API文档</a>找到了这个类.
+
         
     </div>
     <footer>
@@ -397,7 +499,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>今天早上接到了阿里从杭州打过来的电话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有“IT界的黄浦军校”的阿里面试官接触还是不免紧张.<br>
+        <p>今天早上接到了阿里从杭州打过来的电话面试.虽然近期面试了一些大中型的互联网企业,但是跟素有&quot;IT界的黄浦军校&quot;的阿里面试官接触还是不免紧张.
+
         
     </div>
     <footer>
@@ -425,7 +528,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>某某曰:设计模式这东西,没有好坏之分，只有合适于不合适<br>
+        <p>某某曰:设计模式这东西,没有好坏之分，只有合适于不合适
+
         
     </div>
     <footer>
@@ -456,7 +560,8 @@ $(function () {
         <p>细心的人会发现当我们new 一个文件的时候会发现下图的部分.</p>
 <img src="http://ww4.sinaimg.cn/mw690/a43af4ffjw1e8n5s8yocrj20km0e1766.jpg" width="400" height="300">
 
-<p>但是这个问题来了Category 和 Extension 就近又什么区别呢?<br>
+<p>但是这个问题来了Category 和 Extension 就近又什么区别呢?
+
         
     </div>
     <footer>
@@ -485,7 +590,8 @@ $(function () {
     <div class="entry">
         
         <blockquote>
-<p>iphone5s 出来了，CPU 升级到了64位 可以应用到更大的内存了，同时对多线程的处理吞吐能力也教之前提升了十几倍。下面着中总结下ios 下多线程的知识点<br>
+<p>iphone5s 出来了，CPU 升级到了64位 可以应用到更大的内存了，同时对多线程的处理吞吐能力也教之前提升了十几倍。下面着中总结下ios 下多线程的知识点
+
         
     </div>
     <footer>
@@ -513,7 +619,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br>
+        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.
+
         
     </div>
     <footer>
@@ -542,7 +649,7 @@ $(function () {
     <div class="entry">
         
         <p>开始的时候难免遇到修改host的时候，但是host后没有即刻生效，可使用终端命令手动清除DNS缓存：</p>
-<figure class="highlight"><pre><span class="title">dscacheutil</span> -flushcache
+<figure class="highlight"><pre>dscacheutil <span class="attribute">-flushcache</span>
 </pre></figure>
 
 
@@ -600,23 +707,24 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>记得一年前做招行掌上生活M+的时候 其中有个需求是画一画功能，就是在地图上用手指画个圈 然后得到这个圈里面所有指定商户。<br>当时为了精度 除了利用 </p>
+        <p>记得一年前做招行掌上生活M+的时候 其中有个需求是画一画功能，就是在地图上用手指画个圈 然后得到这个圈里面所有指定商户。
+当时为了精度 除了利用 </p>
 <figure class="highlight"><pre><span class="built_in">BOOL</span> mapCoordinateIsInPolygon = CGPathContainsPoint(polygonView<span class="variable">.path</span>, <span class="literal">NULL</span>, polygonViewPoint, <span class="literal">NO</span>);
 </pre></figure>
 
 <p>来验证此点是否在画的区域内 同时为了精度 还用到了点位的颜色色值进行校验。</p>
 <p>无法把全部代码给出 下面把 如何得到uiview 某点的函数给出</p>
 <p> UIView+ColorOfPoint.h</p>
-<figure class="highlight"><pre>@<span class="class"><span class="keyword">interface</span> <span class="title">UIView</span> (<span class="title">ColorOfPoint</span>)
-- (<span class="title">UIColor</span> *) <span class="title">colorOfPoint</span>:(<span class="title">CGPoint</span>)<span class="title">point</span>;
-@<span class="title">end</span>
+<figure class="highlight"><pre><span class="class"><span class="keyword">@interface</span> <span class="title">UIView</span> (<span class="title">ColorOfPoint</span>)</span>
+- (<span class="built_in">UIColor</span> *) colorOfPoint:(<span class="built_in">CGPoint</span>)point;
+<span class="keyword">@end</span>
 </pre></figure>
 
 <p> UIView+ColorOfPoint.m</p>
 <figure class="highlight"><pre><span class="preprocessor">#import <span class="title">"UIView+ColorOfPoint.h"</span></span>
 <span class="preprocessor">#import <span class="title">&lt;QuartzCore/QuartzCore.h&gt;</span></span>
 
-@<span class="class"><span class="keyword">implementation</span> <span class="id">UIView</span> (<span class="id">ColorOfPoint</span>)</span>
+<span class="class"><span class="keyword">@implementation</span> <span class="title">UIView</span> (<span class="title">ColorOfPoint</span>)</span>
 
 - (<span class="built_in">UIColor</span> *) colorOfPoint:(<span class="built_in">CGPoint</span>)point
 {
@@ -642,6 +750,7 @@ $(function () {
 <p>@end</p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e89eyhiwqbj20hs0qo769.jpg" class="center" width="300" height="600" title="模拟器">
 
+
         
     </div>
     <footer>
@@ -666,7 +775,7 @@ $(function () {
     <div class="entry">
         
         <p>因为行业原因 在公司上网必须通过代理安装，所以每天上下班开电脑第一件事 就是开关代理。于是做了一个软件 利用shell进行切换代理。</p>
-<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e898v6vmwdj20dk06bwep.jpg" class="left " width="300" height="400" title="运行效果图">
+<img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e898v6vmwdj20dk06bwep.jpg" class="left" width="300" height="400" title="运行效果图">
 
 
   
@@ -698,8 +807,8 @@ $(function () {
     <div class="entry">
         
         <p>打开终端，输入以下命令并回车：</p>
-<pre><code>defaults write com<span class="variable">.apple</span><span class="variable">.finder</span> _FXShowPosixPathInTitle -<span class="keyword">bool</span> <span class="literal">YES</span></code></pre>
-<p>然后再把finder关了再打开，你会发现路径栏变成这个样子了：</p>
+<pre><code>defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+</code></pre><p>然后再把finder关了再打开，你会发现路径栏变成这个样子了：</p>
 
         
     </div>
@@ -724,7 +833,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>Block 没有出现前 ios写个定时器太麻烦了,好在Block的让我们小爽了一把,以后写timer 简单的要命了<br>
+        <p>Block 没有出现前 ios写个定时器太麻烦了,好在Block的让我们小爽了一把,以后写timer 简单的要命了
+
         
     </div>
     <footer>
@@ -752,7 +862,9 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>这个貌似很简单但却是把我跟招行的兄弟难为了好久,为毛?还不是因为招行信用卡中心的网络无法连接外网无法谷歌度娘最后我们只能查看文档写test<br>下面是最后我们得到的两个方法<br>
+        <p>这个貌似很简单但却是把我跟招行的兄弟难为了好久,为毛?还不是因为招行信用卡中心的网络无法连接外网无法谷歌度娘最后我们只能查看文档写test
+下面是最后我们得到的两个方法
+
         
     </div>
     <footer>
@@ -810,7 +922,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>做订餐app时对下单时间的时间判断<br>下面是规则</p>
+        <p>做订餐app时对下单时间的时间判断
+下面是规则</p>
 <ul>
 <li>9:00-14:00 可以订餐</li>
 <li>14:00以后掌上餐厅仅接收晚餐订餐</li>
@@ -819,7 +932,7 @@ $(function () {
 <img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e87ve4c3ynj208q0abt9n.jpg" class="left" title="截图 300 400">
 
 
-<h2>
+<h2 id="-more-">
         
     </div>
     <footer>
@@ -847,7 +960,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>autorelease自动释放内存，并不会立即把内存释放掉，而是要等到下一个事件周期才会释放掉。问题是一些资源我们不得不使用autorelease类型，比如作为函数的返回值，而且系统api及项目是的大部分也都是这么做的，如果全都依靠我们手动释放很容易造成内存泄漏。<br>
+        <p>autorelease自动释放内存，并不会立即把内存释放掉，而是要等到下一个事件周期才会释放掉。问题是一些资源我们不得不使用autorelease类型，比如作为函数的返回值，而且系统api及项目是的大部分也都是这么做的，如果全都依靠我们手动释放很容易造成内存泄漏。
+
         
     </div>
     <footer>
@@ -875,13 +989,15 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
-<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
-  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
-    ((UIScrollView *)subview).bounces = NO;</code></pre>
-<p>// iOS 5+</p>
-<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
-
+        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景
+如何禁用呢
+// iOS 5之前</p>
+<pre><code>for (id subview in webView.subviews)
+  if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+    ((UIScrollView *)subview).bounces = NO;
+</code></pre><p>// iOS 5+</p>
+<pre><code>webView.scrollView.bounces = NO;
+</code></pre>
         
     </div>
     <footer>
@@ -905,7 +1021,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>每个app 难免要在NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦<br>
+        <p>每个app 难免要在NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦
+
         
     </div>
     <footer>
@@ -934,7 +1051,7 @@ $(function () {
     <div class="entry">
         
         <p>如图</p>
-<img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e8680v5hirj20df09qglv.jpg" class="left" height="400" title="600">
+<img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e8680v5hirj20df09qglv.jpg" class="left" width="400" height="600">
 
 
 <p>
@@ -944,6 +1061,37 @@ $(function () {
         
         <div class="alignleft">
             <a href="/2013/08/31/ios13/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T14:26:47.000Z"><a href="/2013/08/31/ios12/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios12/">ios 开发之 序列化</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>序列化</p>
+<p>参考原始文档：</p>
+<p><a href="https://github.com/mystcolor/JTObjectMapping" target="_blank">https://github.com/mystcolor/JTObjectMapping</a></p>
+<p>
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios12/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>
@@ -966,7 +1114,7 @@ $(function () {
     <div class="entry">
         
         <p>为了广大用户的支付安全,输入密码的页面密码键盘要用随机排序,因为有版权问题无法把自己写的代码全部贴出 所以下面只把关键的洗牌算法贴出来</p>
-<h2>算法一</h2>
+<h2 id="-">算法一</h2>
 <figure class="highlight"><pre>NSMutableArray *randSequence = <span class="string">[[NSMutableArray alloc] initWithCapacity:8];
 for (int ii = 0; ii &lt; 10; ++ii)
     [randSequence addObject:[NSNumber numberWithInt:ii]]</span>;
@@ -976,31 +1124,31 @@ for (int ii = 0; ii &lt; 10; ++ii)
     [randSequence exchangeObjectAtIndex:ii withObjectAtIndex:r];
 </pre></figure>
 
-<h2>算法二</h2>
+<h2 id="-">算法二</h2>
 <figure class="highlight"><pre>
-@<span class="class"><span class="keyword">interface</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)
-- (<span class="title">void</span>)<span class="title">shuffle</span>;
-@<span class="title">end</span>
+<span class="class"><span class="keyword">@interface</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)</span>
+- (<span class="keyword">void</span>)shuffle;
+<span class="keyword">@end</span>
 
 
-//  <span class="title">NSMutableArray_Shuffling</span>.<span class="title">m</span>
+<span class="comment">//  NSMutableArray_Shuffling.m</span>
 
-#<span class="title">import</span> "<span class="title">NSMutableArray_Shuffling</span>.<span class="title">h</span>"
+<span class="preprocessor">#import <span class="title">"NSMutableArray_Shuffling.h"</span></span>
 
-@<span class="title">implementation</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)
+<span class="class"><span class="keyword">@implementation</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)</span>
 
-- (<span class="title">void</span>)<span class="title">shuffle</span>
-{</span>
-    NSUInteger <span class="keyword">count</span> = [self <span class="keyword">count</span>];
-    <span class="keyword">for</span> (NSUInteger i = <span class="number">0</span>; i &lt; <span class="keyword">count</span>; ++i) {
+- (<span class="keyword">void</span>)shuffle
+{
+    NSUInteger count = [<span class="keyword">self</span> count];
+    <span class="keyword">for</span> (NSUInteger i = <span class="number">0</span>; i &lt; count; ++i) {
         <span class="comment">// Select a random element between i and end of array to swap with.</span>
-        NSInteger nElements = <span class="keyword">count</span> - i;
-        NSInteger n = (arc4random() % nElements) + i;
-        [self exchangeObjectAtIndex:i withObjectAtIndex:n];
+        <span class="built_in">NSInteger</span> nElements = count - i;
+        <span class="built_in">NSInteger</span> n = (arc4random() % nElements) + i;
+        [<span class="keyword">self</span> exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
 
-@end
+<span class="keyword">@end</span>
 </pre></figure>
 
 
@@ -1044,6 +1192,36 @@ for (int ii = 0; ii &lt; 10; ++ii)
     <header>
         <!--div class="icon"></div-->
         <span class="badge badge-warning">
+        <time datetime="2013-08-31T13:11:39.000Z"><a href="/2013/08/31/ios9/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios9/">Xcode的持续集成指南</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <h2 id="-">采用持续集成工作流</h2>
+<p>设置MAC作为服务器，在其上运行Xcode的服务。然后确保你的本地项目，发布源代码库。要完成设立一个持续集成的工作流程，配置的机器人，不知疲倦地进行集成和时间表。
+
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios9/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
         <time datetime="2013-08-31T12:41:27.000Z"><a href="/2013/08/31/ios8/" style="color:#FFFFFF">2013 8月 31</a></time>
         </span>
         
@@ -1055,7 +1233,8 @@ for (int ii = 0; ii &lt; 10; ++ii)
     </header>
     <div class="entry">
         
-        <p>&gt;<br>Xcode的支持持续集成通过Xcode的服务流程。Xcode的服务，可在OS X服务器，自动一体化建设过程中，您的应用程序的分析，测试和归档。
+        <p>&gt;
+Xcode的支持持续集成通过Xcode的服务流程。Xcode的服务，可在OS X服务器，自动一体化建设过程中，您的应用程序的分析，测试和归档。
         
     </div>
     <footer>
@@ -1084,7 +1263,8 @@ for (int ii = 0; ii &lt; 10; ++ii)
     <div class="entry">
         
         <blockquote>
-<p>问：如何快速把当前view下的所有子view 及其子子view们删除掉<br>
+<p>问：如何快速把当前view下的所有子view 及其子子view们删除掉
+
         
     </div>
     <footer>
@@ -1141,7 +1321,8 @@ for (int ii = 0; ii &lt; 10; ++ii)
     </header>
     <div class="entry">
         
-        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller<br>
+        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller
+
         
     </div>
     <footer>
@@ -1170,7 +1351,8 @@ for (int ii = 0; ii &lt; 10; ++ii)
     <div class="entry">
         
         <blockquote>
-<p>程序中难免使用removeFromSuperview，但是view控件直接从界面突然消失会显得非常不友好，作为一个高端大气上档次的app细节处处应该注意，<br>
+<p>程序中难免使用removeFromSuperview，但是view控件直接从界面突然消失会显得非常不友好，作为一个高端大气上档次的app细节处处应该注意，
+
         
     </div>
     <footer>
@@ -1230,7 +1412,8 @@ for (int ii = 0; ii &lt; 10; ++ii)
     <div class="entry">
         
         <blockquote>
-<p>昨晚同事拿了一个app 发现其app 内部页面打开了appstore  并没有唤起手机自带的appstore， 刚开始以为是用webview 加载的<br>
+<p>昨晚同事拿了一个app 发现其app 内部页面打开了appstore  并没有唤起手机自带的appstore， 刚开始以为是用webview 加载的
+
         
     </div>
     <footer>
@@ -1258,8 +1441,9 @@ for (int ii = 0; ii &lt; 10; ++ii)
     </header>
     <div class="entry">
         
-        <h2>关于图片资源</h2>
-<p>ios 程序会把图片资源编译成二进制文件，程序运行时会把这些图片从磁盘加载直接到内存，如果图片很大，加载速度就会很慢。<br>
+        <h2 id="-">关于图片资源</h2>
+<p>ios 程序会把图片资源编译成二进制文件，程序运行时会把这些图片从磁盘加载直接到内存，如果图片很大，加载速度就会很慢。
+
         
     </div>
     <footer>
@@ -1320,7 +1504,7 @@ for (int ii = 0; ii &lt; 10; ++ii)
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

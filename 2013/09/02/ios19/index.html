@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,30 +190,32 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>这个貌似很简单但却是把我跟招行的兄弟难为了好久,为毛?还不是因为招行信用卡中心的网络无法连接外网无法谷歌度娘最后我们只能查看文档写test<br>下面是最后我们得到的两个方法<br><a id="more"></a></p>
-<h2>方法一:</h2>
-<pre><code>- (<span class="keyword">int</span>)getStringLength:(NSString<span class="variable">*)</span>strtemp
+        <p>这个貌似很简单但却是把我跟招行的兄弟难为了好久,为毛?还不是因为招行信用卡中心的网络无法连接外网无法谷歌度娘最后我们只能查看文档写test
+下面是最后我们得到的两个方法
+<a id="more"></a></p>
+<h2 id="-">方法一:</h2>
+<pre><code>- (int)getStringLength:(NSString*)strtemp
 {
 
-NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_200<span class="number">0</span>);
+NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
 
     NSData* da = [strtemp dataUsingEncoding:enc];
 
-    <span class="keyword">return</span> [da <span class="keyword">length</span>];
+    return [da length];
 
-}</code></pre>
-<h2>方法二:</h2>
-<pre><code>- (<span class="keyword">int</span>)convertToInt:(NSString<span class="variable">*)</span>strtemp
+}
+</code></pre><h2 id="-">方法二:</h2>
+<pre><code>- (int)convertToInt:(NSString*)strtemp
 
 {
 
-    <span class="keyword">int</span> strlength = <span class="number">0</span>;
+    int strlength = 0;
 
-    char* p = (char<span class="variable">*)</span>[strtemp cStringUsingEncoding:NSUnicodeStringEncoding];
+    char* p = (char*)[strtemp cStringUsingEncoding:NSUnicodeStringEncoding];
 
-    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span> ; i&lt;[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
+    for (int i=0 ; i&lt;[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
 
-        <span class="keyword">if</span> (<span class="variable">*p</span>) {
+        if (*p) {
 
             p++;
 
@@ -221,7 +223,7 @@ NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodi
 
         }
 
-        <span class="keyword">else</span> {
+        else {
 
             p++;
 
@@ -231,10 +233,10 @@ NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodi
 
     }
 
-    <span class="keyword">return</span> strlength;
+    return strlength;
 
-}</code></pre>
-
+}
+</code></pre>
         <hr />
         <span class="label label-warning">W</span>
         本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/02/ios19/">http://hufeng825.github.com/2013/09/02/ios19/
@@ -295,7 +297,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

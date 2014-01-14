@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,11 +190,12 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>本文简单介绍下 Markdown ���法<br><a id="more"></a></p>
-<h3>什么是Markdown</h3>
+        <p>本文简单介绍下 Markdown 语法
+<a id="more"></a></p>
+<h3 id="-markdown">什么是Markdown</h3>
 <p>Markdown是一个将文本转化为HTML的工具。简单来说，Markdown是一个兼顾可读性与易用性的轻量级标记体系。Markdown并不追求大而全，它只关心HTML里最常用的几个标记，对于一些不常用的标记它允许直接将HTML标记插入文本。</p>
 <hr>
-<h2>表格</h2>
+<h2 id="-">表格</h2>
 <table>
 <thead>
 <tr>
@@ -217,31 +218,31 @@ $(function () {
 </tbody>
 </table>
 <p>代码如下</p>
-<figure class="highlight"><pre><span class="comment">标号</span>  <span class="comment">|</span> <span class="comment">面向对象概念</span> <span class="comment">|</span> <span class="comment">面向关系概念</span> 
-<span class="literal">-</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">|</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">|</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
-<span class="comment">*1*</span> <span class="comment">|</span> <span class="comment">`对象`</span> <span class="comment">|</span> <span class="comment">**表的行（即记录）**</span>
-<span class="comment">2</span> <span class="comment">|</span> <span class="comment">属性</span> <span class="comment">|</span> <span class="comment">表的列（即字段）
+<figure class="highlight"><pre>标号  | 面向对象概念 | 面向关系概念 
+<span class="horizontal_rule">--- | --- | ---</span>
+<span class="emphasis">*1*</span> | <span class="code">`对象`</span> | <span class="strong">**表的行（即记录）**</span>
+2 | 属性 | 表的列（即字段）
 </pre></figure>
 
 <hr>
-<h2>标题</h2>
+<h2 id="-">标题</h2>
 <p>Markdown提供了两种方式（Setext和Atx）来显示标题。</p>
 <p>代码如下</p>
-<figure class="highlight"><pre><span class="comment">Setext方式</span>
-<span class="comment">标题1</span>
-<span class="comment">=================</span>
+<figure class="highlight"><pre>Setext方式
+<span class="header">标题1
+=================</span>
 
-<span class="comment">标题2</span>
-<span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>
+<span class="header">标题2
+-----------------</span>
 
-<span class="comment">Atx方式</span>
-<span class="comment">#</span> <span class="comment">标题1</span>
-<span class="comment">##</span> <span class="comment">标题2</span>
-<span class="comment">######</span> <span class="comment">标题6
+Atx方式
+# 标题1
+## 标题2
+###### 标题6
 </pre></figure>
 
 <hr>
-<h2>换行</h2>
+<h2 id="-">换行</h2>
 <p>在文字的末尾使用两个或两个以上的空格来表示换行。</p>
 <p>代码如下</p>
 <figure class="highlight"><pre><span class="blockquote">&gt; 这是一个引用，</span>
@@ -251,8 +252,8 @@ $(function () {
 </pre></figure>
 
 <hr>
-<h2>列表</h2>
-<h3>无序列表使用*、+或-后面加上空格来表示。</h3>
+<h2 id="-">列表</h2>
+<h3 id="-">无序列表使用*、+或-后面加上空格来表示。</h3>
 <p>代码如下 </p>
 <figure class="highlight"><pre><span class="bullet">* </span>Item 1
 <span class="bullet">* </span>Item 2
@@ -267,7 +268,7 @@ $(function () {
 <span class="bullet">- </span>Item 3
 </pre></figure>
 
-<h3>有序列表使用数字加英文句号加空格表示。</h3>
+<h3 id="-">有序列表使用数字加英文句号加空格表示。</h3>
 <p>代码如下 </p>
 <figure class="highlight"><pre><span class="bullet">1. </span>Item 1
 <span class="bullet">2. </span>Item 2
@@ -275,10 +276,11 @@ $(function () {
 </pre></figure>
 
 <hr>
-<h2>代码区域</h2>
-<p>行内代码使用反斜杠`表示。<br>代码段落则是在每行文字前加4个空格或者1个缩进符表示。</p>
+<h2 id="-">代码区域</h2>
+<p>行内代码使用反斜杠`表示。 
+代码段落则是在每行文字前加4个空格或者1个缩进符表示。</p>
 <hr>
-<h2>强调</h2>
+<h2 id="-">强调</h2>
 <p>Markdown使用*或_表示强调。</p>
 <p>代码如下 </p>
 <figure class="highlight"><pre>
@@ -291,37 +293,41 @@ $(function () {
 <p>链接</p>
 <p>Markdown支持两种风格的链接：Inline和Reference。</p>
 <p>语法：</p>
-<p>Inline：以中括号标记显示的链接文本，后面紧跟用小括号包围的链接。如果链接有title属性，则在链接中使用空格加“title属性”。<br>Reference：一般应用于多个不同位置使用相同链接。通常分为两个部分，调用部分为[链接文本][ref]；定义部分可以出现在文本中的其他位置，格式为[ref]: <a href="http://some/link/address" target="_blank">http://some/link/address</a> (可选的标题)。<br>注：ref中不区分大小写。</p>
+<p>Inline：以中括号标记显示的链接文本，后面紧跟用小括号包围的链接。如果链接有title属性，则在链接中使用空格加“title属性”。
+Reference：一般应用于多个不同位置使用相同链接。通常分为两个部分，调用部分为[链接文本][ref]；定义部分可以出现在文本中的其他位置，格式为[ref]: <a href="http://some/link/address" target="_blank">http://some/link/address</a> (可选的标题)。 
+注：ref中不区分大小写。</p>
 <p>代码如下 </p>
 <figure class="highlight"><pre>
-这是一个Inline[示例](http:<span class="comment">//www.baidu.com "可选的title")。</span>
-这是一个Reference[示例][<span class="keyword">ref</span>]。
-[<span class="keyword">ref</span>]: http:<span class="comment">//www.baidu.com</span>
+这是一个Inline[<span class="link_label">示例</span>](<span class="link_url">http://www.baidu.com "可选的title"</span>)。
+这是一个Reference[<span class="link_label">示例</span>][<span class="link_reference">ref</span>]。
+[<span class="link_reference">ref</span>]:<span class="link_url"> http://www.baidu.com</span>
 </pre></figure>
 
 <hr>
-<h2>图片</h2>
-<p>图片的使用方法基本上和链接类似，只是在中括号前加叹号。<br>注：Markdown不能设置图片大小，如果必须设置则应使用HTML标记<img>。</p>
+<h2 id="-">图片</h2>
+<p>图片的使用方法基本上和链接类似，只是在中括号前加叹号。 
+注：Markdown不能设置图片大小，如果必须设置则应使用HTML标记<img>。</p>
 <p>代码如下 </p>
-<figure class="highlight"><pre><span class="tag">&lt;<span class="title">notextile</span>&gt;</span>0<span class="tag">&lt;/<span class="title">notextile</span>&gt;</span>
+<figure class="highlight"><pre><span class="xml"><span class="tag">&lt;<span class="title">notextile</span>&gt;</span></span>0<span class="xml"><span class="tag">&lt;/<span class="title">notextile</span>&gt;</span></span>
 
-Inline示例：![替代文本](http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg "可选的title")
-Reference示例：![替代文本][pic]
-[pic]: http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg "可选的title"
-HTML示例：<span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg"</span> <span class="attribute">alt</span>=<span class="value">"替代文本"</span> <span class="attribute">title</span>=<span class="value">"标题文本"</span> <span class="attribute">width</span>=<span class="value">"200"</span> /&gt;</span>
+Inline示例：![<span class="link_label">替代文本</span>](<span class="link_url">http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg "可选的title"</span>)
+Reference示例：![<span class="link_label">替代文本</span>][<span class="link_reference">pic</span>]
+[<span class="link_reference">pic</span>]:<span class="link_url"> http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg "可选的title"</span><span class="link_url">
+HTML示例：&lt;img src="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" alt="替代文本" title="标题文本" width="200" /&gt;</span>
 </pre></figure>
 
 <p>效果</p>
 <img src="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" class="right" width="300" height="400" title="可选的title">
 
-<p>Inline示例：<img src="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" alt="替代文本" title="可选的title"><br>Reference示例：![替代文本][<a href="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" target="_blank">http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg</a>]</p>
+<p>Inline示例：<img src="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" alt="替代文本" title="可选的title">
+Reference示例：![替代文本][<a href="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" target="_blank">http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg</a>]</p>
 <p>HTML示例：<img src="http://ww4.sinaimg.cn/large/a43af4ffjw1e3nomotys9j.jpg" alt="替代文本" title="标题文本" width="200" /></p>
 <hr>
-<h2>自动链接</h2>
+<h2 id="-">自动链接</h2>
 <p>使用尖括号，可以为输入的URL或者邮箱自动创建链接。如test@test.com。</p>
-<h2>分隔线</h2>
+<h2 id="-">分隔线</h2>
 <p>在一行中使用三个或三个以上的*、-或_可以添加分隔线，其中可以有空白，但是不能有其他字符。</p>
-<h2>转义字符</h2>
+<h2 id="-">转义字符</h2>
 <p>Markdown中的转义字符为\，可以转义的有：</p>
 <figure class="highlight"><pre><span class="command">\\</span> 反斜杠
 <span class="command">\`</span> 反引号
@@ -398,7 +404,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

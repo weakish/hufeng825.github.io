@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -191,23 +191,23 @@ $(function () {
   <ul class="entry">
     
       <li>
-        <a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系���教程之Gravity+Collision</a>
+        <a href="/2014/01/13/ios35/">ios系列教程之用instruments来检验你的app</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系列教程之Gravity+Collision</a>
       </li>
     
       <li>
         <a href="/2013/10/16/mac5/">mac下如何看凤凰卫视直播</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/13/ios31/">如何建立基于CocoaPods的ReactiveCocoa工程</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/11/ios30/">IOS 开发之 CocoaPods讲解</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/22/ios29/">ios7之Sprite Kit vs Cocos2D</a>
       </li>
     
   </ul>
@@ -222,15 +222,15 @@ $(function () {
   
     <li><a href="/categories/git/">git</a><small> (13)</small></li>
   
-    <li><a href="/categories/hexo/">hexo</a><small> (4)</small></li>
+    <li><a href="/categories/hexo/">hexo</a><small> (2)</small></li>
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (33)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (38)</small></li>
   
     <li><a href="/categories/ios/mac/">mac</a><small> (5)</small></li>
   
-    <li><a href="/categories/mac/">mac</a><small> (1)</small></li>
+    <li><a href="/categories/mac/">mac</a><small> (2)</small></li>
   
     <li><a href="/categories/git/svn/">svn</a><small> (3)</small></li>
   
@@ -257,6 +257,155 @@ $(function () {
     <header>
         <!--div class="icon"></div-->
         <span class="badge badge-warning">
+        <time datetime="2013-08-31T14:05:28.000Z"><a href="/2013/08/31/ios11/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios11/">银行支付控件之 自动随机(shuffle)密码键盘的实现算法</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>为了广大用户的支付安全,输入密码的页面密码键盘要用随机排序,因为有版权问题无法把自己写的代码全部贴出 所以下面只把关键的洗牌算法贴出来</p>
+<h2 id="-">算法一</h2>
+<figure class="highlight"><pre>NSMutableArray *randSequence = <span class="string">[[NSMutableArray alloc] initWithCapacity:8];
+for (int ii = 0; ii &lt; 10; ++ii)
+    [randSequence addObject:[NSNumber numberWithInt:ii]]</span>;
+
+<span class="keyword">for</span> (int ii = <span class="number">9</span>; ii &gt; -<span class="number">1</span>; <span class="comment">--ii) {</span>
+    int r = arc4random() % <span class="number">9</span>
+    [randSequence exchangeObjectAtIndex:ii withObjectAtIndex:r];
+</pre></figure>
+
+<h2 id="-">算法二</h2>
+<figure class="highlight"><pre>
+<span class="class"><span class="keyword">@interface</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)</span>
+- (<span class="keyword">void</span>)shuffle;
+<span class="keyword">@end</span>
+
+
+<span class="comment">//  NSMutableArray_Shuffling.m</span>
+
+<span class="preprocessor">#import <span class="title">"NSMutableArray_Shuffling.h"</span></span>
+
+<span class="class"><span class="keyword">@implementation</span> <span class="title">NSMutableArray</span> (<span class="title">Shuffling</span>)</span>
+
+- (<span class="keyword">void</span>)shuffle
+{
+    NSUInteger count = [<span class="keyword">self</span> count];
+    <span class="keyword">for</span> (NSUInteger i = <span class="number">0</span>; i &lt; count; ++i) {
+        <span class="comment">// Select a random element between i and end of array to swap with.</span>
+        <span class="built_in">NSInteger</span> nElements = count - i;
+        <span class="built_in">NSInteger</span> n = (arc4random() % nElements) + i;
+        [<span class="keyword">self</span> exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+}
+
+<span class="keyword">@end</span>
+</pre></figure>
+
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T13:45:59.000Z"><a href="/2013/08/31/ios10/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios10/">mac 下的默认配置</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>请几天安装其他的shell 结果把默认的shell更改了  有没有快捷的方法更换会默认配置 
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios10/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T13:11:39.000Z"><a href="/2013/08/31/ios9/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios9/">Xcode的持续集成指南</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <h2 id="-">采用持续集成工作流</h2>
+<p>设置MAC作为服务器，在其上运行Xcode的服务。然后确保你的本地项目，发布源代码库。要完成设立一个持续集成的工作流程，配置的机器人，不知疲倦地进行集成和时间表。
+
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios9/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-08-31T12:41:27.000Z"><a href="/2013/08/31/ios8/" style="color:#FFFFFF">2013 8月 31</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/08/31/ios8/">xcode 5.0 的持续继承</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>&gt;
+Xcode的支持持续集成通过Xcode的服务流程。Xcode的服务，可在OS X服务器，自动一体化建设过程中，您的应用程序的分析，测试和归档。
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/08/31/ios8/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
         <time datetime="2013-08-29T10:48:47.000Z"><a href="/2013/08/29/ios7/" style="color:#FFFFFF">2013 8月 29</a></time>
         </span>
         
@@ -269,7 +418,8 @@ $(function () {
     <div class="entry">
         
         <blockquote>
-<p>问：如何快速把当前view下的所有子view 及其子子view们删除掉<br>
+<p>问：如何快速把当前view下的所有子view 及其子子view们删除掉
+
         
     </div>
     <footer>
@@ -326,7 +476,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller<br>
+        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller
+
         
     </div>
     <footer>
@@ -355,7 +506,8 @@ $(function () {
     <div class="entry">
         
         <blockquote>
-<p>程序中难免使用removeFromSuperview，但是view控件直接从界面突然消失会显得非常不友好，作为一个高端大气上档次的app细节处处应该注意，<br>
+<p>程序中难免使用removeFromSuperview，但是view控件直接从界面突然消失会显得非常不友好，作为一个高端大气上档次的app细节处处应该注意，
+
         
     </div>
     <footer>
@@ -415,131 +567,14 @@ $(function () {
     <div class="entry">
         
         <blockquote>
-<p>mq 支持多种发送格式  BytesMessage  MapMessage ObjectMessage TextMessage StreamMessage等<br>
+<p>mq 支持多种发送格式  BytesMessage  MapMessage ObjectMessage TextMessage StreamMessage等
+
         
     </div>
     <footer>
         
         <div class="alignleft">
             <a href="/2013/08/23/mq5/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-22T01:38:51.000Z"><a href="/2013/08/22/mq4/" style="color:#FFFFFF">2013 8月 22</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/22/mq4/">MQ 笔记之 游标 及其游标优化</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <h2>概观</h2>
-<blockquote>
-<p>在ActiveMQ的Broker中，光标用来持有一批在内存等待发送目标地址的消息。默认情况下这小消息被从存储器取出只想一个cursor(存储光标)<br>
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/22/mq4/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-21T15:43:37.000Z"><a href="/2013/08/21/mq3/" style="color:#FFFFFF">2013 8月 21</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/21/mq3/">MQ 笔记之 消息持久化</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <blockquote>
-<p>在broker中设置属性persistent=”true”(默认是true)，同时发送的消息也应该是persitent类型的。ActiveMQ消息持久化有三种方式：AMQ、KahaDB、JDBC。<br>配置文件在config/jetty.xml<br>
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/21/mq3/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-21T13:22:00.000Z"><a href="/2013/08/21/mq2/" style="color:#FFFFFF">2013 8月 21</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/21/mq2/">MQ 笔记之 JMS 简介 （什么是JMS）</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <h2>一：JMS基本概念</h2>
-<h3>1.      JMS的目标</h3>
-<p>为企业级的应用提供一种智能的消息系统，JMS定义了一整套的企业级的消息概念与工具，<br>
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/21/mq2/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
-        </div>
-        
-    </footer>
-</div>
-
-            
-            <div class="content">
-    <header>
-        <!--div class="icon"></div-->
-        <span class="badge badge-warning">
-        <time datetime="2013-08-21T01:18:13.000Z"><a href="/2013/08/21/appstore/" style="color:#FFFFFF">2013 8月 21</a></time>
-        </span>
-        
-
-<h1 class="title"><a href="/2013/08/21/appstore/">ios 笔记之 内购</a></h1>
-
-
-
-    </header>
-    <div class="entry">
-        
-        <blockquote>
-<p>昨晚同事拿了一个app 发现其app 内部页面打开了appstore  并没有唤起手机自带的appstore， 刚开始以为是用webview 加载的<br>
-        
-    </div>
-    <footer>
-        
-        <div class="alignleft">
-            <a href="/2013/08/21/appstore/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
         </div>
         
     </footer>
@@ -564,7 +599,7 @@ $(function () {
     }
 
     $(document).ready(function () {
-        var totalPage = '7' * '10';
+        var totalPage = '8' * '10';
         var currentPage = '6' - 1;
         $("#Pagination").pagination(totalPage, {
             items_per_page: '10',
@@ -596,7 +631,7 @@ $(function () {
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

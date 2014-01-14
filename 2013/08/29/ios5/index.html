@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,10 +190,12 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller<br><a id="more"></a><br>当时给出他的解决办法</p>
-<figure class="highlight"><pre>@<span class="class"><span class="keyword">implementation</span> <span class="id">UIView</span> (<span class="id">GetVCAdditions</span>)</span>
+        <p>long long ago ，带过的小弟遇到了一个问题，需要从当前的控件（一般是uiview）获取当前所在的viewcontroller
+<a id="more"></a>
+当时给出他的解决办法</p>
+<figure class="highlight"><pre><span class="class"><span class="keyword">@implementation</span> <span class="title">UIView</span> (<span class="title">GetVCAdditions</span>)</span>
 - (<span class="built_in">UIViewController</span> *)GetiewController {
-    Class vcc = [<span class="built_in">UIViewController</span> <span class="built_in">class</span>];
+    Class vcc = [<span class="built_in">UIViewController</span> class];
     UIResponder *responder = <span class="keyword">self</span>;
     <span class="keyword">while</span> ((responder = [responder nextResponder]))
         <span class="keyword">if</span> ([responder isKindOfClass: vcc])
@@ -263,7 +265,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

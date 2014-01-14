@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -178,6 +178,109 @@ $(function () {
     <header>
         <!--div class="icon"></div-->
         <span class="badge badge-warning">
+        <time datetime="2013-11-30T12:44:06.000Z"><a href="/2013/11/30/ios34/" style="color:#FFFFFF">2013 11月 30</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>最近把项目转到ARC 下了,之前__block 之前总结过一篇关于 <a href="http://blog.csdn.net/hufengvip/article/details/11585537" target="_blank">block</a> 的文章,有兴趣的童鞋可以去看下.</p>
+
+        
+    </div>
+    <footer>
+        
+        <div class="alignleft">
+            <a href="/2013/11/30/ios34/#more" class="more-link">全文<div class="icon-eye-open"></div></a>
+        </div>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-11-27T13:51:25.000Z"><a href="/2013/11/27/nodejs1/" style="color:#FFFFFF">2013 11月 27</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>这两天在mac下折腾node.js 的二维码库 ,遇到了n多大坑. 按着其官方文档的说明只有下面简简单单几句</p>
+<figure class="highlight"><pre>Dependencies
+
+These should be taken care <span class="operator">of</span> <span class="keyword">for</span> you <span class="keyword">by</span> npm but you should...
+
+npm install canvas
+If cairo gives you trouble <span class="operator">and</span> you cannot install canvas, checkout <span class="operator">the</span> canvas site. I know @tjholowaychuk has setup <span class="operator">a</span> way <span class="built_in">to</span> download <span class="operator">and</span> install <span class="operator">a</span> <span class="built_in">version</span> <span class="operator">of</span> cairo/pixman <span class="keyword">for</span> testing.
+
+The <span class="built_in">word</span> <span class="string">"QR Code"</span> is registered trademark <span class="operator">of</span>:
+
+DENSO WAVE INCORPORATED
+</pre></figure>
+
+<p>如果你的系统是mac的话 你只按着上面的安装方法 保准你折腾的头破血流, 我就是血淋淋的例子啊.</p>
+<p>因为mac 下其要安装的库太多了 .下面一次列出来</p>
+<figure class="highlight"><pre>
+<span class="bullet">1. </span>brew install  pkgconfig  如果没有安装homebrew 的话 恭喜你 安装去吧.
+
+<span class="bullet">2. </span>install XQuartz [<span class="link_label">下载地址</span>](<span class="link_url">https://xquartz.macosforge.org</span>)
+
+<span class="bullet">3. </span>brew install Cairo
+
+<span class="bullet">4. </span>coyped all /opt/X11/lib/pkgconfig/*.pc to /usr/local/lib/pkgconfig on your mac
+
+<span class="bullet">5. </span>sudo npm install -g qrcode
+</pre></figure>
+
+<p>以上的安装步骤 我可是折腾了足足一个晚上.</p>
+<p>写个demo 进行测试下 qrcode.js</p>
+<figure class="highlight lang-`"><pre>var http = require("http");
+var QRCode = require('qrcode');
+function onRequest(request, response) {
+  console.log("Request received.");
+  response.writeHead(200, {"Content-Type": "text/html"});
+  QRCode.toDataURL("胡峰",function(err,url){
+    if(err) console.log('error: '+err);
+    //console.log(url);
+    response.end("<span class="doctype">&lt;!DOCTYPE html/&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>二维码<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span> &gt;</span>请扫描二维码<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">'"+url+"'</span>/&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>");
+  });
+}
+
+http.createServer(onRequest).listen(8888);
+</pre></figure>
+
+<p> node qrcode.js  打开浏览器 ok了</p>
+ <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1eazxou2xo0j207o075aac.jpg" class="center">
+
+
+
+
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
         <time datetime="2013-11-06T06:16:04.000Z"><a href="/2013/11/06/iosdynamics0/" style="color:#FFFFFF">2013 11月 6</a></time>
         </span>
         
@@ -189,7 +292,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是“既视感”不强.<br>
+        <p>ios7推出好久了,但是最近忙着工作的时间现在才抽时间自己看了WWDC2013,很是惭愧.最客户端其实最有趣的莫过于动画.ios7给我最大的惊喜就是UIKit Dynamics的到来,想想两年前写招行掌上生活首页的时候,那时候没有现成的物理引擎,写的动画非常生硬,套用现在流行的话就是&quot;既视感&quot;不强.
+
         
     </div>
     <footer>
@@ -252,7 +356,7 @@ $(function () {
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

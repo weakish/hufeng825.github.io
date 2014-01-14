@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,11 +190,14 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <h2>下载</h2>
-<p><a href="http://www.apache.org/dyn/closer.cgi?path=/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz" target="_blank">从下载地址中下载包</a><br>解压包然后把包放到一个自己不会手一抖就删掉的位置，此处我放到了本地的document下<br>如下图<br><a id="more"></a></p>
+        <h2 id="-">下载</h2>
+<p><a href="http://www.apache.org/dyn/closer.cgi?path=/activemq/apache-activemq/5.8.0/apache-activemq-5.8.0-bin.tar.gz" target="_blank">从下载地址中下载包</a>
+解压包然后把包放到一个自己不会手一抖就删掉的位置，此处我放到了本地的document下
+如下图
+<a id="more"></a></p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e7uav8h7lbj20o80gkjtw.jpg" class="left" width="200" height="300" title="图片">
 
-<h2>添加环境到path</h2>
+<h2 id="-path">添加环境到path</h2>
 <p>把/你的保存路径/apache-activemq-5.8.0/bin/activemq 添加到 PATH 中 </p>
 <ol>
 <li>cd </li>
@@ -204,37 +207,38 @@ $(function () {
 <li>wq</li>
 <li>source .profile</li>
 </ol>
-<h2>启动mq</h2>
-<p>$Mq start<br>输入账号 admin 密码  admin</p>
+<h2 id="-mq">启动mq</h2>
+<p>$Mq start
+输入账号 admin 密码  admin</p>
 <p><strong>注意</strong> 如果用代理上网 请把网络环境设置下 如下图</p>
 <img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e7ubcv9nx0j20oa08egmc.jpg" width="200" height="300" title="网络配置">
 
 
-<h2>查看启动效果</h2>
+<h2 id="-">查看启动效果</h2>
 <img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e7ubfs7cg1j21ga0oe0yw.jpg" width="200" height="300" title="启动效果">
 
 
-<h2>基本配置</h2>
+<h2 id="-">基本配置</h2>
 <p>conf/jetty.xml</p>
-<figure class="highlight"><pre><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"securityConstraint"</span>&gt;</span>
+<figure class="highlight"><pre>&lt;bean <span class="property">id</span>=<span class="string">"securityConstraint"</span>&gt;
  
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"name"</span> <span class="attribute">value</span>=<span class="value">"BASIC"</span> /&gt;</span>
+        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"name"</span> value=<span class="string">"BASIC"</span> /&gt;
  
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"roles"</span> <span class="attribute">value</span>=<span class="value">"admin"</span> /&gt;</span>
+        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"roles"</span> value=<span class="string">"admin"</span> /&gt;
  
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"authenticate"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span>
+        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"authenticate"</span> value=<span class="string">"false"</span> /&gt;
  
-<span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
+&lt;/bean&gt;
 </pre></figure>
 
 <p>此处可以配置登陆用户权限</p>
-<figure class="highlight"><pre> <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"connectors"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">list</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"Connector"</span> <span class="attribute">class</span>=<span class="value">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"port"</span> <span class="attribute">value</span>=<span class="value">"8161"</span> /&gt;</span>
-                <span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">list</span>&gt;</span>
- <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+<figure class="highlight"><pre> &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"connectors"</span>&gt;
+            &lt;<span class="type">list</span>&gt;
+                &lt;bean <span class="property">id</span>=<span class="string">"Connector"</span> <span class="type">class</span>=<span class="string">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>&gt;
+                    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"port"</span> value=<span class="string">"8161"</span> /&gt;
+                &lt;/bean&gt;
+            &lt;/<span class="type">list</span>&gt;
+ &lt;/<span class="keyword">property</span>&gt;
 </pre></figure>
 
 <p>此处用来修改端口号</p>
@@ -299,7 +303,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

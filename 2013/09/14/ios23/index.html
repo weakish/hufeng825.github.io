@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -191,13 +191,14 @@ $(function () {
     </header>
     <div class="entry" id="post">
         <blockquote>
-<p>iphone5s 出来了，CPU 升级到了64位 可以应用到更大的内存了，同时对多线程的处理吞吐能力也教之前提升了十几倍。下面着中总结下ios 下多线程的知识点<br><a id="more"></a></p>
+<p>iphone5s 出来了，CPU 升级到了64位 可以应用到更大的内存了，同时对多线程的处理吞吐能力也教之前提升了十几倍。下面着中总结下ios 下多线程的知识点
+<a id="more"></a></p>
 </blockquote>
-<img src="http://image.techweb.com.cn/edit/2013/0911/37841378870639.jpg" class="left" width="400" height="200">
+<img src="http://image.techweb.com.cn/edit/2013/0911/37841378870639jpg" class="left" width="400" height="200">
 
 
 
-<h2>1：现有的几种多线程</h2>
+<h2 id="1-">1：现有的几种多线程</h2>
 <table>
 <thead>
 <tr>
@@ -221,56 +222,61 @@ $(function () {
 </tbody>
 </table>
 <p>一般移动平台上系统都会有一个专门的检查机制，看程序有没有很长时间被阻塞住，没有回来检查主消息队列。发现这种情况一般都是把程 序作为“无响应”干掉。iOS一般情况下是10秒为上限。10秒内程序没有回到主消息循环就被干掉。在前台后台切换时更严格，大概是5秒左右。<a href="http://www.cnblogs.com/linyawen/archive/2012/07/24/2606709.html" target="_blank">注释1</a></p>
-<h2>2:简单的Demo</h2>
+<h2 id="2-demo">2:简单的Demo</h2>
 <p>因为GCD 是应用最广的 而且也是苹果现在极力鼓动开发者应用的 所以NSThread NSOperation 只做简单应用</p>
-<h3>1:NSThread</h3>
-<h3>1.1 NSThread 有两种直接创建方式：</h3>
-<p>第一个是实例方法—直接创建线程并且开始运行线程</p>
+<h3 id="1-nsthread">1:NSThread</h3>
+<h3 id="1-1-nsthread-">1.1 NSThread 有两种直接创建方式：</h3>
+<p>第一个是实例方法--直接创建线程并且开始运行线程</p>
 <ul>
 <li>(id)initWithTarget:(id)target selector:(SEL)selector object:(id)</li>
 </ul>
-<p>第二个是类方法—先创建线程对象，然后再运行线程操作，在运行线程操作前可以设置线程的优先级等线程信息</p>
+<p>第二个是类方法--先创建线程对象，然后再运行线程操作，在运行线程操作前可以设置线程的优先级等线程信息</p>
 <ul>
 <li>(void)detachNewThreadSelector:(SEL)aSelector toTarget:(id)aTarget withObject:(id)anArgument</li>
 </ul>
 <p><em>selector</em> :线程执行的方法，这个selector只能有一个参数，而且不能有返回值。<br><em>target</em>  :selector消息发送的对象<br><em>argument</em> :传输给target的唯一参数，也可以是nil    </p>
-<h3>1.2线程间通信</h3>
+<h3 id="1-2-">1.2线程间通信</h3>
 <p>a 在应用程序主线程中做事情： </p>
-<figure class="highlight"><pre><span class="method">performSelectorOnMainThread:</span><span class="method">withObject:</span><span class="method">waitUntilDone:</span> <span class="method">performSelectorOnMainThread:</span><span class="method">withObject:</span><span class="method">waitUntilDone:</span><span class="method">modes:</span>
+<figure class="highlight"><pre><span class="tag">performSelectorOnMainThread</span><span class="pseudo">:withObject</span><span class="pseudo">:waitUntilDone</span>: <span class="tag">performSelectorOnMainThread</span><span class="pseudo">:withObject</span><span class="pseudo">:waitUntilDone</span><span class="pseudo">:modes</span>:
 </pre></figure>
 
 <p>b 在指定线程中做事情：</p>
-<figure class="highlight"><pre><span class="method">performSelector:</span><span class="method">onThread:</span><span class="method">withObject:</span><span class="method">waitUntilDone:</span> <span class="method">performSelector:</span><span class="method">onThread:</span><span class="method">withObject:</span><span class="method">waitUntilDone:</span><span class="method">modes:</span>
+<figure class="highlight"><pre><span class="tag">performSelector</span><span class="pseudo">:onThread</span><span class="pseudo">:withObject</span><span class="pseudo">:waitUntilDone</span>: <span class="tag">performSelector</span><span class="pseudo">:onThread</span><span class="pseudo">:withObject</span><span class="pseudo">:waitUntilDone</span><span class="pseudo">:modes</span>:
 </pre></figure>
 
 <p>c 在当前线程中做事情：</p>
-<figure class="highlight"><pre><span class="method">performSelector:</span><span class="method">withObject:</span><span class="method">afterDelay:</span>
-<span class="method">performSelector:</span><span class="method">withObject:</span><span class="method">afterDelay:</span><span class="method">inModes:</span>
+<figure class="highlight"><pre><span class="tag">performSelector</span><span class="pseudo">:withObject</span><span class="pseudo">:afterDelay</span>:
+<span class="tag">performSelector</span><span class="pseudo">:withObject</span><span class="pseudo">:afterDelay</span><span class="pseudo">:inModes</span>:
 </pre></figure>
 
 <p>d 取消发送给当前线程的某个消息</p>
-<figure class="highlight"><pre><span class="method">cancelPreviousPerformRequestsWithTarget:</span> 
-<span class="method">cancelPreviousPerformRequestsWithTarget:</span><span class="method">selector:</span><span class="method">object:</span>
+<figure class="highlight"><pre><span class="tag">cancelPreviousPerformRequestsWithTarget</span>: 
+<span class="tag">cancelPreviousPerformRequestsWithTarget</span><span class="pseudo">:selector</span><span class="pseudo">:object</span>:
 </pre></figure>
 
-<h3>2:NSOperation</h3>
+<h3 id="2-nsoperation">2:NSOperation</h3>
 <p>首先是建立NSOperationQueue和NSOperations。NSOperationQueue会建立一个线程管理器，每个加入到线程operation会有序的执行。  </p>
 <figure class="highlight"><pre>
-NSOperationQueue *queue = [NSOperationQueue new];
-NSInvocationOperation *operation = <span class="string">[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(doWork:) object:someObject]; 
+NSOperationQueue *queue = [NSOperationQueue <span class="keyword">new</span>];
+NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:<span class="keyword">self</span> <span class="keyword">selector</span>:@<span class="keyword">selector</span>(doWork:) object:someObject]; 
 [queue addObject:operation]; 
 [operation release];
 </pre></figure>
 
-<p>使用NSOperationQueue的过程：<br>    1.  建立一个NSOperationQueue的对象<br>    2.  建立一个NSOperation的对象<br>    3.  将operation加入到NSOperationQueue中<br>    4.  release掉operation  </p>
-<p>NSInvocationOperation，NSInvocationOperation是NSOperation的子类，允许运行在operation中的targer和selector</p>
-<h3>3：多线程互斥同步问题</h3>
+<p>使用NSOperationQueue的过程：  </p>
+<pre><code>1.  建立一个NSOperationQueue的对象  
+2.  建立一个NSOperation的对象  
+3.  将operation加入到NSOperationQueue中  
+4.  release掉operation  
+</code></pre><p>NSInvocationOperation，NSInvocationOperation是NSOperation的子类，允许运行在operation中的targer和selector</p>
+<h3 id="3-">3：多线程互斥同步问题</h3>
 <p><a href="http://www.cnblogs.com/Quains/archive/2013/07/10/3182823.html" target="_blank">注释2</a></p>
 <p>在iOS中有几种方法来解决多线程访问同一个内存地址的互斥同步问题：</p>
 <ul>
-<li>方法一，@synchronized(id anObject),(最简单的方法)<br>会自动对参数对象加锁，保证临界区内的代码线程安全</li>
+<li>方法一，@synchronized(id anObject),(最简单的方法)
+会自动对参数对象加锁，保证临界区内的代码线程安全</li>
 </ul>
-<figure class="highlight"><pre>@<span class="keyword">synchronized</span>(<span class="keyword">self</span>) {
+<figure class="highlight"><pre><span class="at_rule">@<span class="function">synchronized(self)</span> {</span>
         <span class="comment">// 这段代码对其他 @synchronized(self) 都是互斥的</span>
         <span class="comment">// self 指向同一个对象</span>
 }
@@ -279,19 +285,26 @@ NSInvocationOperation *operation = <span class="string">[[NSInvocationOperation 
 <ul>
 <li>方法二，NSLock</li>
 </ul>
-<p>NSLock对象实现了NSLocking protocol，包含几个方法：<br>lock，加锁<br>unlock，解锁<br>tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO<br>lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO<br>比如<br>：<br>    NSLock *theLock = [[NSLock alloc] init]; </p>
-<pre><code>if ([the<span class="operator"><span class="keyword">Lock</span> <span class="keyword">lock</span>]) {
+<p>NSLock对象实现了NSLocking protocol，包含几个方法：
+lock，加锁
+unlock，解锁
+tryLock，尝试加锁，如果失败了，并不会阻塞线程，只是立即返回NO
+lockBeforeDate:，在指定的date之前暂时阻塞线程（如果没有获取锁的话），如果到期还没有获取锁，则线程被唤醒，函数立即返回NO
+比如
+：
+    NSLock *theLock = [[NSLock alloc] init]; </p>
+<pre><code>if ([theLock lock]) {
 
-//<span class="keyword">do</span> something here
+//do something here
 
-[theLock unlock];</span> 
+[theLock unlock]; 
 
-} </code></pre>
-<ul>
+} 
+</code></pre><ul>
 <li>方法三，NSRecursiveLock，递归锁</li>
 </ul>
 <p>NSRecursiveLock，多次调用不会阻塞已获取该锁的线程。</p>
-<pre><code>NSRecursiveLock *theLock = <span class="string">[[NSRecursiveLock alloc] init]; 
+<pre><code>NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init]; 
 void MyRecursiveFunction(int value) { 
     [theLock lock]; 
     if (value != 0) { 
@@ -300,13 +313,13 @@ void MyRecursiveFunction(int value) {
     }
     [theLock unlock]; 
 } 
-MyRecursiveFunction(5);</code></pre>
-<ul>
+MyRecursiveFunction(5);
+</code></pre><ul>
 <li>方法四，NSConditionLock，条件锁</li>
 </ul>
 <p>NSConditionLock，条件锁，可以设置条件</p>
 <pre><code>//公共部分
-id condLock = <span class="string">[[NSConditionLock alloc] initWithCondition:NO_DATA]; 
+id condLock = [[NSConditionLock alloc] initWithCondition:NO_DATA]; 
 
 //线程一，生产者
 while(true) { 
@@ -325,71 +338,79 @@ while (true) {
 
 //消费
 [condLock unlockWithCondition:NO_DATA]; 
-}</code></pre>
-<ul>
+}
+</code></pre><ul>
 <li>方法五，NSDistributedLock，分布锁</li>
 </ul>
-<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程<br>用tryLock方法获取锁。<br>用unlock方法释放锁。<br>如果一个获取锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
+<p>NSDistributedLock，分布锁，文件方式实现，可以跨进程
+用tryLock方法获取锁。
+用unlock方法释放锁。
+如果一个获取锁的进程在释放锁之前挂了，那么锁就一直得不到释放了，此时可以通过breakLock强行获取锁。</p>
 <p><strong>本章节(多线程互斥同步问题)参考自:<a href="http://blog.sina.com.cn/s/blog_72819b170101590n.html" target="_blank">http://blog.sina.com.cn/s/blog_72819b170101590n.html</a></strong></p>
-<h2>3:GCD多线程互斥同步问题(阻塞线程的方式去实现同步)</h2>
+<h2 id="3-gcd-">3:GCD多线程互斥同步问题(阻塞线程的方式去实现同步)</h2>
 <p><a href="http://blog.devtang.com/blog/2012/02/22/use-gcd/" target="_blank">注释3</a></p>
-<h3>1.串行队列</h3>
-<p>(1)GCD下的dispatch_queue队列都是FIFO队列,都会按照提交到队列的顺序执行.<br>只是根据队列的性质,分为  </p>
+<h3 id="1-">1.串行队列</h3>
+<p>(1)GCD下的dispatch_queue队列都是FIFO队列,都会按照提交到队列的顺序执行.
+只是根据队列的性质,分为  </p>
 <p><1>串行队列:用户队列、主线程队列 </p>
 <p><2>并行队列. </p>
-<p>(2)同步(dispatch_sync)、异步方式(dispatch_async). 配合串行队列和并行队列使用.<br>同步队列直接提交两个任务就可以.<br>// 串形队列<br>    dispatch_queue_t serilQueue = dispatch_queue_create(“com.quains.myQueue”, 0);</p>
-<pre><code><span class="comment">//开始时间</span>
-<span class="built_in">NSDate</span> *startTime = [<span class="built_in">NSDate</span> date];
+<p>(2)同步(dispatch_sync)、异步方式(dispatch_async). 配合串行队列和并行队列使用.<br>同步队列直接提交两个任务就可以.
+// 串形队列
+    dispatch_queue_t serilQueue = dispatch_queue_create(&quot;com.quains.myQueue&quot;, 0);</p>
+<pre><code>//开始时间
+NSDate *startTime = [NSDate date];
 
 
-__block <span class="built_in">UIImage</span> *image = <span class="literal">nil</span>;
+__block UIImage *image = nil;
 
-<span class="comment">//1.先去网上下载图片</span>
-<span class="built_in">dispatch_async</span>(serilQueue, ^{
-   <span class="comment">//下载图片</span>
+//1.先去网上下载图片
+dispatch_async(serilQueue, ^{
+   //下载图片
 });
 
-<span class="comment">//2.在主线程展示到界面里</span>
-<span class="built_in">dispatch_async</span>(serilQueue, ^{
+//2.在主线程展示到界面里
+dispatch_async(serilQueue, ^{
 
-    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>,[<span class="built_in">NSThread</span> currentThread]);
+    NSLog(@&quot;%@&quot;,[NSThread currentThread]);
 
-    <span class="comment">// 在主线程展示</span>
-    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^{
-      <span class="comment">//显示图片</span>
+    // 在主线程展示
+    dispatch_async(dispatch_get_main_queue(), ^{
+      //显示图片
 });
 
-<span class="comment">//3.清理</span>
+//3.清理
 dispatch_release(serilQueue);
-[image release];</code></pre>
-<p><strong>注意:</strong></p>
+[image release];
+</code></pre><p><strong>注意:</strong></p>
 <p>(1) __block变量分配在栈,retain下,防止被回收. </p>
 <p>(2)dispatch要手动create和release. </p>
 <p>(3)提交到主线程队列的时候,慎用同步dispatch_sync方法,有可能造成死锁.  因为主线程队列是串行队列,要等队列里的任务一个一个执行.所以提交一个任务到队列,如果用同步方法就会阻塞住主线程,而主线程又要等主线程队列里的任务都执行完才能执行那个刚提交的,所以主线程队列里还有其他的任务的话,但他已经被阻塞住了,没法先完成队列里的其他任务,即,最后一个任务也没机会执行到,于是造成死锁.</p>
 <p>(4)提交到串行队列可以用同步方式,也可以用异步方式. </p>
-<h3>2.并行队列</h3>
+<h3 id="2-">2.并行队列</h3>
 <p>采用并行队列的时候,可以采用同步的方式把任务提交到队列里去,即可以实现同步的方式</p>
-<p>//新建一个队列<br>    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</p>
-<pre><code><span class="comment">//记时</span>
-<span class="built_in">NSDate</span> *startTime = [<span class="built_in">NSDate</span> date];
+<p>//新建一个队列
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</p>
+<pre><code>//记时
+NSDate *startTime = [NSDate date];
 
-<span class="comment">//加入队列</span>
-<span class="built_in">dispatch_async</span>(concurrentQueue, ^{
-    __block <span class="built_in">UIImage</span> *image = <span class="literal">nil</span>;
+//加入队列
+dispatch_async(concurrentQueue, ^{
+    __block UIImage *image = nil;
 
-    <span class="comment">//1.先去网上下载图片</span>
-    <span class="built_in">dispatch_sync</span>(concurrentQueue, ^{
-        <span class="comment">//下载图片</span>
+    //1.先去网上下载图片
+    dispatch_sync(concurrentQueue, ^{
+        //下载图片
     });
 
-    <span class="comment">//2.在主线程展示到界面里</span>
-    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^{
-        <span class="comment">//显示图片</span>
+    //2.在主线程展示到界面里
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        //显示图片
     });
-});</code></pre>
-<p>两个同步的任务用一个异步的包起来,提交到并行队列里去,即可实现同步的方式.</p>
-<h3>3.使用分组方式</h3>
-<p>group本身是将几个有关联的任务组合起来,然后提供给开发者一个知道这个group结束的点.<br>虽然这个只有一个任务,但是可以利用group的结束点,去阻塞线程,从而来实现同步方式.</p>
+});
+</code></pre><p>两个同步的任务用一个异步的包起来,提交到并行队列里去,即可实现同步的方式.</p>
+<h3 id="3-">3.使用分组方式</h3>
+<p>group本身是将几个有关联的任务组合起来,然后提供给开发者一个知道这个group结束的点.
+虽然这个只有一个任务,但是可以利用group的结束点,去阻塞线程,从而来实现同步方式.</p>
 <p>例如让后台2个线程并行执行，然后等2个线程都结束后，再汇总执行结果。这个可以用dispatch_group, dispatch_group_async 和 dispatch_group_notify来实现，示例如下：</p>
 <figure class="highlight"><pre> dispatch_group_t <span class="keyword">group</span> = dispatch_group_create();
  dispatch_group_async(<span class="keyword">group</span>, dispatch_get_global_queue(<span class="number">0</span>,<span class="number">0</span>), ^{
@@ -403,67 +424,70 @@ dispatch_release(serilQueue);
  });
 </pre></figure>
 
-<pre><code>dispatch_group_t <span class="keyword">group</span> = dispatch_group_create();
+<pre><code>dispatch_group_t group = dispatch_group_create();
 
-dispatch_queue_t queue = dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>);
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
 
-NSDate <span class="variable">*startTime</span> = [NSDate <span class="keyword">date</span>];
+NSDate *startTime = [NSDate date];
 
-__block UIImage <span class="variable">*image</span> = nil;
+__block UIImage *image = nil;
 
-dispatch_group_async(<span class="keyword">group</span>, queue, ^{
-    <span class="comment">//1.先去网上下载图片</span>
+dispatch_group_async(group, queue, ^{
+    //1.先去网上下载图片
     });
 
-<span class="comment">// 2.等下载好了再在刷新主线程</span>
-dispatch_group_notify(<span class="keyword">group</span>, queue, ^{
+// 2.等下载好了再在刷新主线程
+dispatch_group_notify(group, queue, ^{
 
-    <span class="comment">//在主线程展示到界面里</span>
+    //在主线程展示到界面里
     dispatch_async(dispatch_get_main_queue(), ^{
-     <span class="comment">//显示图片</span>
+     //显示图片
     });
 
 });
 
-<span class="comment">// 释放掉</span>
-dispatch_release(<span class="keyword">group</span>);</code></pre>
-<p>dispatch_group 也要手动创建和释放.<br>dispatch_notify()提供了一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
-<h3>4.信号量</h3>
-<p>信号量 和 琐 的作用差不多,可以用来实现同步的方式.<br>但是信号量通常用在 允许几个线程同时访问一个资源,通过信号量来控制访问的线程个数.</p>
-<p>// 信号量初始化为1<br>    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</p>
-<pre><code><span class="built_in">dispatch_queue_t</span> queue = dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>);
+// 释放掉
+dispatch_release(group);
+</code></pre><p>dispatch_group 也要手动创建和释放.
+dispatch_notify()提供了一个知道group什么时候结束的点. 当然也可以使用dispatch_wait()去阻塞</p>
+<h3 id="4-">4.信号量</h3>
+<p>信号量 和 琐 的作用差不多,可以用来实现同步的方式. 
+但是信号量通常用在 允许几个线程同时访问一个资源,通过信号量来控制访问的线程个数.</p>
+<p>// 信号量初始化为1
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
 
-<span class="built_in">NSDate</span> *startTime = [<span class="built_in">NSDate</span> date];
+NSDate *startTime = [NSDate date];
 
-__block <span class="built_in">UIImage</span> *image = <span class="literal">nil</span>;
+__block UIImage *image = nil;
 
 
-<span class="comment">//1.先去网上下载图片</span>
-<span class="built_in">dispatch_async</span>(queue, ^{
+//1.先去网上下载图片
+dispatch_async(queue, ^{
 
-    <span class="comment">// wait操作-1</span>
+    // wait操作-1
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    <span class="comment">// 开始下载</span>
-    <span class="comment">// signal操作+1</span>
+    // 开始下载
+    // signal操作+1
     dispatch_semaphore_signal(semaphore);
 });
 
 
-<span class="comment">// 2.等下载好了再在刷新主线程</span>
-<span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^{
+// 2.等下载好了再在刷新主线程
+dispatch_async(dispatch_get_main_queue(), ^{
 
-    <span class="comment">// wait操作-1</span>
+    // wait操作-1
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    <span class="comment">//显示图片</span>
-    <span class="comment">// signal操作+1</span>
+    //显示图片
+    // signal操作+1
     dispatch_semaphore_signal(semaphore);
-});</code></pre>
-<p>dispatch_wait会阻塞线程并且检测信号量的值,直到信号量值大于0才会开始往下执行,同时对信号量执行-1操作.<br>dispatch_signal则是+1操作.</p>
-<h3>3.后台运行</h3>
+});
+</code></pre><p>dispatch_wait会阻塞线程并且检测信号量的值,直到信号量值大于0才会开始往下执行,同时对信号量执行-1操作.<br>dispatch_signal则是+1操作.</p>
+<h3 id="3-">3.后台运行</h3>
 <p>GCD的另一个用处是可以让程序在后台较长久的运行。在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
 <p>让程序在后台长久运行的示例代码如下：</p>
 <figure class="highlight"><pre><span class="comment">// AppDelegate.h文件</span>
-@<span class="keyword">property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) UIBackgroundTaskIdentifier backgroundUpdateTask;
+<span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) UIBackgroundTaskIdentifier backgroundUpdateTask;
 
 <span class="comment">// AppDelegate.m文件</span>
 - (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application
@@ -552,7 +576,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

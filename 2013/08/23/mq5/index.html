@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -184,48 +184,64 @@ $(function () {
         
         
 
-<h1 class="title">MQ 笔记之 发送接���实例</h1>
+<h1 class="title">MQ 笔记之 发送接受实例</h1>
 
 
 
     </header>
     <div class="entry" id="post">
         <blockquote>
-<p>mq 支持多种发送格式  BytesMessage  MapMessage ObjectMessage TextMessage StreamMessage等<br><a id="more"></a></p>
+<p>mq 支持多种发送格式  BytesMessage  MapMessage ObjectMessage TextMessage StreamMessage等
+<a id="more"></a></p>
 </blockquote>
 <p>本文章以 MapMessage 和 ObjectMessage 为例</p>
 <p><strong>注意 发送ObjectMessage时  接受实例必须相同类名</strong></p>
-<h2>发送实例</h2>
+<h2 id="-">发送实例</h2>
 <p>import org.apache.activemq.ActiveMQConnectionFactory;</p>
 <p>import javax.jms.*;</p>
 <p>public class Send {</p>
-<p> public static void main(String[] args) throws Exception {<br>        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory();</p>
-<pre><code>    Connection connection = connectionFactory<span class="preprocessor">.createConnection</span>()<span class="comment">;</span>
-    connection<span class="preprocessor">.start</span>()<span class="comment">;</span>
+<p> public static void main(String[] args) throws Exception {
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory();</p>
+<pre><code>    Connection connection = connectionFactory.createConnection();
+    connection.start();
 
-    Session session = connection<span class="preprocessor">.createSession</span>(Boolean<span class="preprocessor">.TRUE</span>, Session<span class="preprocessor">.AUTO</span>_ACKNOWLEDGE)<span class="comment">;</span>
-    Destination destination = session<span class="preprocessor">.createQueue</span>(<span class="string">"hf"</span>)<span class="comment">;</span>
+    Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+    Destination destination = session.createQueue(&quot;hf&quot;);
 
-    MessageProducer producer = session<span class="preprocessor">.createProducer</span>(destination)<span class="comment">;</span>
-   for(int i=<span class="number">0</span><span class="comment">; i&lt;3; i++) {</span></code></pre>
-<p>//            MapMessage message = session.createMapMessage();<br>//           message.setLong(“count”, new Date().getTime());<br>//            message.setObject(“hf”,new SendData());<br>      ObjectMessage message = session.createObjectMessage();<br>      message.setObject(new SendData());<br>//           message.setBytes(“count”, getTestData(1));<br>            Thread.sleep(1);<br>            //通过消息生产者发出消息<br>            producer.send(message);<br>        }<br>        session.commit();<br>        session.close();<br>        connection.close();<br>    }<br>}</p>
-<h2>接收实例</h2>
-<figure class="highlight"><pre>import org<span class="preprocessor">.apache</span><span class="preprocessor">.activemq</span><span class="preprocessor">.ActiveMQConnectionFactory</span><span class="comment">;</span>
+    MessageProducer producer = session.createProducer(destination);
+   for(int i=0; i&lt;3; i++) {
+</code></pre><p>//            MapMessage message = session.createMapMessage();
+//           message.setLong(&quot;count&quot;, new Date().getTime());
+//            message.setObject(&quot;hf&quot;,new SendData());
+      ObjectMessage message = session.createObjectMessage();
+      message.setObject(new SendData());
+//           message.setBytes(&quot;count&quot;, getTestData(1));
+            Thread.sleep(1);
+            //通过消息生产者发出消息
+            producer.send(message);
+        }
+        session.commit();
+        session.close();
+        connection.close();
+    }
+}</p>
+<h2 id="-">接收实例</h2>
+<figure class="highlight"><pre><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;
 
-import javax<span class="preprocessor">.jms</span>.*<span class="comment">;</span>
+<span class="keyword">import</span> javax.jms.*;
 
-public class Recive {
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Recive</span> {</span>
 
-public static void main(String[] args) throws Exception {
-    ConnectionFactory connectionFactory = new ActiveMQConnectionFactory()<span class="comment">;</span>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) <span class="keyword">throws</span> Exception {
+    ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory();
 
-    Connection connection = connectionFactory<span class="preprocessor">.createConnection</span>()<span class="comment">;</span>
-    connection<span class="preprocessor">.start</span>()<span class="comment">;</span>
+    Connection connection = connectionFactory.createConnection();
+    connection.start();
 
-    final Session session = connection<span class="preprocessor">.createSession</span>(Boolean<span class="preprocessor">.TRUE</span>, Session<span class="preprocessor">.AUTO</span>_ACKNOWLEDGE)<span class="comment">;</span>
-    Destination destination = session<span class="preprocessor">.createQueue</span>(<span class="string">"hf"</span>)<span class="comment">;</span>
+    <span class="keyword">final</span> Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+    Destination destination = session.createQueue(<span class="string">"hf"</span>);
 
-    MessageConsumer consumer = session<span class="preprocessor">.createConsumer</span>(destination)<span class="comment">;</span>
+    MessageConsumer consumer = session.createConsumer(destination);
 <span class="comment">/*//listener 方式
 consumer.setMessageListener(new MessageListener() {
 
@@ -239,73 +255,80 @@ consumer.setMessageListener(new MessageListener() {
 });
 Thread.sleep(30000);
 	*/</span>
-	int i=<span class="number">0</span><span class="comment">;</span>
-	while(i&lt;<span class="number">100</span>) {
-	i++<span class="comment">;</span>
-	//            MapMessage message = (MapMessage) consumer<span class="preprocessor">.receive</span>()<span class="comment">;</span>
-	ObjectMessage message = (ObjectMessage) consumer<span class="preprocessor">.receive</span>()<span class="comment">;</span>
+	<span class="keyword">int</span> i=<span class="number">0</span>;
+	<span class="keyword">while</span>(i&lt;<span class="number">100</span>) {
+	i++;
+	<span class="comment">//            MapMessage message = (MapMessage) consumer.receive();</span>
+	ObjectMessage message = (ObjectMessage) consumer.receive();
 
-	session<span class="preprocessor">.commit</span>()<span class="comment">;</span>
+	session.commit();
 
-	//TODO something....
-	//             System<span class="preprocessor">.out</span><span class="preprocessor">.println</span>(<span class="string">"收到消息："</span> + arrayToString(message<span class="preprocessor">.getBytes</span>(<span class="string">"count"</span>)))<span class="comment">;</span>
+	<span class="comment">//TODO something....</span>
+	<span class="comment">//             System.out.println("收到消息：" + arrayToString(message.getBytes("count")));</span>
 
-	System<span class="preprocessor">.out</span><span class="preprocessor">.println</span>(<span class="string">"收到消息："</span> + ((SendData) message<span class="preprocessor">.getObject</span>())<span class="preprocessor">.getDateStr</span>())<span class="comment">;</span>
+	System.out.println(<span class="string">"收到消息："</span> + ((SendData) message.getObject()).getDateStr());
 	}
 
-	session<span class="preprocessor">.close</span>()<span class="comment">;</span>
-	connection<span class="preprocessor">.close</span>()<span class="comment">;</span>
+	session.close();
+	connection.close();
 }
 
-//    public static final String arrayToString(byte[] bytes)
-//    {
-//        StringBuffer buff = new StringBuffer()<span class="comment">;</span>
-//        for (int i = <span class="number">0</span><span class="comment">; i &lt; bytes.length; i++)</span>
-//        {
-//            buff<span class="preprocessor">.append</span>(bytes[i] + <span class="string">" "</span>)<span class="comment">;</span>
-//        }
-//        return buff<span class="preprocessor">.toString</span>()<span class="comment">;</span>
-//    }
+<span class="comment">//    public static final String arrayToString(byte[] bytes)</span>
+<span class="comment">//    {</span>
+<span class="comment">//        StringBuffer buff = new StringBuffer();</span>
+<span class="comment">//        for (int i = 0; i &lt; bytes.length; i++)</span>
+<span class="comment">//        {</span>
+<span class="comment">//            buff.append(bytes[i] + " ");</span>
+<span class="comment">//        }</span>
+<span class="comment">//        return buff.toString();</span>
+<span class="comment">//    }</span>
 }
 </pre></figure>
 
-<h2>传递参数</h2>
-<p>import java.io.Serializable;<br>import java.util.Date;</p>
-<p>/<em>*
- </em> Created with IntelliJ IDEA.<br> <em> User: jason
- </em> Date: 13-8-22<br> <em> Time: 下午5:21
- </em> To change this template use File | Settings | File Templates.<br> */<br>public class SendData  implements Serializable {</p>
+<h2 id="-">传递参数</h2>
+<p>import java.io.Serializable;
+import java.util.Date;</p>
+<p>/**</p>
+<ul>
+<li>Created with IntelliJ IDEA.</li>
+<li>User: jason</li>
+<li>Date: 13-8-22</li>
+<li>Time: 下午5:21</li>
+<li>To change this template use File | Settings | File Templates.
+*/
+public class SendData  implements Serializable {</li>
+</ul>
 <p>//    private  static  final  long serialVersionUID = -23235245213533L;</p>
-<pre><code><span class="keyword">private</span>  <span class="keyword">byte</span>[] buffer;
+<pre><code>private  byte[] buffer;
 
-<span class="keyword">private</span> String dateStr;
+private String dateStr;
 
-<span class="keyword">public</span> SendData() {
-    setBuffer(<span class="keyword">null</span>);
-    setDateStr(<span class="keyword">null</span>);
+public SendData() {
+    setBuffer(null);
+    setDateStr(null);
 }
 
-<span class="keyword">public</span> <span class="keyword">byte</span>[] getBuffer() {
-    <span class="keyword">return</span> buffer;
+public byte[] getBuffer() {
+    return buffer;
 }
 
-<span class="keyword">public</span> String getDateStr() {
-    <span class="keyword">return</span> dateStr;
+public String getDateStr() {
+    return dateStr;
 }
 
-<span class="keyword">public</span> <span class="keyword">void</span> setDateStr(String dateStr) {
-    <span class="keyword">this</span>.dateStr = String.valueOf(<span class="keyword">new</span> Date().getTime());
+public void setDateStr(String dateStr) {
+    this.dateStr = String.valueOf(new Date().getTime());
 }
 
-<span class="keyword">public</span> <span class="keyword">void</span> setBuffer(<span class="keyword">byte</span>[] buffer) {
-    System.<span class="keyword">out</span>.print(<span class="string">"begin \n"</span>);
-    <span class="keyword">byte</span> [ ] buffers = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>*<span class="number">1</span>];
-    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span> ;  i&lt; buffers.length ;i++)
-        buffers[i] = Byte.parseByte(<span class="string">"2"</span>);
-    System.<span class="keyword">out</span>.print(<span class="string">"end \n"</span>);
-    <span class="keyword">this</span>.buffer = buffers;
-}</code></pre>
-<p>}</p>
+public void setBuffer(byte[] buffer) {
+    System.out.print(&quot;begin \n&quot;);
+    byte [ ] buffers = new byte[1024*1];
+    for (int i=0 ;  i&lt; buffers.length ;i++)
+        buffers[i] = Byte.parseByte(&quot;2&quot;);
+    System.out.print(&quot;end \n&quot;);
+    this.buffer = buffers;
+}
+</code></pre><p>}</p>
 
         <hr />
         <span class="label label-warning">W</span>
@@ -367,7 +390,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

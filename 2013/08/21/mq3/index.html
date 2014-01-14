@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -191,9 +191,11 @@ $(function () {
     </header>
     <div class="entry" id="post">
         <blockquote>
-<p>在broker中设置属性persistent=”true”(默认是true)，同时发送的消息也应该是persitent类型的。ActiveMQ消息持久化有三种方式：AMQ、KahaDB、JDBC。<br>配置文件在config/jetty.xml<br><a id="more"></a></p>
+<p>在broker中设置属性persistent=”true”(默认是true)，同时发送的消息也应该是persitent类型的。ActiveMQ消息持久化有三种方式：AMQ、KahaDB、JDBC。
+配置文件在config/jetty.xml
+<a id="more"></a></p>
 </blockquote>
-<h2>一、AMQ</h2>
+<h2 id="-amq">一、AMQ</h2>
 <p>AMQ是一种文件存储形式，它具有写入速度快和容易恢复的特点。消息存储在一个个文件中，文件的默认大小为32兆，如果一条消息的大小超过了32兆，那么这个值必须设置大点。当一个存储文件中的消息已经全部被消费，那么这个文件将被标识为可删除，在下一个清除阶段，这个文件被删除。默认配置如下：</p>
 <figure class="highlight"><pre><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
   <span class="tag">&lt;<span class="title">amqPersistenceAdapter</span> <span class="attribute">directory</span>=<span class="value">"activemq-data"</span> <span class="attribute">maxFileLength</span>=<span class="value">"32mb"</span>/&gt;</span>
@@ -272,7 +274,7 @@ $(function () {
 </tbody>
 </table>
 <hr>
-<h2>二、 KahaDB</h2>
+<h2 id="-kahadb">二、 KahaDB</h2>
 <p>KahaDB是基于文件的本地数据库储存形式，虽然没有AMQ的速度快，但是它具有强扩展性，恢复的时间比AMQ短，从5.4版本之后KahaDB做为默认的持久化方式。默认配置如下</p>
 <figure class="highlight"><pre> <span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
         <span class="tag">&lt;<span class="title">kahaDB</span> <span class="attribute">directory</span>=<span class="value">"activemq-data"</span> <span class="attribute">journalMaxFileLength</span>=<span class="value">"32mb"</span>/&gt;</span>
@@ -393,13 +395,13 @@ $(function () {
 </table>
 <p>从5.6版本之后，有可能发布通过多个kahadb持久适配器来实现分布式目标队列存储。什么时候用呢？如果有一个快速的生产者和消费者，当某一个时刻生产者发生了不规范的消费，那么有可能产生一条消息被存储在两个消息文件中，同时，有些目标队列是危险的并且要求访问磁盘。在这种情况下，你应该用通配符来使用mKahaDB。如果目标队列是分布的，事务是可以跨越多个消息文件的。</p>
 <p>每个KahaDB的实例都可以配置单独的适配器，如果没有目标队列提交给filteredKahaDB，那么意味着对所有的队列有效。如果一个队列没有对应的适配器，那么将会抛出一个异常。配置如下：</p>
-<figure class="highlight"><pre><span class="xml"><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">mKahaDB</span> <span class="attribute">directory</span>=<span class="value">"</span><span class="variable">${activemq.base}</span><span class="xml">/data/kahadb"&gt;
+<figure class="highlight"><pre><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">mKahaDB</span> <span class="attribute">directory</span>=<span class="value">"${activemq.base}/data/kahadb"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">filteredPersistenceAdapters</span>&gt;</span>
       <span class="comment">&lt;!-- match all queues --&gt;</span>
       <span class="tag">&lt;<span class="title">filteredKahaDB</span> <span class="attribute">queue</span>=<span class="value">"&gt;"</span>&gt;</span>
         <span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">kahaDB</span> <span class="attribute">journalMaxFileLength</span>=<span class="value">"</span><span class="number">32</span><span class="xml">mb"/&gt;
+          <span class="tag">&lt;<span class="title">kahaDB</span> <span class="attribute">journalMaxFileLength</span>=<span class="value">"32mb"</span>/&gt;</span>
         <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span>
       <span class="tag">&lt;/<span class="title">filteredKahaDB</span>&gt;</span>
       
@@ -411,25 +413,25 @@ $(function () {
       <span class="tag">&lt;/<span class="title">filteredKahaDB</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">filteredPersistenceAdapters</span>&gt;</span>
   <span class="tag">&lt;/<span class="title">mKahaDB</span>&gt;</span>
- <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span></span>
+ <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span>
 </pre></figure>
 
 <p>如果filteredKahaDB的perDestination属性设置为true，那么匹配的目标队列将会得到自己对应的KahaDB实例。配置如下</p>
-<figure class="highlight"><pre><span class="xml"><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">mKahaDB</span> <span class="attribute">directory</span>=<span class="value">"</span><span class="variable">${activemq.base}</span><span class="xml">/data/kahadb"&gt;
+<figure class="highlight"><pre><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">mKahaDB</span> <span class="attribute">directory</span>=<span class="value">"${activemq.base}/data/kahadb"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">filteredPersistenceAdapters</span>&gt;</span>
       <span class="comment">&lt;!-- kahaDB per destinations --&gt;</span>
       <span class="tag">&lt;<span class="title">filteredKahaDB</span> <span class="attribute">perDestination</span>=<span class="value">"true"</span> &gt;</span>
         <span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">kahaDB</span> <span class="attribute">journalMaxFileLength</span>=<span class="value">"</span><span class="number">32</span><span class="xml">mb" /&gt;
+          <span class="tag">&lt;<span class="title">kahaDB</span> <span class="attribute">journalMaxFileLength</span>=<span class="value">"32mb"</span> /&gt;</span>
         <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span>
       <span class="tag">&lt;/<span class="title">filteredKahaDB</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">filteredPersistenceAdapters</span>&gt;</span>
   <span class="tag">&lt;/<span class="title">mKahaDB</span>&gt;</span>
- <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span></span>
+ <span class="tag">&lt;/<span class="title">persistenceAdapter</span>&gt;</span>
 </pre></figure>
 
-<h2>三、 JDBC</h2>
+<h2 id="-jdbc">三、 JDBC</h2>
 <p>配置JDBC适配器</p>
 <figure class="highlight"><pre><span class="tag">&lt;<span class="title">persistenceAdapter</span>&gt;</span>
         <span class="tag">&lt;<span class="title">jdbcPersistenceAdapter</span> <span class="attribute">dataSource</span>=<span class="value">"#mysql-ds"</span> <span class="attribute">createTablesOnStartup</span>=<span class="value">"false"</span> /&gt;</span>
@@ -438,50 +440,50 @@ $(function () {
 
 <p>dataSource指定持久化数据库的bean，createTablesOnStartup是否在启动的时候创建数据表，默认值是true，这样每次启动都会去创建数据表了，一般是第一次启动的时候设置为true，之后改成false。</p>
 <p>MYSQL持久化bean</p>
-<figure class="highlight"><pre><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"mysql-ds"</span> <span class="attribute">class</span>=<span class="value">"org.apache.commons.dbcp.BasicDataSource"</span> <span class="attribute">destroy-method</span>=<span class="value">"close"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driverClassName"</span> <span class="attribute">value</span>=<span class="value">"com.mysql.jdbc.Driver"</span>/&gt;</span>
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"jdbc:mysql://localhost/activemq?relaxAutoCommit=true"</span>/&gt;</span>
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"poolPreparedStatements"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span>
-<span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
+<figure class="highlight"><pre>&lt;bean <span class="property">id</span>=<span class="string">"mysql-ds"</span> <span class="type">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span> destroy-method=<span class="string">"close"</span>&gt;
+    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"driverClassName"</span> value=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;
+    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"url"</span> value=<span class="string">"jdbc:mysql://localhost/activemq?relaxAutoCommit=true"</span>/&gt;
+    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"username"</span> value=<span class="string">"activemq"</span>/&gt;
+    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span> value=<span class="string">"activemq"</span>/&gt;
+    &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"poolPreparedStatements"</span> value=<span class="string">"true"</span>/&gt;
+&lt;/bean&gt;
 </pre></figure>
 
 <p>SQL Server持久化bean</p>
-<figure class="highlight"><pre> <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"mssql-ds"</span> <span class="attribute">class</span>=<span class="value">"net.sourceforge.jtds.jdbcx.JtdsDataSource"</span> <span class="attribute">destroy-method</span>=<span class="value">"close"</span>&gt;</span>
-   <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"serverName"</span> <span class="attribute">value</span>=<span class="value">"SERVERNAME"</span>/&gt;</span>
-   <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"portNumber"</span> <span class="attribute">value</span>=<span class="value">"PORTNUMBER"</span>/&gt;</span>
-   <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"databaseName"</span> <span class="attribute">value</span>=<span class="value">"DATABASENAME"</span>/&gt;</span>
-   <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"user"</span> <span class="attribute">value</span>=<span class="value">"USER"</span>/&gt;</span>
-   <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"PASSWORD"</span>/&gt;</span>
- <span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
+<figure class="highlight"><pre> &lt;bean <span class="property">id</span>=<span class="string">"mssql-ds"</span> <span class="type">class</span>=<span class="string">"net.sourceforge.jtds.jdbcx.JtdsDataSource"</span> destroy-method=<span class="string">"close"</span>&gt;
+   &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"serverName"</span> value=<span class="string">"SERVERNAME"</span>/&gt;
+   &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"portNumber"</span> value=<span class="string">"PORTNUMBER"</span>/&gt;
+   &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"databaseName"</span> value=<span class="string">"DATABASENAME"</span>/&gt;
+   &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"user"</span> value=<span class="string">"USER"</span>/&gt;
+   &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span> value=<span class="string">"PASSWORD"</span>/&gt;
+ &lt;/bean&gt;
 </pre></figure>
 
 <p>Oracle持久化bean</p>
-<figure class="highlight"><pre><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"oracle-ds"</span> <span class="attribute">class</span>=<span class="value">"org.apache.commons.dbcp.BasicDataSource"</span> <span class="attribute">destroy-method</span>=<span class="value">"close"</span>&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driverClassName"</span> <span class="attribute">value</span>=<span class="value">"oracle.jdbc.driver.OracleDriver"</span>/&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"jdbc:oracle:thin:@10.53.132.47:1521:activemq"</span>/&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"maxActive"</span> <span class="attribute">value</span>=<span class="value">"200"</span>/&gt;</span>
-	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"poolPreparedStatements"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span>
-<span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
+<figure class="highlight"><pre>&lt;bean <span class="property">id</span>=<span class="string">"oracle-ds"</span> <span class="type">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span> destroy-method=<span class="string">"close"</span>&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"driverClassName"</span> value=<span class="string">"oracle.jdbc.driver.OracleDriver"</span>/&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"url"</span> value=<span class="string">"jdbc:oracle:thin:@10.53.132.47:1521:activemq"</span>/&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"username"</span> value=<span class="string">"activemq"</span>/&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span> value=<span class="string">"activemq"</span>/&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"maxActive"</span> value=<span class="string">"200"</span>/&gt;
+	&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"poolPreparedStatements"</span> value=<span class="string">"true"</span>/&gt;
+&lt;/bean&gt;
 </pre></figure>
 
 <p>DB2持久化bean</p>
-<figure class="highlight"><pre><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"db2-ds"</span> <span class="attribute">class</span>=<span class="value">"org.apache.commons.dbcp.BasicDataSource"</span>  <span class="attribute">destroy-method</span>=<span class="value">"close"</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driverClassName"</span> <span class="attribute">value</span>=<span class="value">"com.ibm.db2.jcc.DB2Driver"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"jdbc:db2://hndb02.bf.ctc.com:50002/activemq"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"activemq"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"maxActive"</span> <span class="attribute">value</span>=<span class="value">"200"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"poolPreparedStatements"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span>
-<span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
+<figure class="highlight"><pre>&lt;bean <span class="property">id</span>=<span class="string">"db2-ds"</span> <span class="type">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span>  destroy-method=<span class="string">"close"</span>&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"driverClassName"</span> value=<span class="string">"com.ibm.db2.jcc.DB2Driver"</span>/&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"url"</span> value=<span class="string">"jdbc:db2://hndb02.bf.ctc.com:50002/activemq"</span>/&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"username"</span> value=<span class="string">"activemq"</span>/&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span> value=<span class="string">"activemq"</span>/&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"maxActive"</span> value=<span class="string">"200"</span>/&gt;
+      &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"poolPreparedStatements"</span> value=<span class="string">"true"</span>/&gt;
+&lt;/bean&gt;
 </pre></figure>
 
 <hr>
 <blockquote>
-<p>本博文from 淮少吧</p>
+<p>本博文from 淮少吧 </p>
 </blockquote>
 
         <hr />
@@ -544,7 +546,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

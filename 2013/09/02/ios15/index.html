@@ -7,7 +7,7 @@
     <title>如何禁用禁用uwebiview 的反弹功能(bounces) | 阿峰的技术窝窝</title>
     <meta name="author" content="Jason Hu">
     
-  <meta name="description" content="UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景如何禁用呢// iOS 5之前for (id subview in webView.subviews)  if ([[subview class] isSubclassOfClass: [UIScrollVi">
+  <meta name="description" content="UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景如何禁用呢// iOS 5之前for (id subview in webView.subviews)  if ([[subview class] isSubclassOfClass: [UIScroll">
   
   
   
@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,13 +190,15 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景<br>如何禁用呢<br>// iOS 5之前</p>
-<pre><code><span class="keyword">for</span> (id subview <span class="keyword">in</span> webView.subviews)
-  <span class="keyword">if</span> (<span class="string">[[subview class] isSubclassOfClass: [UIScrollView class]]</span>)
-    ((UIScrollView *)subview).bounces = NO;</code></pre>
-<p>// iOS 5+</p>
-<pre><code>webView<span class="variable">.scrollView</span><span class="variable">.bounces</span> = <span class="literal">NO</span>;</code></pre>
-
+        <p>UIWebView默认允许当网页内容处于最顶端时，用户可以用手指往下拖动，露出空白的背景
+如何禁用呢
+// iOS 5之前</p>
+<pre><code>for (id subview in webView.subviews)
+  if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+    ((UIScrollView *)subview).bounces = NO;
+</code></pre><p>// iOS 5+</p>
+<pre><code>webView.scrollView.bounces = NO;
+</code></pre>
         <hr />
         <span class="label label-warning">W</span>
         本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/02/ios15/">http://hufeng825.github.com/2013/09/02/ios15/
@@ -257,7 +259,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

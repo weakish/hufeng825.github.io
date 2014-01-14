@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -195,7 +195,7 @@ $(function () {
 </blockquote>
 <a id="more"></a>
 
-<h2>使用方法</h2>
+<h2 id="-">使用方法</h2>
 <ol>
 <li>将下面代码保存成**.sh 然后chomd 777 使其可执行</li>
 <li>将**.sh 拷贝到工程根目录下</li>
@@ -207,31 +207,31 @@ $(function () {
 <img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e83pb1zvo7j215q0pq7bz.jpg" width="300" height="500">
 
 
-<h2>源码</h2>
-<figure class="highlight"><pre><span class="shebang">#!/bin/sh</span>
+<h2 id="-">源码</h2>
+<figure class="highlight"><pre><span class="shebang">#!/bin/sh
+</span>
+<span class="built_in">echo</span> <span class="string">"删除有风险 下手需谨慎 如需再次确认图片是否被引用到"</span>
 
-<span class="keyword">echo</span> <span class="string">"删除有风险 下手需谨慎 如需再次确认图片是否被引用到"</span>
-
-<span class="keyword">echo</span> <span class="string">"Defult.png 和例如[UIImage imageNamed:@‘img.png'] 可能会误报"</span>
+<span class="built_in">echo</span> <span class="string">"Defult.png 和例如[UIImage imageNamed:@‘img.png'] 可能会误报"</span>
 
 
-read -n1 -p  <span class="string">"【Y】查阅如何确认 【N】直接进行图片检索"</span> 
+<span class="built_in">read</span> -n1 -p  <span class="string">"【Y】查阅如何确认 【N】直接进行图片检索"</span> 
 
-case <span class="variable">$answer</span> <span class="keyword">in</span> 
+<span class="keyword">case</span> <span class="variable">$answer</span> <span class="keyword">in</span> 
 
 <span class="string">"Y"</span>|<span class="string">"y"</span>) 
 
-open -a Safari <span class="string">"http://blog.csdn.net/hufeng825/article/details/8533647"</span>
+open <span class="operator">-a</span> Safari <span class="string">"http://blog.csdn.net/hufeng825/article/details/8533647"</span>
 
-<span class="keyword">echo</span> -n <span class="string">"按任意键开始程序"</span>;
+<span class="built_in">echo</span> -n <span class="string">"按任意键开始程序"</span>;
 
-read var
+<span class="built_in">read</span> var
 
 ;;
 
 <span class="string">"N"</span>|<span class="string">"n"</span>) 
 
-<span class="keyword">echo</span> <span class="string">"命令执行时终端会输入结果 搜索完毕后 会在当前路径下自动生成imag.txt的结果报告"</span>
+<span class="built_in">echo</span> <span class="string">"命令执行时终端会输入结果 搜索完毕后 会在当前路径下自动生成imag.txt的结果报告"</span>
 
 ;;
 
@@ -239,7 +239,7 @@ read var
 
 ;;
 
-esac
+<span class="keyword">esac</span>
 
 
 
@@ -247,30 +247,30 @@ esac
 PROJ=`find .  ! -name <span class="string">'*.xib'</span> -o -name <span class="string">'*.[mh]'</span> -o -name <span class="string">'*.storyboard'</span> -o -name <span class="string">'*.mm'</span> -o -name <span class="string">'*.html'</span> `
 
 
-<span class="keyword">echo</span> <span class="string">"~~~~~~~~~~~~开始搜索~~~~~~~~~~~~"</span> &gt;&gt;<span class="string">'./image.txt'</span>;
+<span class="built_in">echo</span> <span class="string">"~~~~~~~~~~~~开始搜索~~~~~~~~~~~~"</span> &gt;&gt;<span class="string">'./image.txt'</span>;
 
 <span class="keyword">for</span> png <span class="keyword">in</span> `find . -name <span class="string">'*.png'</span>`
 <span class="keyword">do</span>
 
-   name=`basename -s .png <span class="variable">$png</span>`
-   name=`basename -s @2x <span class="variable">$name</span>`
+   name=`basename <span class="operator">-s</span> .png <span class="variable">$png</span>`
+   name=`basename <span class="operator">-s</span> @<span class="number">2</span>x <span class="variable">$name</span>`
    <span class="keyword">if</span> ! grep -qhs <span class="string">"<span class="variable">$name</span>"</span> <span class="string">"<span class="variable">$PROJ</span>"</span>; <span class="keyword">then</span>
-        <span class="keyword">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span> 
-        <span class="keyword">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span>  &gt;&gt;<span class="string">'./image.txt'</span> ;
+        <span class="built_in">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span> 
+        <span class="built_in">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span>  &gt;&gt;<span class="string">'./image.txt'</span> ;
    <span class="keyword">fi</span>
 <span class="keyword">done</span>
 
 <span class="keyword">for</span> jpg <span class="keyword">in</span> `find . -name <span class="string">'*.jpg'</span>`
 <span class="keyword">do</span>
-   name=`basename -s .jpg <span class="variable">$jpg</span>`
-   name=`basename -s @2x <span class="variable">$name</span>`
+   name=`basename <span class="operator">-s</span> .jpg <span class="variable">$jpg</span>`
+   name=`basename <span class="operator">-s</span> @<span class="number">2</span>x <span class="variable">$name</span>`
    <span class="keyword">if</span> ! grep -qhs <span class="string">"<span class="variable">$name</span>"</span> <span class="string">"<span class="variable">$PROJ</span>"</span>; <span class="keyword">then</span>
-        <span class="keyword">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span> 
-        <span class="keyword">echo</span> <span class="string">"<span class="variable">$jpg</span> 可能没引用"</span>  &gt;&gt;<span class="string">'./image.txt'</span>;
+        <span class="built_in">echo</span> <span class="string">"<span class="variable">$png</span> 可能没引用"</span> 
+        <span class="built_in">echo</span> <span class="string">"<span class="variable">$jpg</span> 可能没引用"</span>  &gt;&gt;<span class="string">'./image.txt'</span>;
    <span class="keyword">fi</span>
 <span class="keyword">done</span>
 
-<span class="keyword">echo</span> <span class="string">"~~~~~~~~~~~~结束搜索~~~~~~~~~~~~"</span> &gt;&gt;<span class="string">'./image.txt'</span>;
+<span class="built_in">echo</span> <span class="string">"~~~~~~~~~~~~结束搜索~~~~~~~~~~~~"</span> &gt;&gt;<span class="string">'./image.txt'</span>;
 &lt;&lt;EOF
 </pre></figure>
 
@@ -335,7 +335,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

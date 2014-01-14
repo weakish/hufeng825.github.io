@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,7 +190,8 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>做订餐app时对下单时间的时间判断<br>下面是规则</p>
+        <p>做订餐app时对下单时间的时间判断
+下面是规则</p>
 <ul>
 <li>9:00-14:00 可以订餐</li>
 <li>14:00以后掌上餐厅仅接收晚餐订餐</li>
@@ -199,31 +200,31 @@ $(function () {
 <img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e87ve4c3ynj208q0abt9n.jpg" class="left" title="截图 300 400">
 
 
-<h2><a id="more"></a></h2>
-<h2>转换函数</h2>
+<h2 id="-more-"><a id="more"></a></h2>
+<h2 id="-">转换函数</h2>
 <p> 将传入的小时和分钟 转换成当日的date</p>
 <p> 例如传入 8：00 的str 返回 2013-01-01 08：00 的nsdate</p>
-<figure class="highlight"><pre>-(NSDate <span class="variable">*)</span>CurrentDayTime:(NSString <span class="variable">*)</span>dataStr
+<figure class="highlight"><pre>-(<span class="built_in">NSDate</span> *)CurrentDayTime:(<span class="built_in">NSString</span> *)dataStr
 
 {
 
-    <span class="regexp">//</span>设置转换的<span class="keyword">format</span>
+    <span class="comment">//设置转换的format</span>
 
-    NSDateFormatter <span class="variable">*dateFormatter</span> = [[[NSDateFormatteralloc]init]autorelease];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatteralloc]init]autorelease];
 
     [dateFormatter setLocale:[NSLocalecurrentLocale]];
 
     
 
-    [dateFormatter setDateFormat:<span class="variable">@"</span>yyyy-MM-dd HH:mm<span class="string">"];
+    [dateFormatter setDateFormat:@<span class="string">"yyyy-MM-dd HH:mm"</span>];
 
-    //获取当前年月日 
+    <span class="comment">//获取当前年月日 </span>
 
-    NSDate <span class="variable">*currentdate</span> = [NSDatedate];
+    <span class="built_in">NSDate</span> *currentdate = [NSDatedate];
 
-    NSCalendar <span class="variable">*calendar</span> = [NSCalendarcurrentCalendar];
+    <span class="built_in">NSCalendar</span> *calendar = [NSCalendarcurrentCalendar];
 
-    NSDateComponents <span class="variable">*components</span> = [calendarcomponents:(
+    NSDateComponents *components = [calendarcomponents:(
 
                                                          NSYearCalendarUnit  |
 
@@ -237,15 +238,15 @@ $(function () {
 
                                                          ) fromDate:currentdate];
 
-   NSInteger year = [components year];
+   <span class="built_in">NSInteger</span> year = [components year];
 
-   NSInteger month = [components month];
+   <span class="built_in">NSInteger</span> month = [components month];
 
-   NSInteger day = [components day];
+   <span class="built_in">NSInteger</span> day = [components day];
 
-   NSString <span class="variable">*strDate</span> = [NSString stringWithFormat:<span class="variable">@"</span><span class="variable">%d</span>-<span class="variable">%d</span>-<span class="variable">%d</span> <span class="variable">%@</span>"</span>,year,month,day,dataStr];
+   <span class="built_in">NSString</span> *strDate = [<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%d-%d-%d %@"</span>,year,month,day,dataStr];
 
-   NSDate <span class="variable">*date</span> = [dateFormatter dateFromString:strDate];
+   <span class="built_in">NSDate</span> *date = [dateFormatter dateFromString:strDate];
 
    <span class="keyword">return</span> date;
 
@@ -253,24 +254,24 @@ $(function () {
 </pre></figure>
 
 <hr>
-<h2>比较算法</h2>
-<figure class="highlight"><pre>NSLog(<span class="variable">@"</span><span class="variable">%@</span>\n<span class="variable">%@</span><span class="string">",[selfCurrentDayTime:<span class="variable">@"</span>18:00"</span>] ,[NSDatedate]);
+<h2 id="-">比较算法</h2>
+<figure class="highlight"><pre><span class="built_in">NSLog</span>(@<span class="string">"%@\n%@"</span>,[selfCurrentDayTime:@<span class="string">"18:00"</span>] ,[NSDatedate]);
 
-    NSDate <span class="variable">*date</span> = [NSDatedate];
+    <span class="built_in">NSDate</span> *date = [NSDatedate];
 
-    <span class="keyword">if</span> ([datecompare:[selfCurrentDayTime:<span class="variable">@"</span><span class="number">18</span>:<span class="number">00</span><span class="string">"]] ==NSOrderedDescending)
+    <span class="keyword">if</span> ([datecompare:[selfCurrentDayTime:@<span class="string">"18:00"</span>]] ==NSOrderedDescending)
 
     {
 
-        NSLog(<span class="variable">@"</span>date1 is later than date2"</span>);
+        <span class="built_in">NSLog</span>(@<span class="string">"date1 is later than date2"</span>);
 
         
 
-    } <span class="keyword">else</span> <span class="keyword">if</span> ([datecompare:[selfCurrentDayTime:<span class="variable">@"</span><span class="number">18</span>:<span class="number">00</span><span class="string">"]] ==NSOrderedAscending)
+    } <span class="keyword">else</span> <span class="keyword">if</span> ([datecompare:[selfCurrentDayTime:@<span class="string">"18:00"</span>]] ==NSOrderedAscending)
 
     {
 
-        NSLog(<span class="variable">@"</span>date1 is earlier than date2"</span>);
+        <span class="built_in">NSLog</span>(@<span class="string">"date1 is earlier than date2"</span>);
 
         
 
@@ -278,23 +279,23 @@ $(function () {
 
     {
 
-        NSLog(<span class="variable">@"</span>dates are the same<span class="string">");
+        <span class="built_in">NSLog</span>(@<span class="string">"dates are the same"</span>);
 
         
 
     }
 </pre></figure>
 
-<h2>用法如下</h2>
-<figure class="highlight"><pre>-(BOOL)checkCanDinner
+<h2 id="-">用法如下</h2>
+<figure class="highlight"><pre>-(<span class="built_in">BOOL</span>)checkCanDinner
 
 {
 
-    NSDate *currentDate = [NSDatedate];
+    <span class="built_in">NSDate</span> *currentDate = [NSDatedate];
 
-    <span class="keyword">if</span> ([currentDate compare:[selfCurrentDayTime:<span class="string">@"08:59"</span>]] == NSOrderedDescending <span class="comment">//late</span>
+    <span class="keyword">if</span> ([currentDate compare:[selfCurrentDayTime:@<span class="string">"08:59"</span>]] == NSOrderedDescending <span class="comment">//late</span>
 
-        && [currentDate compare:[selfCurrentDayTime:<span class="string">@"13:59"</span>]] == NSOrderedAscending <span class="comment">//early</span>
+        && [currentDate compare:[selfCurrentDayTime:@<span class="string">"13:59"</span>]] == NSOrderedAscending <span class="comment">//early</span>
 
         )
 
@@ -302,41 +303,41 @@ $(function () {
 
         <span class="comment">//9:00-14:00 可以订餐</span>
 
-        <span class="keyword">return</span> YES;
+        <span class="keyword">return</span> <span class="literal">YES</span>;
 
     }
 
-    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[self CurrentDayTime:<span class="string">@"09:00"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
+    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[<span class="keyword">self</span> CurrentDayTime:@<span class="string">"09:00"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
 
-            && [currentDate compare:[selfCurrentDayTime:<span class="string">@"00:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
+            && [currentDate compare:[selfCurrentDayTime:@<span class="string">"00:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
 
             )
 
     {
 
-        HFAlert(<span class="string">@"因较多餐厅休息,9:00之前掌上餐厅不接收订餐，为您带来的不便请谅解。"</span>);
+        HFAlert(@<span class="string">"因较多餐厅休息,9:00之前掌上餐厅不接收订餐，为您带来的不便请谅解。"</span>);
 
-        <span class="keyword">return</span> NO;
+        <span class="keyword">return</span> <span class="literal">NO</span>;
 
     }
 
-    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[self CurrentDayTime:<span class="string">@"17:59"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
+    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[<span class="keyword">self</span> CurrentDayTime:@<span class="string">"17:59"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
 
-            && [currentDate compare:[selfCurrentDayTime:<span class="string">@"14:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
+            && [currentDate compare:[selfCurrentDayTime:@<span class="string">"14:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
 
             )
 
     {
 
-        HFAlert(<span class="string">@"因较多餐厅休息,14:00以后掌上餐厅仅接收晚餐订餐,为您带来的不便请谅解。"</span>);
+        HFAlert(@<span class="string">"因较多餐厅休息,14:00以后掌上餐厅仅接收晚餐订餐,为您带来的不便请谅解。"</span>);
 
-        <span class="keyword">return</span> YES;
+        <span class="keyword">return</span> <span class="literal">YES</span>;
 
     }
 
-    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[self CurrentDayTime:<span class="string">@"21:00"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
+    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[<span class="keyword">self</span> CurrentDayTime:@<span class="string">"21:00"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
 
-            && [currentDate compare:[selfCurrentDayTime:<span class="string">@"18:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
+            && [currentDate compare:[selfCurrentDayTime:@<span class="string">"18:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
 
             )
 
@@ -344,25 +345,25 @@ $(function () {
 
         <span class="comment">//接受晚上的订单</span>
 
-        <span class="keyword">return</span> YES;
+        <span class="keyword">return</span> <span class="literal">YES</span>;
 
     }
 
-    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[self CurrentDayTime:<span class="string">@"23:59"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
+    <span class="keyword">else</span> <span class="keyword">if</span>([currentDatecompare:[<span class="keyword">self</span> CurrentDayTime:@<span class="string">"23:59"</span>]] ==NSOrderedAscending <span class="comment">//early</span>
 
-            && [currentDate compare:[selfCurrentDayTime:<span class="string">@"21:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
+            && [currentDate compare:[selfCurrentDayTime:@<span class="string">"21:00"</span>]] ==  NSOrderedDescending<span class="comment">//late</span>
 
             )
 
     {
 
-        HFAlert(<span class="string">@"因较多餐厅休息,21:00以后掌上餐厅不接收订餐,为您带来的不便请谅解。"</span>);
+        HFAlert(@<span class="string">"因较多餐厅休息,21:00以后掌上餐厅不接收订餐,为您带来的不便请谅解。"</span>);
 
-        <span class="keyword">return</span> NO;
+        <span class="keyword">return</span> <span class="literal">NO</span>;
 
     }
 
-    <span class="keyword">return</span> YES;
+    <span class="keyword">return</span> <span class="literal">YES</span>;
 
 }
 </pre></figure>
@@ -428,7 +429,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

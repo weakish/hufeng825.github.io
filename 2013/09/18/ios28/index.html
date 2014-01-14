@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,7 +190,9 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>今天在床上玩唱吧,听着歌锁屏了,当点亮屏幕的时候,锁屏页面出现了我正在听得歌曲 壁纸也换成了唱吧里面的歌手图片.做ios好几年了,从没有做过这个需求 于是好奇就翻看ios的<a href="https://developer.apple.com/library/ios/documentation/mediaplayer/reference/MPNowPlayingInfoCenter_Class/Reference/Reference.html" target="_blank">API文档</a>找到了这个类.<br><a id="more"></a><br>如下图</p>
+        <p>今天在床上玩唱吧,听着歌锁屏了,当点亮屏幕的时候,锁屏页面出现了我正在听得歌曲 壁纸也换成了唱吧里面的歌手图片.做ios好几年了,从没有做过这个需求 于是好奇就翻看ios的<a href="https://developer.apple.com/library/ios/documentation/mediaplayer/reference/MPNowPlayingInfoCenter_Class/Reference/Reference.html" target="_blank">API文档</a>找到了这个类.
+<a id="more"></a>
+如下图</p>
 <img src="http://ww3.sinaimg.cn/mw690/a43af4ffjw1e8r3az0tbaj20g50litai.jpg" width="300" height="600">
 
 
@@ -198,19 +200,22 @@ $(function () {
 
 
 
-<h2>MPNowPlayingInfoCenter 解释</h2>
+<h2 id="mpnowplayinginfocenter-">MPNowPlayingInfoCenter 解释</h2>
 <blockquote>
-<p>即时播放中心能够用于播放APP中正在播放的媒体信息.<br>播放的信息会显示在锁屏页面和多任务管理页面.如果用户是用airplay播放的话 会自动投射到相应的设备上.</p>
+<p>即时播放中心能够用于播放APP中正在播放的媒体信息.
+播放的信息会显示在锁屏页面和多任务管理页面.如果用户是用airplay播放的话 会自动投射到相应的设备上.</p>
 </blockquote>
 <p><a href="https://github.com/hufeng825/LockScreenInfo.git" target="_blank">下载源码</a></p>
-<h2>开始动手</h2>
-<h3>让App支持后台运行</h3>
-<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist 中声明属性.<br>添加如下属性</p>
-<p>Required background modes -&gt; App plays audio<br>如下图</p>
+<h2 id="-">开始动手</h2>
+<h3 id="-app-">让App支持后台运行</h3>
+<p>先创建工程,因为是audio 类型的app 需要支持后台播放 所以得要在plist 中声明属性.
+添加如下属性</p>
+<p>Required background modes -&gt; App plays audio
+如下图</p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1e8r45ojlcuj20l80a2q4l.jpg" class="left" width="300" height="400">
 
 
-<h3>添加播放的Frame</h3>
+<h3 id="-frame">添加播放的Frame</h3>
 <ol>
 <li>AVFoundation.framework</li>
 <li>MediaPlayer.framework</li>
@@ -219,72 +224,72 @@ $(function () {
 
 
 
-<h3>开始代码吧</h3>
+<h3 id="-">开始代码吧</h3>
 <p>首先创建一个ViewController 和一个用于播放的按钮 playButton</p>
-<pre><code>@<span class="class"><span class="keyword">interface</span> <span class="id">ViewController</span> : <span class="id">UIViewController</span> {</span>
+<pre><code>@interface ViewController : UIViewController {
 
-<span class="keyword">IBOutlet</span> <span class="built_in">UIButton</span> *playButton;
+IBOutlet UIButton *playButton;
 
 }
 
-@<span class="keyword">property</span> (<span class="keyword">nonatomic</span>, retain) <span class="keyword">IBOutlet</span> <span class="built_in">UIButton</span> *playButton;
+@property (nonatomic, retain) IBOutlet UIButton *playButton;
 
--(<span class="keyword">IBAction</span>)playButtonPress:(<span class="keyword">id</span>)sender;</code></pre>
-<p>加入播放用的控件audioPlayer 和其相应的头文件</p>
-<pre><code><span class="preprocessor">#import <span class="title">&lt;MediaPlayer/MPNowPlayingInfoCenter.h&gt;</span></span>
-<span class="preprocessor">#import <span class="title">&lt;MediaPlayer/MPMediaItem.h&gt;</span></span>
-<span class="preprocessor">#import <span class="title">&lt;AVFoundation/AVFoundation.h&gt;</span></span>
-<span class="built_in">MPMoviePlayerController</span> *audioPlayer;
+-(IBAction)playButtonPress:(id)sender;
+</code></pre><p>加入播放用的控件audioPlayer 和其相应的头文件</p>
+<pre><code>#import &lt;MediaPlayer/MPNowPlayingInfoCenter.h&gt;
+#import &lt;MediaPlayer/MPMediaItem.h&gt;
+#import &lt;AVFoundation/AVFoundation.h&gt;
+MPMoviePlayerController *audioPlayer;
 
-@<span class="keyword">property</span> (<span class="keyword">nonatomic</span>, retain) <span class="built_in">MPMoviePlayerController</span> *audioPlayer;
+@property (nonatomic, retain) MPMoviePlayerController *audioPlayer;
 
-@<span class="keyword">synthesize</span> playButton, audioPlayer;</code></pre>
-<p>在viewDidLoad 中 我们要把AudioPlayer 进行初始化 此处加载网络上的一首音频</p>
-<pre><code>[[AVAudioSession sharedInstance] setDelegate: <span class="keyword">self</span>];
+@synthesize playButton, audioPlayer;
+</code></pre><p>在viewDidLoad 中 我们要把AudioPlayer 进行初始化 此处加载网络上的一首音频</p>
+<pre><code>[[AVAudioSession sharedInstance] setDelegate: self];
 
-<span class="built_in">NSError</span> *myErr;
+NSError *myErr;
 
-<span class="comment">// Initialize the AVAudioSession here.</span>
-<span class="keyword">if</span> (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&amp;myErr]) {
-    <span class="comment">// Handle the error here.</span>
-    <span class="built_in">NSLog</span>(@<span class="string">"Audio Session error %@, %@"</span>, myErr, [myErr userInfo]);
+// Initialize the AVAudioSession here.
+if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&amp;myErr]) {
+    // Handle the error here.
+    NSLog(@&quot;Audio Session error %@, %@&quot;, myErr, [myErr userInfo]);
 }
-<span class="keyword">else</span>{
-    <span class="comment">// Since there were no errors initializing the session, we'll allow begin receiving remote control events</span>
-    [[<span class="built_in">UIApplication</span> sharedApplication] beginReceivingRemoteControlEvents];
+else{
+    // Since there were no errors initializing the session, we&#39;ll allow begin receiving remote control events
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 }
 
-    <span class="comment">//initialize our audio player</span>
-    audioPlayer = [[<span class="built_in">MPMoviePlayerController</span> alloc] initWithContentURL:[<span class="built_in">NSURL</span> URLWithString:@<span class="string">"http://www.cocoanetics.com/files/Cocoanetics_031.mp3"</span>]];
+    //initialize our audio player
+    audioPlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:@&quot;http://www.cocoanetics.com/files/Cocoanetics_031.mp3&quot;]];
 
-    [audioPlayer setShouldAutoplay:<span class="literal">NO</span>];
+    [audioPlayer setShouldAutoplay:NO];
     [audioPlayer setControlStyle: MPMovieControlStyleEmbedded];
-    audioPlayer<span class="variable">.view</span><span class="variable">.hidden</span> = <span class="literal">YES</span>;
+    audioPlayer.view.hidden = YES;
 
-    [audioPlayer prepareToPlay];</code></pre>
-<p>点击按钮开始播放,注意因为MPNowPlayingInfoCenter只支持5.0+ 所以为了防止低版本使用 巧妙的应用了NSClassFromString进行了判断</p>
-<pre><code>- (<span class="class">IBAction</span>)<span class="method">playButtonPress:</span>(id)sender {
+    [audioPlayer prepareToPlay];
+</code></pre><p>点击按钮开始播放,注意因为MPNowPlayingInfoCenter只支持5.0+ 所以为了防止低版本使用 巧妙的应用了NSClassFromString进行了判断</p>
+<pre><code>- (IBAction)playButtonPress:(id)sender {
 
     [audioPlayer play];
 
-    <span class="class">Class</span> playingInfoCenter = <span class="class">NSClassFromString</span>(@<span class="comment">"MPNowPlayingInfoCenter"</span>);
+    Class playingInfoCenter = NSClassFromString(@&quot;MPNowPlayingInfoCenter&quot;);
 
     if (playingInfoCenter) {
 
 
-        <span class="class">NSMutableDictionary</span> *songInfo = [ [<span class="class">NSMutableDictionary</span> alloc] init];
+        NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
 
 
-        <span class="class">MPMediaItemArtwork</span> *albumArt = [ [<span class="class">MPMediaItemArtwork</span> alloc] <span class="method">initWithImage:</span> [<span class="class">UIImage</span> <span class="method">imagedNamed:</span>@<span class="comment">"AlbumArt"</span>] ];
+        MPMediaItemArtwork *albumArt = [ [MPMediaItemArtwork alloc] initWithImage: [UIImage imagedNamed:@&quot;AlbumArt&quot;] ];
 
-        [ songInfo <span class="method">setObject:</span> @<span class="comment">"Audio Title"</span> <span class="method">forKey:</span><span class="class">MPMediaItemPropertyTitle</span> ];
-        [ songInfo <span class="method">setObject:</span> @<span class="comment">"Audio Author"</span> <span class="method">forKey:</span><span class="class">MPMediaItemPropertyArtist</span> ];
-        [ songInfo <span class="method">setObject:</span> @<span class="comment">"Audio Album"</span> <span class="method">forKey:</span><span class="class">MPMediaItemPropertyAlbumTitle</span> ];
-        [ songInfo <span class="method">setObject:</span> albumArt <span class="method">forKey:</span><span class="class">MPMediaItemPropertyArtwork</span> ];
-        [ [<span class="class">MPNowPlayingInfoCenter</span> defaultCenter] <span class="method">setNowPlayingInfo:</span>songInfo ];
+        [ songInfo setObject: @&quot;Audio Title&quot; forKey:MPMediaItemPropertyTitle ];
+        [ songInfo setObject: @&quot;Audio Author&quot; forKey:MPMediaItemPropertyArtist ];
+        [ songInfo setObject: @&quot;Audio Album&quot; forKey:MPMediaItemPropertyAlbumTitle ];
+        [ songInfo setObject: albumArt forKey:MPMediaItemPropertyArtwork ];
+        [ [MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:songInfo ];
     }
-}</code></pre>
-<hr>
+}
+</code></pre><hr>
 <p><a href="http://jaysonlane.net/tech-blog/2012/04/lock-screen-now-playing-with-mpnowplayinginfocenter/" target="_blank">参考 <a href="http://jaysonlane.net/tech-blog/2012/04/lock-screen-now-playing-with-mpnowplayinginfocenter/">http://jaysonlane.net/tech-blog/2012/04/lock-screen-now-playing-with-mpnowplayinginfocenter/</a></a></p>
 
         <hr />
@@ -347,7 +352,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

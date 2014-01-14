@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,34 +190,36 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不是想要让git 跟svn 一样支持st ci 等等这样的缩写命令……<br><a id="more"></a><br>下面的这些配置能够满足你.</p>
+        <p>是不是抱怨git操作太过于复杂,是不是想要让log 更加漂亮 是不是想要让git 跟svn 一样支持st ci 等等这样的缩写命令……
+<a id="more"></a>
+下面的这些配置能够满足你.</p>
 <p>打开终端 执行</p>
-<figure class="highlight"><pre><span class="title">cd</span>
-<span class="title">vi</span> .git/.gitconfig
+<figure class="highlight"><pre>cd
+vi <span class="preprocessor">.git</span>/<span class="preprocessor">.gitconfig</span>
 </pre></figure>
 
 <p>然后修改gitconfig</p>
-<figure class="highlight"><pre><span class="title">[</span><span class="comment">alias</span>]
-  <span class="comment">logs</span> <span class="comment">=</span> <span class="comment">log</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">color</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">graph</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">pretty=format:'%Cred%h%Creset</span> <span class="literal">-</span><span class="comment">%C(yellow)%d%Creset</span> <span class="comment">%s</span> <span class="comment">%Cgreen(%cr)</span> <span class="comment">%C(bold</span> <span class="comment">blue)</span>&lt;<span class="comment">%an</span>&gt;<span class="comment">%Creset'</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">abbrev</span>-<span class="comment">commit</span>
-  <span class="comment">st</span> <span class="comment">=</span> <span class="comment">status</span>
-  <span class="comment">ci</span> <span class="comment">=</span> <span class="comment">commit</span>
-  <span class="comment">br</span> <span class="comment">=</span> <span class="comment">branch</span>
-  <span class="comment">co</span> <span class="comment">=</span> <span class="comment">checkout</span>
-  <span class="comment">df</span> <span class="comment">=</span> <span class="comment">diff</span>
-  <span class="comment">lg</span> <span class="comment">=</span> <span class="comment">log</span> <span class="literal">-</span><span class="comment">p
+<figure class="highlight"><pre>[alias]
+<span class="label">  logs = log --color --graph --pretty=format:</span>'<span class="var_expand">%Cred%</span>h<span class="var_expand">%Creset -%</span>C(yellow)<span class="var_expand">%d%</span>Creset <span class="var_expand">%s %</span>Cgreen(<span class="var_expand">%cr) %</span>C(bold blue)&lt;<span class="var_expand">%an&gt;%</span>Creset' --abbrev-commit
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
 </pre></figure>
 
 <p>如果想要把 rebase 當做 git pull 的預設值，可以在專在 .gitconfig 加上</p>
 <figure class="highlight"><pre>
 [branch <span class="string">"master"</span>]
   remote = origin
-  merge = refs<span class="regexp">/heads/m</span>aster
+  merge = refs/heads/master
   rebase = <span class="literal">true</span>
 </pre></figure>
 
 <p>也可以直接加到 ~/.gitconfig 讓所有的 tracked branches 都自動套用這個設定：</p>
-<figure class="highlight"><pre><span class="matrix">[branch]</span>  
-	autosetuprebase = always
+<figure class="highlight"><pre><span class="attribute">[branch]  
+	autosetuprebase </span>=<span class="string"> always</span>
 </pre></figure>
 
 
@@ -281,7 +283,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,29 +190,31 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>所干的工作 因为涉及到金融行业网络安全性比较高 公司的网络设置了代理 这导致了git svn 双双挂了。<br><a id="more"></a><br>废话少说 下面介绍如何对git svn 设置代理</p>
+        <p>所干的工作 因为涉及到金融行业网络安全性比较高 公司的网络设置了代理 这导致了git svn 双双挂了。 
+<a id="more"></a>
+废话少说 下面介绍如何对git svn 设置代理</p>
 <ol>
 <li><p>$HOME 下 我的路径为/Users/jason:</p>
 </li>
 <li><p>进入$HOME/.subversion </p>
 <p>编辑servers 文件 添加</p>
-<pre><code><span class="matrix">[global]</span>
- http-proxy-host = <span class="transposed_variable">XX.</span><span class="transposed_variable">XX.</span><span class="transposed_variable">XX.</span>XX
+<pre><code>[global]
+ http-proxy-host = XX.XX.XX.XX
  http-proxy-port = XXXX
-<span class="matrix">[groups]</span></code></pre>
-</li>
+[groups]
+</code></pre></li>
 <li><p>编辑$HOME/.gitconfig</p>
 <pre><code>[http]        
 
-     proxy = http://XX<span class="preprocessor">.XX</span><span class="preprocessor">.XX</span><span class="preprocessor">.XX</span>:XXXX
+     proxy = http://XX.XX.XX.XX:XXXX
 
 [https]
-      proxy = http://XX<span class="preprocessor">.XX</span><span class="preprocessor">.XX</span><span class="preprocessor">.XX</span>:XXXX</code></pre>
-</li>
+      proxy = http://XX.XX.XX.XX:XXXX
+</code></pre></li>
 <li><p>或者直接用命令</p>
-<pre><code> git config --global http<span class="preprocessor">.proxy</span> http://XX<span class="preprocessor">.XX</span><span class="preprocessor">.XX</span><span class="preprocessor">.XX</span>:XXXX
- git config --global https<span class="preprocessor">.proxy</span> http://XX<span class="preprocessor">.XX</span><span class="preprocessor">.XX</span><span class="preprocessor">.XX</span>:XXXX</code></pre>
-</li>
+<pre><code> git config --global http.proxy http://XX.XX.XX.XX:XXXX
+ git config --global https.proxy http://XX.XX.XX.XX:XXXX
+</code></pre></li>
 </ol>
 
         <hr />
@@ -275,7 +277,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

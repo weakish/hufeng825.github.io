@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,10 +190,12 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.<br><a id="more"></a></p>
-<h2>:内联(inline)Block</h2>
+        <p>block 现在已经基本上已经使用非常普遍了,在引用中也又很多坑,下面把block开发中应该知道的那几件事总结下.
+<a id="more"></a></p>
+<h2 id="-inline-block">:内联(inline)Block</h2>
 <blockquote>
-<p>内联block 说白了就是block被嵌入到一个函数中<br>例如:</p>
+<p>内联block 说白了就是block被嵌入到一个函数中 
+例如:</p>
 </blockquote>
 <p><strong>typedef void (^HelloBlock)(void);</strong></p>
 <figure class="highlight"><pre><span class="pp">- <span class="params">(void)</span> BlockTest{
@@ -201,27 +203,27 @@ HelloBlock myBlock= ^<span class="params">(void)</span>{
 NSLog<span class="params">(@<span class="string">"Hello Block"</span>)</span>;
 };
 myBlock<span class="params">()</span>;
-}
+}</span>
 </pre></figure>
 
-<h2>注意事项</h2>
-<h3>1.内联的block中内部定义的变量 自己本身有读写权限</h3>
-<h3>2.block内部要修改外部变量 需要将外部变量声明__block</h3>
-<h3>3.Block retain是无效的，要想保留block生命周期，可以通过copy来实现，记得release</h3>
-<h3>4.被block的应用的对象，retainCount会自动加一，为了打破这种 retain circle，可以在对象前加__block，这样block块就不会维护这个对象了</h3>
+<h2 id="-">注意事项</h2>
+<h3 id="1-block-">1.内联的block中内部定义的变量 自己本身有读写权限</h3>
+<h3 id="2-block-__block">2.block内部要修改外部变量 需要将外部变量声明__block</h3>
+<h3 id="3-block-retain-block-copy-release">3.Block retain是无效的，要想保留block生命周期，可以通过copy来实现，记得release</h3>
+<h3 id="4-block-retaincount-retain-circle-__block-block-">4.被block的应用的对象，retainCount会自动加一，为了打破这种 retain circle，可以在对象前加__block，这样block块就不会维护这个对象了</h3>
 <p> 下面的写法如果不加上_block a无法dealloc</p>
 <figure class="highlight"><pre>
-__block A  a =[ <span class="string">[[A alloc] init] withBlock:^{
+<span class="label">__block A  a =[ [[A alloc] init] withBlock:</span>^{
 
- [a action];
+ [<span class="literal">a</span> action]<span class="comment">;</span>
 
- [ a release];
+ [ <span class="literal">a</span> release]<span class="comment">;</span>
 
-}]; //这样A的dealloc方法就会调用
+}]<span class="comment">; //这样A的dealloc方法就会调用</span>
 </pre></figure>
 
 <figure class="highlight"><pre>
-@<span class="class"><span class="keyword">interface</span> <span class="id">ViewController</span> ： <span class="id">UIViewViewController</span> </span>
+<span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ： <span class="title">UIViewViewController</span> </span>
  {
         <span class="built_in">NSString</span> *_string;
  }
@@ -232,17 +234,17 @@ __block A  a =[ <span class="string">[[A alloc] init] withBlock:^{
     };
 </pre></figure>
 
-<h3>5.在独立的block中不能引用self，如果需要访问可以使用参数传递的方法(可以把其考虑成c+中参数传入函数指针对应copy)**</h3>
-<h3>6.不要随便用.语法</h3>
-<figure class="highlight"><pre><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;   </span>
-@<span class="class"><span class="keyword">interface</span> <span class="title">AppDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;
-@<span class="title">property</span> (<span class="title">nonatomic</span>, <span class="title">strong</span>) <span class="title">NSString</span> *<span class="title">stringProperty</span>;  
-@<span class="title">end</span>
+<h3 id="5-block-self-c-copy-">5.在独立的block中不能引用self，如果需要访问可以使用参数传递的方法(可以把其考虑成c+中参数传入函数指针对应copy)**</h3>
+<h3 id="6-">6.不要随便用.语法</h3>
+<figure class="highlight"><pre><span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span>   </span>
+<span class="class"><span class="keyword">@interface</span> <span class="title">AppDelegate</span> : <span class="title">NSObject</span> &lt;<span class="title">UIApplicationDelegate</span>&gt;</span>
+<span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *stringProperty;  
+<span class="keyword">@end</span>
 </pre></figure>
 
 <figure class="highlight"><pre><span class="preprocessor">#import <span class="title">"GCDAppDelegate.h"</span> </span>
-@<span class="class"><span class="keyword">implementation</span> <span class="id">AppDelegate</span> </span>
-@<span class="keyword">synthesize</span> stringProperty;  
+<span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span> </span>
+<span class="keyword">@synthesize</span> stringProperty;  
 - (<span class="keyword">void</span>) BlockTestError{
 HelloBlock myBlock= ^(<span class="keyword">void</span>){
 	<span class="keyword">self</span><span class="variable">.stringProperty</span> = @<span class="string">"Block Objects"</span>; 
@@ -258,7 +260,7 @@ myBlock();
 	};
 myBlock();
 }}  
-@<span class="keyword">end</span>
+<span class="keyword">@end</span>
 </pre></figure>
 
 
@@ -322,7 +324,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

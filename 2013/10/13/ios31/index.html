@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,37 +190,41 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.<br><a id="more"></a></p>
+        <p>ReactiveCocoa 和  CocoaPods 一样也是目前很流行的 能方便和提高效率的框架.
+<a id="more"></a></p>
 <p>其实不光ios 学习任何一门语音最快最直接的方法就是上手. 如果单单是看看文档只能是走马观花得到一个感性认识罢了.前两天之前一个公司的测试人员跟我联系说如何学习JAVA,我问他是怎么学的,他说从网上下了好多视频教程,一直在看视频教程,也买了一些书. 我问他敲了多少代码,他说很少. 其实跟他一样的人不少. 我觉得任何事情都不简单,因为看起来简单的事情自己没有实际做过的话 往往会遇到各种各样的问题. 这也是为什么在工作中制定项目进度计划的时候 我尽量给自己和团队中的人多争取时间的最主要的一个因素.  </p>
 <p>好了,自己一些啰嗦和感悟. 下面开始正式.</p>
 <hr>
-<h2>What is Reactive Cocoa?</h2>
-<p> RAV is an Object-C framework for Functional Reavtive Programming;<br> 两个关键点:<br> 1:framework 既然是framework 那就跟你用的其他framework没什么区别 无非就是加到工程中引用罢了.不做多余解释<br> 2:Functional Reavtive Programming 实时响应式编程</p>
+<h2 id="what-is-reactive-cocoa-">What is Reactive Cocoa?</h2>
+<p> RAV is an Object-C framework for Functional Reavtive Programming;
+ 两个关键点:
+ 1:framework 既然是framework 那就跟你用的其他framework没什么区别 无非就是加到工程中引用罢了.不做多余解释
+ 2:Functional Reavtive Programming 实时响应式编程</p>
 <p>虾米引用被阿里收购后现在先上的mac版本的虾米音乐就是用Reactive Cocoa开发的.用阿里人自己的话来说就是</p>
 <blockquote>
 <p>好东西啊，以前我们用 KVO 或 Notification 来自动绑定数据，改用 ReactiveCocoa 写以后，代码结构更佳简单清晰，同时代码行数直接减少 60% 以上</p>
 </blockquote>
 <p>来点直观的对比吧,比如我们想要实现一个需求:当变量中的字符串改变后即时做出相应的反馈 我们用KVO 需要如下这样做</p>
-<figure class="highlight"><pre>// In your viewDidLoad/awakeFromNib/init
-[self addObserver:self 
-       forKeyPath:<span class="decorator">@"someString" </span>
+<figure class="highlight"><pre><span class="comment">// In your viewDidLoad/awakeFromNib/init</span>
+[<span class="keyword">self</span> addObserver:<span class="keyword">self</span> 
+       forKeyPath:@<span class="string">"someString"</span> 
           options:NSKeyValueObservingOptionNew 
           context:&someStringChangeContext];
 
-// In dealloc
-[self removeObserver:self 
-          forKeyPath:<span class="decorator">@"someString" </span>
+<span class="comment">// In dealloc</span>
+[<span class="keyword">self</span> removeObserver:<span class="keyword">self</span> 
+          forKeyPath:@<span class="string">"someString"</span> 
              context:&someStringChangeContext];
 
-// Elsewhere <span class="keyword">in</span> your <span class="class"><span class="keyword">class</span>
-- <span class="params">(void)</span><span class="title">observeValueForKeyPath</span>:</span>(NSString *)keyPath 
-                      ofObject:(id)object 
-                        change:(NSDictionary *)change 
-                       context:(void *)context
+<span class="comment">// Elsewhere in your class</span>
+- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath 
+                      ofObject:(<span class="keyword">id</span>)object 
+                        change:(<span class="built_in">NSDictionary</span> *)change 
+                       context:(<span class="keyword">void</span> *)context
 {
     <span class="keyword">if</span> (context == &someStringChangeContext) {
-        <span class="keyword">if</span> ([keyPath isEqualToString:<span class="decorator">@"someString"]) {        </span>
-            // Do a bunch of stuff here
+        <span class="keyword">if</span> ([keyPath isEqualToString:@<span class="string">"someString"</span>]) {        
+            <span class="comment">// Do a bunch of stuff here</span>
         }
     }
 }
@@ -232,28 +236,31 @@ $(function () {
 }];</span>
 </pre></figure>
 
-<h2>开始动手</h2>
+<h2 id="-">开始动手</h2>
 <p>因为我之前安装了<a href="http://hufeng825.github.io/2013/10/11/ios30/" target="_blank">CocoaPods</a>,所以我这次写的ReactiveCocoaDemo 是基于CocoaPods的.如果没有安装的可以童鞋,可以直接从github上下载<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank">ReactiveCocoa</a></p>
-<h3>前期工作:</h3>
+<h3 id="-">前期工作:</h3>
 <p>1.打开xcode 创建一个工程,我命名的工程名为ReactiveCocoaDemo,</p>
 <p>2.终端到工程路径下</p>
-<pre><code><span class="title">cd</span> <span class="type">ReactiveCocoaDemo</span>/
-<span class="title">pod</span> search <span class="type">ReactiveCocoa</span></code></pre>
-<p>3.配置依赖文件</p>
-<pre><code><span class="title">vi</span> <span class="type">Podfile</span>
-    platform :ios,'<span class="number">5.0</span>'
-    pod<span class="string"> 'ReactiveCocoa'</span>
-<span class="title">wq</span></code></pre>
-<p>4.下载文件  </p>
-<pre><code> pod install /<span class="operator"><span class="keyword">update</span></code></pre>
-<p>5:打开“Build Phases” 选中相应的target, 添加 RAC 到 “Link Binary With Libraries”.加上libReactiveCocoa-iOS.a</p>
+<pre><code>cd ReactiveCocoaDemo/
+pod search ReactiveCocoa
+</code></pre><p>3.配置依赖文件</p>
+<pre><code>vi Podfile
+    platform :ios,&#39;5.0&#39;
+    pod &#39;ReactiveCocoa&#39;
+wq
+</code></pre><p>4.下载文件  </p>
+<pre><code> pod install /update
+</code></pre><p>5:打开&quot;Build Phases&quot; 选中相应的target, 添加 RAC 到 &quot;Link Binary With Libraries&quot;.加上libReactiveCocoa-iOS.a</p>
 <p>如下图</p>
 <p>6:在Header Search Paths 中添加$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include&quot; </p>
-<p>7:在  “Other Linker Flags” 添加 -ObjC </p>
+<p>7:在  &quot;Other Linker Flags&quot; 添加 -ObjC </p>
 <p>8:在ReactiveCocoaDemo-Prefix.pch 将RAC的头文件加进去 </p>
-<pre><code>#<span class="import"><span class="keyword">import</span> "ReactiveCocoa.h"</span></code></pre>
-<h3>现在要实现如下功能</h3>
-<p>两个输入框 一个提示的Lable 一个按钮,<br>1.当两个输入框的内容相同时 提示文字显示“成功” 按钮可以点击<br>2.当任意一个输入框没有输入内容时 提示文字显示“请输入”  按钮不可点击<br>3.当输入框非空且两个输入内容不同时 提示“请重新输入”  按钮不可点击</p>
+<pre><code>#import &quot;ReactiveCocoa.h&quot;
+</code></pre><h3 id="-">现在要实现如下功能</h3>
+<p>两个输入框 一个提示的Lable 一个按钮,
+1.当两个输入框的内容相同时 提示文字显示&quot;成功&quot; 按钮可以点击
+2.当任意一个输入框没有输入内容时 提示文字显示&quot;请输入&quot;  按钮不可点击
+3.当输入框非空且两个输入内容不同时 提示&quot;请重新输入&quot;  按钮不可点击</p>
 <p>下面是部分实现代码:</p>
 <figure class="highlight"><pre>@weakify(<span class="keyword">self</span>);
 [[RACObserve(<span class="keyword">self</span>, warningText)
@@ -291,22 +298,23 @@ reduce:^(<span class="built_in">NSString</span> *password, <span class="built_in
 
 
 <p>学过C++ 的应该觉得这个很类似于Qt中的信号槽机制</p>
-<p><strong>需要说明的是</strong> 因为RAC很大程度上是依赖于Block的.所以在RAC前面我们加上@weakify(my_variable) 避免循环引用,然后在每一个<br>RAC块中为了防止提前释放我们需要用@strongify(my_variable)来对对象进行持有.<a href="https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTScope.h" target="_blank">详情点击</a></p>
-<p>运行效果���如下</p>
+<p><strong>需要说明的是</strong> 因为RAC很大程度上是依赖于Block的.所以在RAC前面我们加上@weakify(my_variable) 避免循环引用,然后在每一个
+RAC块中为了防止提前释放我们需要用@strongify(my_variable)来对对象进行持有.<a href="https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTScope.h" target="_blank">详情点击</a></p>
+<p>运行效果图如下</p>
 <img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1e9k2zoesjqj208e069t8m.jpg">
 
 
 
 
 <hr>
-<h2>文档附录</h2>
-<h3>Subscription</h3>
+<h2 id="-">文档附录</h2>
+<h3 id="subscription">Subscription</h3>
 <p>The [-subscribe…][RACSignal] methods give you access to the current and future values in a signal:</p>
-<figure class="highlight lang-objc"><pre>RACSignal <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence.signal;
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>]<span class="variable">.rac_sequence</span><span class="variable">.signal</span>;
 
-<span class="regexp">//</span> Outputs: A B C D
-[letters subscribeNext:^(NSString <span class="variable">*x</span>) {
-    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+<span class="comment">// Outputs: A B C D</span>
+[letters subscribeNext:^(<span class="built_in">NSString</span> *x) {
+    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>, x);
 }];
 </pre></figure>
 
@@ -333,8 +341,9 @@ RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span clas
 </pre></figure>
 
 <p>This behavior can be changed using a [connection][Connections].</p>
-<h3>Injecting effects</h3>
-<p>The [-do…][RACSignal+Operations] methods add side effects to a signal without actually<br>subscribing to it:</p>
+<h3 id="injecting-effects">Injecting effects</h3>
+<p>The [-do…][RACSignal+Operations] methods add side effects to a signal without actually
+subscribing to it:</p>
 <figure class="highlight lang-objc"><pre>__block <span class="keyword">unsigned</span> subscriptions = <span class="number">0</span>;
 
 RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
@@ -356,10 +365,11 @@ loggingSignal = [loggingSignal doCompleted:^{
 }];
 </pre></figure>
 
-<h2>Transforming streams</h2>
+<h2 id="transforming-streams">Transforming streams</h2>
 <p>These operators transform a single stream into a new stream.</p>
-<h3>Mapping</h3>
-<p>The [-map:][RACStream] method is used to transform the values in a stream, and<br>create a new stream with the results:</p>
+<h3 id="mapping">Mapping</h3>
+<p>The [-map:][RACStream] method is used to transform the values in a stream, and
+create a new stream with the results:</p>
 <figure class="highlight lang-objc"><pre>RACSequence *letters = [<span class="string">@"A B C D E F G H I"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
 
 <span class="comment">// Contains: AA BB CC DD EE FF GG HH II</span>
@@ -368,8 +378,9 @@ RACSequence *mapped = [letters map:^(NSString *<span class="keyword">value</span
 }];
 </pre></figure>
 
-<h3>Filtering</h3>
-<p>The [-filter:][RACStream] method uses a block to test each value, including it<br>into the resulting stream only if the test passes:</p>
+<h3 id="filtering">Filtering</h3>
+<p>The [-filter:][RACStream] method uses a block to test each value, including it
+into the resulting stream only if the test passes:</p>
 <figure class="highlight lang-objc"><pre>RACSequence *numbers = [<span class="string">@"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:<span class="string">@" "</span>].rac_sequence;
 
 <span class="comment">// Contains: 2 4 6 8</span>
@@ -378,171 +389,183 @@ RACSequence *filtered = [numbers filter:^ BOOL (NSString *<span class="keyword">
 }];
 </pre></figure>
 
-<h2>Combining streams</h2>
+<h2 id="combining-streams">Combining streams</h2>
 <p>These operators combine multiple streams into a single new stream.</p>
-<h3>Concatenating</h3>
+<h3 id="concatenating">Concatenating</h3>
 <p>The [-concat:][RACStream] method appends one stream&#39;s values to another:</p>
-<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
-RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
+<figure class="highlight lang-objc"><pre>RACSequence *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence;
+RACSequence *numbers = [@<span class="string">"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence;
 
-<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
-RACSequence <span class="variable">*concatenated</span> = [letters concat:numbers];
+// Contains: A B <span class="keyword">C</span> <span class="keyword">D</span> <span class="keyword">E</span> F G H <span class="keyword">I</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence *concatenated = [letters concat:numbers];
 </pre></figure>
 
-<h3>Flattening</h3>
-<p>The [-flatten][RACStream] operator is applied to a stream-of-streams, and<br>combines their values into a single new stream.</p>
+<h3 id="flattening">Flattening</h3>
+<p>The [-flatten][RACStream] operator is applied to a stream-of-streams, and
+combines their values into a single new stream.</p>
 <p>Sequences are <a href="#concatenating">concatenated</a>:</p>
-<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*letters</span> = [<span class="variable">@"</span>A B C D E F G H I<span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
-RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
-RACSequence <span class="variable">*sequenceOfSequences</span> = <span class="variable">@[</span> letters, numbers ].rac_sequence;
+<figure class="highlight lang-objc"><pre>RACSequence *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence;
+RACSequence *numbers = [@<span class="string">"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence;
+RACSequence *sequenceOfSequences = @[ letters, numbers ].rac_sequence;
 
-<span class="regexp">//</span> Contains: A B C D E F G H I <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
-RACSequence <span class="variable">*flattened</span> = [sequenceOfSequences flatten];
+// Contains: A B <span class="keyword">C</span> <span class="keyword">D</span> <span class="keyword">E</span> F G H <span class="keyword">I</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+RACSequence *flattened = [sequenceOfSequences flatten];
 </pre></figure>
 
 <p>Signals are <a href="#merging">merged</a>:</p>
-<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
-RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
-RACSignal *signalOfSignals = [RACSignal createSignal:^ RACDisposable * (id&lt;RACSubscriber&gt; subscriber) {
-    [subscriber sendNext:letters]<span class="comment">;</span>
-    [subscriber sendNext:numbers]<span class="comment">;</span>
-    [subscriber sendCompleted]<span class="comment">;</span>
-    return nil<span class="comment">;</span>
-}]<span class="comment">;</span>
-
-RACSignal *flattened = [signalOfSignals flatten]<span class="comment">;</span>
-
-// Outputs: A <span class="number">1</span> B C <span class="number">2</span>
-[flattened subscribeNext:^(NSString *<span class="built_in">x</span>) {
-    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
-}]<span class="comment">;</span>
-
-[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
-[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
-[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
-</pre></figure>
-
-<h3>Mapping and flattening</h3>
-<p><a href="#flattening">Flattening</a> isn&#39;t that interesting on its own, but understanding<br>how it works is important for [-flattenMap:][RACStream].</p>
-<p><code>-flattenMap:</code> is used to transform each of a stream&#39;s values into <em>a new<br>stream</em>. Then, all of the streams returned will be flattened down into a single<br>stream. In other words, it&#39;s <a href="#mapping">-map:</a> followed by <a href="#flattening">-flatten</a>.</p>
-<p>This can be used to extend or edit sequences:</p>
-<figure class="highlight lang-objc"><pre>RACSequence <span class="variable">*numbers</span> = [<span class="variable">@"</span><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span><span class="string">" componentsSeparatedByString:<span class="variable">@"</span> "</span>].rac_sequence;
-
-<span class="regexp">//</span> Contains: <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span> <span class="number">3</span> <span class="number">4</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">6</span> <span class="number">6</span> <span class="number">7</span> <span class="number">7</span> <span class="number">8</span> <span class="number">8</span> <span class="number">9</span> <span class="number">9</span>
-RACSequence <span class="variable">*extended</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
-    <span class="keyword">return</span> <span class="variable">@[</span> num, num ].rac_sequence;
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject];
+RACSubject *numbers = [RACSubject subject];
+RACSignal *signalOfSignals = [RACSignal createSignal:^ RACDisposable * (<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) {
+    [subscriber sendNext:letters];
+    [subscriber sendNext:numbers];
+    [subscriber sendCompleted];
+    <span class="keyword">return</span> <span class="literal">nil</span>;
 }];
 
-<span class="regexp">//</span> Contains: <span class="number">1_</span> <span class="number">3_</span> <span class="number">5_</span> <span class="number">7_</span> <span class="number">9_</span>
-RACSequence <span class="variable">*edited</span> = [numbers flattenMap:^(NSString <span class="variable">*num</span>) {
-    <span class="keyword">if</span> (num.intValue % <span class="number">2</span> == <span class="number">0</span>) {
+RACSignal *flattened = [signalOfSignals flatten];
+
+<span class="comment">// Outputs: A 1 B C 2</span>
+[flattened subscribeNext:^(<span class="built_in">NSString</span> *x) {
+    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>, x);
+}];
+
+[letters sendNext:@<span class="string">"A"</span>];
+[numbers sendNext:@<span class="string">"1"</span>];
+[letters sendNext:@<span class="string">"B"</span>];
+[letters sendNext:@<span class="string">"C"</span>];
+[numbers sendNext:@<span class="string">"2"</span>];
+</pre></figure>
+
+<h3 id="mapping-and-flattening">Mapping and flattening</h3>
+<p><a href="#flattening">Flattening</a> isn&#39;t that interesting on its own, but understanding
+how it works is important for [-flattenMap:][RACStream].</p>
+<p><code>-flattenMap:</code> is used to transform each of a stream&#39;s values into <em>a new
+stream</em>. Then, all of the streams returned will be flattened down into a single
+stream. In other words, it&#39;s <a href="#mapping">-map:</a> followed by <a href="#flattening">-flatten</a>.</p>
+<p>This can be used to extend or edit sequences:</p>
+<figure class="highlight lang-objc"><pre>RACSequence *numbers = [@<span class="string">"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:@<span class="string">" "</span>]<span class="variable">.rac_sequence</span>;
+
+<span class="comment">// Contains: 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9</span>
+RACSequence *extended = [numbers flattenMap:^(<span class="built_in">NSString</span> *num) {
+    <span class="keyword">return</span> @[ num, num ]<span class="variable">.rac_sequence</span>;
+}];
+
+<span class="comment">// Contains: 1_ 3_ 5_ 7_ 9_</span>
+RACSequence *edited = [numbers flattenMap:^(<span class="built_in">NSString</span> *num) {
+    <span class="keyword">if</span> (num<span class="variable">.intValue</span> % <span class="number">2</span> == <span class="number">0</span>) {
         <span class="keyword">return</span> [RACSequence empty];
     } <span class="keyword">else</span> {
-        NSString <span class="variable">*newNum</span> = [num stringByAppendingString:<span class="variable">@"</span><span class="number">_</span><span class="string">"];
-        return [RACSequence return:newNum]; 
+        <span class="built_in">NSString</span> *newNum = [num stringByAppendingString:@<span class="string">"_"</span>];
+        <span class="keyword">return</span> [RACSequence <span class="keyword">return</span>:newNum]; 
     }
 }];
 </pre></figure>
 
 <p>Or create multiple signals of work which are automatically recombined:</p>
-<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>]<span class="variable">.rac_sequence</span><span class="variable">.signal</span>;
 
-<span class="string">[[letters
-    flattenMap:^(NSString *letter) {
-        return [database saveEntriesForLetter:letter];
+[[letters
+    flattenMap:^(<span class="built_in">NSString</span> *letter) {
+        <span class="keyword">return</span> [database saveEntriesForLetter:letter];
     }]
     subscribeCompleted:^{
-        NSLog(@"All database entries saved successfully.");
+        <span class="built_in">NSLog</span>(@<span class="string">"All database entries saved successfully."</span>);
     }];
 </pre></figure>
 
-<h2>Combining signals</h2>
+<h2 id="combining-signals">Combining signals</h2>
 <p>These operators combine multiple signals into a single new [RACSignal][].</p>
-<h3>Sequencing</h3>
-<p>[-then:][RACSignal+Operations] starts the original signal,<br>waits for it to complete, and then only forwards the values from a new signal:</p>
-<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.signal;
+<h3 id="sequencing">Sequencing</h3>
+<p>[-then:][RACSignal+Operations] starts the original signal,
+waits for it to complete, and then only forwards the values from a new signal:</p>
+<figure class="highlight lang-objc"><pre>RACSignal *letters = [@<span class="string">"A B C D E F G H I"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.<span class="keyword">signal</span>;
 
-// The new signal only contains: <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
-//
-// But when subscribed to, it also outputs: A B C D E F G H I
-RACSignal *sequenced = <span class="string">[[letters
+<span class="comment">// The new signal only contains: 1 2 3 4 5 6 7 8 9</span>
+<span class="comment">//</span>
+<span class="comment">// But when subscribed to, it also outputs: A B C D E F G H I</span>
+RACSignal *sequenced = [[letters
     doNext:^(NSString *letter) {
-        NSLog(@"%@", letter);
+        NSLog(@<span class="string">"%@"</span>, letter);
     }]
     then:^{
-        return [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence.signal;
+        <span class="keyword">return</span> [@<span class="string">"1 2 3 4 5 6 7 8 9"</span> componentsSeparatedByString:@<span class="string">" "</span>].rac_sequence.<span class="keyword">signal</span>;
     }];
 </pre></figure>
 
-<p>This is most useful for executing all the side effects of one signal, then<br>starting another, and only returning the second signal&#39;s values.</p>
-<h3>Merging</h3>
-<p>The [+merge:][RACSignal+Operations] method will forward the values from many<br>signals into a single stream, as soon as those values arrive:</p>
-<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
-RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
-RACSignal <span class="variable">*merged</span> = [RACSignal merge:<span class="variable">@[</span> letters, numbers ]];
+<p>This is most useful for executing all the side effects of one signal, then
+starting another, and only returning the second signal&#39;s values.</p>
+<h3 id="merging">Merging</h3>
+<p>The [+merge:][RACSignal+Operations] method will forward the values from many
+signals into a single stream, as soon as those values arrive:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject];
+RACSubject *numbers = [RACSubject subject];
+RACSignal *merged = [RACSignal merge:@[ letters, numbers ]];
 
-<span class="regexp">//</span> Outputs: A <span class="number">1</span> B C <span class="number">2</span>
-[merged subscribeNext:^(NSString <span class="variable">*x</span>) {
-    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+<span class="comment">// Outputs: A 1 B C 2</span>
+[merged subscribeNext:^(<span class="built_in">NSString</span> *x) {
+    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>, x);
 }];
 
-[letters sendNext:<span class="variable">@"</span>A"</span>];
-[numbers sendNext:<span class="variable">@"</span><span class="number">1</span><span class="string">"];
-[letters sendNext:<span class="variable">@"</span>B"</span>];
-[letters sendNext:<span class="variable">@"</span>C<span class="string">"];
-[numbers sendNext:<span class="variable">@"</span>2"</span>];
+[letters sendNext:@<span class="string">"A"</span>];
+[numbers sendNext:@<span class="string">"1"</span>];
+[letters sendNext:@<span class="string">"B"</span>];
+[letters sendNext:@<span class="string">"C"</span>];
+[numbers sendNext:@<span class="string">"2"</span>];
 </pre></figure>
 
-<h3>Combining latest values</h3>
-<p>The [+combineLatest:][RACSignal+Operations] and <code>+combineLatest:reduce:</code> methods<br>will watch multiple signals for changes, and then send the latest values from<br><em>all</em> of them when a change occurs:</p>
-<figure class="highlight lang-objc"><pre>RACSubject <span class="variable">*letters</span> = [RACSubject subject];
-RACSubject <span class="variable">*numbers</span> = [RACSubject subject];
-RACSignal <span class="variable">*combined</span> = [RACSignal
-    combineLatest:<span class="variable">@[</span> letters, numbers ]
-    reduce:^(NSString <span class="variable">*letter</span>, NSString <span class="variable">*number</span>) {
+<h3 id="combining-latest-values">Combining latest values</h3>
+<p>The [+combineLatest:][RACSignal+Operations] and <code>+combineLatest:reduce:</code> methods
+will watch multiple signals for changes, and then send the latest values from
+<em>all</em> of them when a change occurs:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject];
+RACSubject *numbers = [RACSubject subject];
+RACSignal *combined = [RACSignal
+    combineLatest:@[ letters, numbers ]
+    reduce:^(<span class="built_in">NSString</span> *letter, <span class="built_in">NSString</span> *number) {
         <span class="keyword">return</span> [letter stringByAppendingString:number];
     }];
 
-<span class="regexp">//</span> Outputs: B1 B2 C2 C3
-[combined subscribeNext:^(id <span class="keyword">x</span>) {
-    NSLog(<span class="variable">@"</span><span class="variable">%@</span><span class="string">", x);
+<span class="comment">// Outputs: B1 B2 C2 C3</span>
+[combined subscribeNext:^(<span class="keyword">id</span> x) {
+    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>, x);
 }];
 
-[letters sendNext:<span class="variable">@"</span>A"</span>];
-[letters sendNext:<span class="variable">@"</span>B<span class="string">"];
-[numbers sendNext:<span class="variable">@"</span>1"</span>];
-[numbers sendNext:<span class="variable">@"</span><span class="number">2</span><span class="string">"];
-[letters sendNext:<span class="variable">@"</span>C"</span>];
-[numbers sendNext:<span class="variable">@"</span><span class="number">3</span><span class="string">"];
+[letters sendNext:@<span class="string">"A"</span>];
+[letters sendNext:@<span class="string">"B"</span>];
+[numbers sendNext:@<span class="string">"1"</span>];
+[numbers sendNext:@<span class="string">"2"</span>];
+[letters sendNext:@<span class="string">"C"</span>];
+[numbers sendNext:@<span class="string">"3"</span>];
 </pre></figure>
 
-<p>Note that the combined signal will only send its first value when all of the<br>inputs have sent at least one. In the example above, <code>@&quot;A&quot;</code> was never<br>forwarded because <code>numbers</code> had not sent a value yet.</p>
-<h3>Switching</h3>
-<p>The [-switchToLatest][RACSignal+Operations] operator is applied to<br>a signal-of-signals, and always forwards the values from the latest signal:</p>
-<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject]<span class="comment">;</span>
-RACSubject *numbers = [RACSubject subject]<span class="comment">;</span>
-RACSubject *signalOfSignals = [RACSubject subject]<span class="comment">;</span>
+<p>Note that the combined signal will only send its first value when all of the
+inputs have sent at least one. In the example above, <code>@&quot;A&quot;</code> was never
+forwarded because <code>numbers</code> had not sent a value yet.</p>
+<h3 id="switching">Switching</h3>
+<p>The [-switchToLatest][RACSignal+Operations] operator is applied to
+a signal-of-signals, and always forwards the values from the latest signal:</p>
+<figure class="highlight lang-objc"><pre>RACSubject *letters = [RACSubject subject];
+RACSubject *numbers = [RACSubject subject];
+RACSubject *signalOfSignals = [RACSubject subject];
 
-RACSignal *switched = [signalOfSignals switchToLatest]<span class="comment">;</span>
+RACSignal *switched = [signalOfSignals switchToLatest];
 
-// Outputs: A B <span class="number">1</span> D
-[switched subscribeNext:^(NSString *<span class="built_in">x</span>) {
-    NSLog(@<span class="string">"%@"</span>, <span class="built_in">x</span>)<span class="comment">;</span>
-}]<span class="comment">;</span>
+<span class="comment">// Outputs: A B 1 D</span>
+[switched subscribeNext:^(<span class="built_in">NSString</span> *x) {
+    <span class="built_in">NSLog</span>(@<span class="string">"%@"</span>, x);
+}];
 
-[signalOfSignals sendNext:letters]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"A"</span>]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"B"</span>]<span class="comment">;</span>
+[signalOfSignals sendNext:letters];
+[letters sendNext:@<span class="string">"A"</span>];
+[letters sendNext:@<span class="string">"B"</span>];
 
-[signalOfSignals sendNext:numbers]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"C"</span>]<span class="comment">;</span>
-[numbers sendNext:@<span class="string">"1"</span>]<span class="comment">;</span>
+[signalOfSignals sendNext:numbers];
+[letters sendNext:@<span class="string">"C"</span>];
+[numbers sendNext:@<span class="string">"1"</span>];
 
-[signalOfSignals sendNext:letters]<span class="comment">;</span>
-[numbers sendNext:@<span class="string">"2"</span>]<span class="comment">;</span>
-[letters sendNext:@<span class="string">"D"</span>]<span class="comment">;</span>
+[signalOfSignals sendNext:letters];
+[numbers sendNext:@<span class="string">"2"</span>];
+[letters sendNext:@<span class="string">"D"</span>];
 </pre></figure>
 
 
@@ -606,7 +629,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

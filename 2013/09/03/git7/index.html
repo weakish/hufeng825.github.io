@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,7 +190,8 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>如果本地有多个公钥 如何对git 进行指定用哪个公钥呢？<br><a id="more"></a></p>
+        <p>如果本地有多个公钥 如何对git 进行指定用哪个公钥呢？
+<a id="more"></a></p>
 <figure class="highlight"><pre>vi .git/config 
 
 
@@ -208,21 +209,21 @@ $(function () {
 
 [remote <span class="string">"origin"</span>]
 
-       fetch = +refs<span class="regexp">/heads/*:refs/remotes/origin/</span>*
+       fetch = +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/origin/</span>*
 
-       url = ssh:<span class="regexp">//</span>dev<span class="property">@nav</span>.fun-guide.mobi:<span class="number">6521</span><span class="regexp">/home/dev/git/</span>cmb.git
+       url = <span class="attribute">ssh</span>:<span class="regexp">//</span>dev<span class="property">@nav</span>.fun-guide.<span class="attribute">mobi</span>:<span class="number">6521</span>/home/dev/git/cmb.git
 
 [branch <span class="string">"master"</span>]
 
        remote = origin
 
-       merge = refs<span class="regexp">/heads/m</span>aster
+       merge = refs/heads/master
 
 [branch <span class="string">"cmb-dingcan"</span>]
 
        remote = origin
 
-       merge = refs<span class="regexp">/heads/</span>cmb-dingcan
+       merge = refs/heads/cmb-dingcan
 
 ~                                                                               
 
@@ -236,7 +237,7 @@ Port <span class="number">6521</span>
 
 User git
 
-IdentityFile ~<span class="regexp">/.ssh/i</span>phone_git
+IdentityFile ~/.ssh/iphone_git
 
 ~                                                                                 
 
@@ -306,7 +307,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

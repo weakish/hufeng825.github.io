@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,14 +190,15 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>autorelease自动释放内存，并不会立即把内存释放掉，而是要等到下一个事件周期才会释放掉。问题是一些资源我们不得不使用autorelease类型，比如作为函数的返回值，而且系统api及项目是的大部分也都是这么做的，如果全都依靠我们手动释放很容易造成内存泄漏。<br><a id="more"></a></p>
-<pre><code>     <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt;= <span class="number">10000</span>; i ++) {
+        <p>autorelease自动释放内存，并不会立即把内存释放掉，而是要等到下一个事件周期才会释放掉。问题是一些资源我们不得不使用autorelease类型，比如作为函数的返回值，而且系统api及项目是的大部分也都是这么做的，如果全都依靠我们手动释放很容易造成内存泄漏。
+<a id="more"></a></p>
+<pre><code>     for (int i = 0; i &lt;= 10000; i ++) {
 
         //创建一个自动释放池
 
          NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
-         NSString *filePath = <span class="string">[[NSBundle mainBundle] pathForResource:@"hf" ofType:@"PNG"];
+         NSString *filePath = [[NSBundle mainBundle] pathForResource:@&quot;hf&quot; ofType:@&quot;PNG&quot;];
 
          UIImage *image = [[UIImage alloc] initWithContentsOfFile:filePath];
 
@@ -209,8 +210,8 @@ $(function () {
 
          [pool drain];
 
-     }</code></pre>
-
+     }
+</code></pre>
         <hr />
         <span class="label label-warning">W</span>
         本站文章如果没有特殊说明，均为原创，转载请以链接方式注明本文地址：<a href="http://hufeng825.github.com/2013/09/02/ios16/">http://hufeng825.github.com/2013/09/02/ios16/
@@ -271,7 +272,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

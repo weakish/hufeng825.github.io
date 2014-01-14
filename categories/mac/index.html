@@ -143,7 +143,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -182,15 +182,15 @@ $(function () {
   
     <li><a href="/categories/git/">git</a><small> (13)</small></li>
   
-    <li><a href="/categories/hexo/">hexo</a><small> (4)</small></li>
+    <li><a href="/categories/hexo/">hexo</a><small> (2)</small></li>
   
     <li><a href="/categories/hibernate/">hibernate</a><small> (2)</small></li>
   
-    <li><a href="/categories/ios/">ios</a><small> (33)</small></li>
+    <li><a href="/categories/ios/">ios</a><small> (38)</small></li>
   
     <li><a href="/categories/ios/mac/">mac</a><small> (5)</small></li>
   
-    <li><a href="/categories/mac/">mac</a><small> (1)</small></li>
+    <li><a href="/categories/mac/">mac</a><small> (2)</small></li>
   
     <li><a href="/categories/git/svn/">svn</a><small> (3)</small></li>
   
@@ -209,23 +209,23 @@ $(function () {
   <ul class="entry">
     
       <li>
+        <a href="/2014/01/13/ios35/">ios系列教程之用instruments来检验你的app</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/30/ios34/">ARC下block,weak,unsafe_unretained</a>
+      </li>
+    
+      <li>
+        <a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a>
+      </li>
+    
+      <li>
         <a href="/2013/11/06/iosdynamics0/">ios UIKit Dynamics 系列教程之Gravity+Collision</a>
       </li>
     
       <li>
         <a href="/2013/10/16/mac5/">mac下如何看凤凰卫视直播</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/13/ios31/">如何建立基于CocoaPods的ReactiveCocoa工程</a>
-      </li>
-    
-      <li>
-        <a href="/2013/10/11/ios30/">IOS 开发之 CocoaPods讲解</a>
-      </li>
-    
-      <li>
-        <a href="/2013/09/22/ios29/">ios7之Sprite Kit vs Cocos2D</a>
       </li>
     
   </ul>
@@ -234,6 +234,80 @@ $(function () {
         </div>
 
         <div class="span9 panel">
+            
+            <div class="content">
+    <header>
+        <!--div class="icon"></div-->
+        <span class="badge badge-warning">
+        <time datetime="2013-11-27T13:51:25.000Z"><a href="/2013/11/27/nodejs1/" style="color:#FFFFFF">2013 11月 27</a></time>
+        </span>
+        
+
+<h1 class="title"><a href="/2013/11/27/nodejs1/">mac 下 node-qrcode的二维码库</a></h1>
+
+
+
+    </header>
+    <div class="entry">
+        
+        <p>这两天在mac下折腾node.js 的二维码库 ,遇到了n多大坑. 按着其官方文档的说明只有下面简简单单几句</p>
+<figure class="highlight"><pre>Dependencies
+
+These should be taken care <span class="operator">of</span> <span class="keyword">for</span> you <span class="keyword">by</span> npm but you should...
+
+npm install canvas
+If cairo gives you trouble <span class="operator">and</span> you cannot install canvas, checkout <span class="operator">the</span> canvas site. I know @tjholowaychuk has setup <span class="operator">a</span> way <span class="built_in">to</span> download <span class="operator">and</span> install <span class="operator">a</span> <span class="built_in">version</span> <span class="operator">of</span> cairo/pixman <span class="keyword">for</span> testing.
+
+The <span class="built_in">word</span> <span class="string">"QR Code"</span> is registered trademark <span class="operator">of</span>:
+
+DENSO WAVE INCORPORATED
+</pre></figure>
+
+<p>如果你的系统是mac的话 你只按着上面的安装方法 保准你折腾的头破血流, 我就是血淋淋的例子啊.</p>
+<p>因为mac 下其要安装的库太多了 .下面一次列出来</p>
+<figure class="highlight"><pre>
+<span class="bullet">1. </span>brew install  pkgconfig  如果没有安装homebrew 的话 恭喜你 安装去吧.
+
+<span class="bullet">2. </span>install XQuartz [<span class="link_label">下载地址</span>](<span class="link_url">https://xquartz.macosforge.org</span>)
+
+<span class="bullet">3. </span>brew install Cairo
+
+<span class="bullet">4. </span>coyped all /opt/X11/lib/pkgconfig/*.pc to /usr/local/lib/pkgconfig on your mac
+
+<span class="bullet">5. </span>sudo npm install -g qrcode
+</pre></figure>
+
+<p>以上的安装步骤 我可是折腾了足足一个晚上.</p>
+<p>写个demo 进行测试下 qrcode.js</p>
+<figure class="highlight lang-`"><pre>var http = require("http");
+var QRCode = require('qrcode');
+function onRequest(request, response) {
+  console.log("Request received.");
+  response.writeHead(200, {"Content-Type": "text/html"});
+  QRCode.toDataURL("胡峰",function(err,url){
+    if(err) console.log('error: '+err);
+    //console.log(url);
+    response.end("<span class="doctype">&lt;!DOCTYPE html/&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>二维码<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span> &gt;</span>请扫描二维码<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">'"+url+"'</span>/&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>");
+  });
+}
+
+http.createServer(onRequest).listen(8888);
+</pre></figure>
+
+<p> node qrcode.js  打开浏览器 ok了</p>
+ <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1eazxou2xo0j207o075aac.jpg" class="center">
+
+
+
+
+
+        
+    </div>
+    <footer>
+        
+    </footer>
+</div>
+
             
             <div class="content">
     <header>
@@ -250,7 +324,8 @@ $(function () {
     </header>
     <div class="entry">
         
-        <p>本人算是凤凰卫视的直播控吧,之前通过<a href="http://360kan.pptv.com/live/ahws/?site=pptv" target="_blank">360电视直播</a>看凤凰卫视,但是因为版权现在360直播现在把凤凰给下线了.<br>
+        <p>本人算是凤凰卫视的直播控吧,之前通过<a href="http://360kan.pptv.com/live/ahws/?site=pptv" target="_blank">360电视直播</a>看凤凰卫视,但是因为版权现在360直播现在把凤凰给下线了.
+
         
     </div>
     <footer>
@@ -311,7 +386,7 @@ $(function () {
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>

@@ -146,7 +146,7 @@ $(function () {
                             </li>
                             
                             <li><a href="/tags/技术/"><i class="icon-book"></i> 技术
-                                <small>66</small>
+                                <small>70</small>
                             </a>
 
                             </li>
@@ -190,28 +190,30 @@ $(function () {
 
     </header>
     <div class="entry" id="post">
-        <p>每个app 难免要在NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦<br><a id="more"></a><br>下面给出的代码端就是清空NSUserDefaults的一个实现</p>
-<figure class="highlight"><pre>  <span class="keyword">if</span> (!<span class="string">[[NSUserDefaults standardUserDefaults] boolForKey:@"dontClearHXCache"])
+        <p>每个app 难免要在NSUserDefaults中记一些数据,但这些数据某些清空下药全部清空,比如系统版本升级啦,后台存储数据结构变更啦
+<a id="more"></a>
+下面给出的代码端就是清空NSUserDefaults的一个实现</p>
+<figure class="highlight"><pre>  <span class="keyword">if</span> (![[<span class="built_in">NSUserDefaults</span> standardUserDefaults] boolForKey:@<span class="string">"dontClearHXCache"</span>])
 
     {
 
-        NSString *appDomainStr = [[NSBundle mainBundle] bundleIdentifier];
+        <span class="built_in">NSString</span> *appDomainStr = [[<span class="built_in">NSBundle</span> mainBundle] bundleIdentifier];
 
-        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomainStr];
+        [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] removePersistentDomainForName:appDomainStr];
 
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"dontClearHXCache"];
+        [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setBool:<span class="literal">YES</span> forKey:@<span class="string">"dontClearHXCache"</span>];
 
-       [[NSUserDefaults standardUserDefaults]synchronize];
+       [[<span class="built_in">NSUserDefaults</span> standardUserDefaults]synchronize];
 
     }
 
-    else
+    <span class="keyword">else</span>
 
     {
 
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"dontClearHXCache"];
+        [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setBool:<span class="literal">YES</span> forKey:@<span class="string">"dontClearHXCache"</span>];
 
-        [[NSUserDefaults standardUserDefaults]synchronize];
+        [[<span class="built_in">NSUserDefaults</span> standardUserDefaults]synchronize];
 
 
 
@@ -279,7 +281,7 @@ var duoshuoQuery = {short_name:"hufeng825"};
 <!--版权声明 -->
 <p>
     
-    &copy; - 2013 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
+    &copy; - 2014 Jason Hu - - 欢迎转载，转载请携带 <a href="http://hufeng825.github.com">http://hufeng825.github.com </a>及作者新浪微博地址 <a href="http://weibo.com/hufengvip" target="_blank"> @神一样的我啊 </a>
     
 </p>
  </center>
