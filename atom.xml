@@ -4,7 +4,7 @@
   <subtitle><![CDATA[专注于移动互联网]]></subtitle>
   <link href="http://hufeng825.github.com/atom.xml" rel="self"/>
   <link href="http://hufeng825.github.com"/>
-  <updated>2014-01-14T05:27:43.186Z</updated>
+  <updated>2014-01-14T05:35:19.830Z</updated>
   <id>http://hufeng825.github.com/</id>
   <author>
     <name><![CDATA[Jason Hu]]></name>
@@ -16,7 +16,7 @@
     <link href="http://hufeng825.github.com/2014/01/13/ios35/"/>
     <id>http://hufeng825.github.com/2014/01/13/ios35/</id>
     <published>2014-01-13T13:44:58.000Z</published>
-    <updated>2014-01-14T03:24:41.000Z</updated>
+    <updated>2014-01-14T05:35:10.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>比较了好多关于instruments 还是发现老外写的比较牛逼.于是果断翻译过来.有能力的的可以去看英文原版,鼓励大家看原版资料远离二手教程
 <a href="http://www.raywenderlich.com/23037/how-to-use-instruments-in-xcode" target="_blank">http://www.raywenderlich.com/23037/how-to-use-instruments-in-xcode</a></p>
@@ -35,14 +35,14 @@
 <p>天下武功，唯快不破。很多公司都信奉这个教条.恨不得把app压法周期压缩到最低,这就导致了开发中隐藏了很多问题,有点经验的工程师草率的优化下,更糟的情况那些没有经验的工程师甚至不会对app进行任何优化.</p>
 <p>某种程度上来说,你开发过程中是可以忽略性能优化的. 十年前,移动设备的硬件资源是非常有限的.甚至连浮点数都是被禁止的.因为浮点数能导致代码变大计算的速度变慢.
 科技发展如此迅速的今天,硬件很大程度上可以弥补软件的短板.现在的移动设备3D硬件处理的效率甚至媲美于PC机了,但是你不能总依赖于硬件和处理器速度来掩饰你APP做的多垃圾吧.(如果安卓系统跑在Iphone上还能够像IOS一样顺滑吗?,其实是一个道理的)</p>
-<p>性能这个概念很抽线,所以我们必须借助数据化图形化的输出方式.你可能花一周的时间去优化一个有趣的算法,但是这算法只占总执行时间的0.5%,不管你花多少精力去优化它,没人会注意到.相反一个for循环花费了90%的时间,你稍微修改下就能提高10%的效率,就是这个简单的修改可以得到大家很大的好感.因为.他们运行app时的第一感受就是比之前快了很多.没人会care你修改的是一个多牛逼的算法,还是一个简单的for循环.
+<p>性能这个概念很抽象,所以我们必须借助数据化图形化的输出方式.你可能花一周的时间去优化一个有趣的算法,但是这算法只占总执行时间的0.5%,不管你花多少精力去优化它,没人会注意到.相反一个for循环花费了90%的时间,你稍微修改下就能提高10%的效率,就是这个简单的修改可以得到大家很大的好感.因为.他们运行app时的第一感受就是比之前快了很多.没人会care你修改的是一个多牛逼的算法,还是一个简单的for循环.
 这个说明了什么.
 与其花费时间在优化小细节上不如多点时间找到你改优化的地方.</p>
 <p>下面引出第一个工具 &quot;时间事件查看器&quot;(自己杜撰的名字英文--Time Profiler),------他可以测量时间的间隔,中断程序执行,跟踪每个线程的堆栈.你可以想象下是xcode调试时按下暂停时的画面  </p>
 <img src="http://ww2.sinaimg.cn/mw690/a43af4ffjw1ecibl3evcoj207c0g7wfl.jpg" class="center">
 
 
-<p>比如,100个样本都在做1毫秒的间隔,然后在某个方法堆栈顶部有10个样本,你可以推算出大概的时间有10%个10毫秒花费在此方法中,这是一个近似值.</p>
+<p>比如,100个样本都在做1毫秒的间隔,然后在某个方法堆栈顶部同时压入了10样本,你可以推算出大概的时间有10%个10毫秒花费在此方法中,这是一个近似值.</p>
 <p>废话少说,时间是个检测到的.
 从xcode的菜单选择Product-Profile,或者选择⌘I,<img src="http://ww1.sinaimg.cn/mw690/a43af4ffjw1ecic1kiax3j205v02nq2x.jpg">
 程序会启动Instruments,这时候你会看到一个选择窗口  </p>
